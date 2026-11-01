@@ -205,42 +205,66 @@
 }
 
 .portfolio-directory {
-  border: 1px solid var(--portfolio-line);
-  border-radius: 18px;
-  background: white;
-  box-shadow: 0 3px 16px rgb(24 24 27 / 2%);
+  border-top: 1px solid var(--portfolio-line);
+  margin-top: 28px;
 }
 
 .portfolio-directory > .portfolio-section {
   margin: 0;
-  border: 0;
   border-bottom: 1px solid var(--portfolio-line);
-  border-radius: 0;
-  box-shadow: none;
+}
+
+.accordion-heading { margin: 0; }
+
+.portfolio-content .accordion-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 58px;
+  gap: 20px;
+  padding: 17px 4px;
+  color: var(--portfolio-ink);
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.accordion-label {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.6;
+}
+
+.accordion-indicator {
+  display: inline-flex;
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
+  color: #85858d;
+}
+
+.accordion-indicator svg { width: 100%; height: 100%; }
+.accordion-indicator-vertical { transform-origin: center; transition: transform 160ms ease; }
+.accordion-trigger[aria-expanded="true"] .accordion-indicator-vertical { transform: rotate(90deg); }
+.accordion-trigger[aria-expanded="true"] .accordion-indicator { color: var(--portfolio-ink); }
+.portfolio-section > div > .accordion-panel > .accordion-body { padding: 0 4px 24px; }
+
+.accordion-overview { padding: 0 0 4px; }
+.accordion-overview p { color: var(--portfolio-muted); font-size: 12px; }
+.accordion-overview > span { display: block; color: #71717a; font-size: 10px; margin-top: 4px; }
+
+.portfolio-topic {
+  border-bottom: 1px solid var(--portfolio-line);
   background: transparent;
 }
-
-.portfolio-directory > .portfolio-section:first-child { border-radius: 18px 18px 0 0; }
-.portfolio-directory > .portfolio-section:last-child { border: 0; border-radius: 0 0 18px 18px; }
-
-.portfolio-section .accordion-trigger {
-  padding: 17px 15px;
-  gap: 12px;
-  border-radius: 0;
-  transition: background-color 160ms ease;
-}
-
-.portfolio-section .accordion-trigger[aria-expanded="true"] { background: var(--portfolio-surface); }
-.portfolio-section .accordion-trigger > div { flex: 1; align-items: flex-start; }
-.portfolio-section .accordion-trigger > div > span { margin-top: 2px; }
-.portfolio-section .accordion-title h2 { font-size: 13px; line-height: 1.5; letter-spacing: -0.025em; }
-.portfolio-section .accordion-trigger p { font-size: 11px; line-height: 1.65; color: var(--portfolio-muted); margin-top: 3px; }
-.portfolio-section .accordion-trigger > span:last-child { width: 26px; height: 26px; border-radius: 50%; }
-.portfolio-section .accordion-body { padding: 18px 15px 20px; border-color: var(--portfolio-line); }
-.portfolio-topic { border-radius: 10px; box-shadow: none; }
-.portfolio-topic .accordion-trigger { padding: 13px 12px; }
-.portfolio-topic .accordion-title h2 { font-size: 12px; }
-.portfolio-topic .accordion-body { padding: 14px 12px 16px; }
+.portfolio-topic:last-child { border-bottom: 0; }
+.portfolio-topic .accordion-trigger { min-height: 48px; padding: 13px 0; }
+.portfolio-topic .accordion-label { font-family: var(--font-sans); font-size: 12px; font-weight: 500; letter-spacing: 0; }
+.portfolio-topic .accordion-body { padding: 2px 0 20px; }
 .accordion-panel[hidden] { display: none; }
 .accordion-panel:not([hidden]) { animation: portfolio-open 160ms ease-out; }
 
@@ -250,6 +274,14 @@
 .portfolio-content .accordion-body .flex { flex-wrap: wrap; }
 .portfolio-content .accordion-body .flex > .space-y-0\.5 { flex: 1 1 150px; }
 .portfolio-content .accordion-body .grid > * { min-width: 0; }
+.portfolio-content .accordion-body .grid { column-gap: 24px; row-gap: 12px; }
+.portfolio-content .accordion-body .grid > div {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 10px 0;
+  box-shadow: none;
+}
 .portfolio-content .accordion-body a { overflow-wrap: anywhere; }
 
 :where(a, button, select):focus-visible {
@@ -269,17 +301,15 @@ footer > div > div:first-child { flex-wrap: wrap; justify-content: center; }
 .markdown-prose pre { max-width: 100%; }
 
 @media (hover: hover) {
-  .portfolio-section .accordion-trigger:hover { background: var(--portfolio-surface); }
+  .portfolio-section .accordion-trigger:hover .accordion-label { color: #71717a; }
 }
 
 @media (min-width: 640px) {
   .portfolio-content .identity-card { padding: 24px; margin-bottom: 24px; }
-  .portfolio-section .accordion-trigger { padding: 19px 22px; }
-  .portfolio-section .accordion-title h2 { font-size: 14px; }
-  .portfolio-section .accordion-body { padding: 22px; }
-  .portfolio-topic .accordion-trigger { padding: 14px; }
-  .portfolio-topic .accordion-title h2 { font-size: 12px; }
-  .portfolio-topic .accordion-body { padding: 16px; }
+  .portfolio-content .accordion-trigger { min-height: 62px; padding-block: 18px; }
+  .portfolio-section > div > .accordion-heading .accordion-label { font-size: 15px; }
+  .portfolio-topic .accordion-trigger { min-height: 48px; padding-block: 13px; }
+
 }
 
 @keyframes portfolio-open {
