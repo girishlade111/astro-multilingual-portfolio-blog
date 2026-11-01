@@ -165,30 +165,39 @@ const heroBackgroundImageUrl = '/assets/aistudio/image_a475d35f.webp';
   if (hero && name) {
     const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-    const MAX_X = 5; // px
-    const MAX_Y = 3.5; // px
-    const MAX_TILT = 1.8; // deg
-    const SCALE_X = 0.3; // card travel (world units) mapped to full offset
-    const SCALE_Y = 0.24;
-    const EASE = 0.1; // per-frame follow strength
-    const BASELINE_EASE = 0.008; // slow recentre so drift does not accumulate
+    const MAX_X = 7; // px
+    const MAX_Y = 5; // px
+    const MAX_TILT = 2.2; // deg
+    const RANGE_X = 3; // card travel that maps to full amplitude (world units)
+    const RANGE_Y = 3.5;
+    const VEL_X = 22; // px per world unit of per-frame card motion
+    const VEL_Y = 12;
+    const TILT_VEL = 6; // deg per world unit of per-frame card motion
+    const STIFF = 0.11; // spring pull toward the card
+    const DAMP = 0.85; // keeps a little overshoot, like the card's elastic
+    const BASELINE_EASE = 0.006; // slow recentre so drift does not accumulate
 
     let container: HTMLElement | null = null;
     let raf = 0;
     let baseX = 0;
     let baseY = 0;
+    let prevX = 0;
+    let prevY = 0;
     let primed = false;
-    let curX = 0;
-    let curY = 0;
-    let curTilt = 0;
+    let x = 0;
+    let y = 0;
+    let rot = 0;
+    let velX = 0;
+    let velY = 0;
+    let velRot = 0;
 
     const clamp = (value: number, min: number, max: number) =>
       value < min ? min : value > max ? max : value;
 
     const write = () => {
-      name.style.setProperty('--hero-name-x', `${curX.toFixed(2)}px`);
-      name.style.setProperty('--hero-name-y', `${curY.toFixed(2)}px`);
-      name.style.setProperty('--hero-name-rot', `${curTilt.toFixed(2)}deg`);
+      name.style.setProperty('--hero-name-x', `${x.toFixed(2)}px`);
+      name.style.setProperty('--hero-name-y', `${y.toFixed(2)}px`);
+      name.style.setProperty('--hero-name-rot', `${rot.toFixed(2)}deg`);
     };
 
     const frame = () => {
@@ -204,21 +213,37 @@ const heroBackgroundImageUrl = '/assets/aistudio/image_a475d35f.webp';
       if (!Number.isFinite(rawX) || !Number.isFinite(rawY)) return;
 
       if (!primed) {
-        baseX = rawX;
-        baseY = rawY;
+        baseX = prevX = rawX;
+        baseY = prevY = rawY;
         primed = true;
         return;
       }
 
+      // Card speed this frame: the name inherits it so a flick carries the text.
+      const cardVX = clamp(rawX - prevX, -0.5, 0.5);
+      const cardVY = clamp(rawY - prevY, -0.8, 0.8);
+      prevX = rawX;
+      prevY = rawY;
+
       baseX += (rawX - baseX) * BASELINE_EASE;
       baseY += (rawY - baseY) * BASELINE_EASE;
 
-      const dx = clamp((rawX - baseX) / SCALE_X, -1, 1);
-      const dy = clamp((rawY - baseY) / SCALE_Y, -1, 1);
+      const dx = clamp((rawX - baseX) / RANGE_X, -1, 1);
+      const dy = clamp((rawY - baseY) / RANGE_Y, -1, 1);
 
-      curX += (dx * MAX_X - curX) * EASE;
-      curY += (-dy * MAX_Y - curY) * EASE;
-      curTilt += (dx * MAX_TILT - curTilt) * EASE;
+      const targetX = clamp(dx * MAX_X + cardVX * VEL_X, -9, 9);
+      const targetY = clamp(-dy * MAX_Y - cardVY * VEL_Y, -6, 6);
+      const targetRot = clamp(dx * MAX_TILT + cardVX * TILT_VEL, -2.8, 2.8);
+
+      // Damped spring, one axis at a time, so the text trails and settles
+      // instead of snapping to the card position.
+      velX = (velX + (targetX - x) * STIFF) * DAMP;
+      velY = (velY + (targetY - y) * STIFF) * DAMP;
+      velRot = (velRot + (targetRot - rot) * STIFF) * DAMP;
+
+      x += velX;
+      y += velY;
+      rot += velRot;
 
       write();
     };
