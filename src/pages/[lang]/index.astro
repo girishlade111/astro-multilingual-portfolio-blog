@@ -119,11 +119,14 @@ const heroBackgroundImageUrl = '/assets/aistudio/image_a475d35f.webp';
       </div>
 
       <!-- Name plate: sits directly under the hanging card, above the drag hint -->
-      <p
-        class="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-[58px] sm:bottom-[56px] lg:bottom-[64px] z-20 font-display text-[20px] sm:text-[22px] lg:text-[24px] font-semibold tracking-[-0.035em] leading-none text-zinc-950 whitespace-nowrap"
-      >
-        Girish Lade
-      </p>
+      <div class="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-[58px] sm:bottom-[56px] lg:bottom-[64px] z-20">
+        <p
+          id="hero-name"
+          class="hero-name font-display text-[20px] sm:text-[22px] lg:text-[24px] font-semibold tracking-[-0.035em] leading-none text-zinc-950 whitespace-nowrap"
+        >
+          <span id="hero-name-text" class="hero-name__text inline-block">Girish Lade</span>
+        </p>
+      </div>
 
       <p class="relative z-10 pb-3 text-[10px] font-mono uppercase tracking-widest text-zinc-500 text-center pointer-events-none">
         {LANYARD_HINTS[locale]}
@@ -134,3 +137,147 @@ const heroBackgroundImageUrl = '/assets/aistudio/image_a475d35f.webp';
     <PortfolioSections client:idle locale={locale} />
   </div>
 </BaseLayout>
+
+<style>
+  /* Name plate motion: driven by custom properties set from the lanyard card
+     position. Amplitude stays small so the text reads as calm, not animated. */
+  .hero-name {
+    transform: translate3d(var(--hero-name-x, 0px), var(--hero-name-y, 0px), 0)
+      rotate(var(--hero-name-rot, 0deg));
+    will-change: transform;
+  }
+
+  .hero-name__text.is-live {
+    animation: hero-name-in 800ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @keyframes hero-name-in {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-name {
+      transform: none;
+      will-change: auto;
+    }
+
+    .hero-name__text,
+    .hero-name__text.is-live {
+      animation: none;
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  // Follows the lanyard card with a few pixels of lag. Lanyard already publishes
+  // data-card-x / data-card-y on its container every rendered frame, so this
+  // script only reads them and never touches the 3D component.
+  const hero = document.getElementById('lanyard-hero-slot');
+  const name = document.getElementById('hero-name');
+  const text = document.getElementById('hero-name-text');
+
+  if (hero && name && text) {
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    const MAX_X = 5; // px
+    const MAX_Y = 3.5; // px
+    const MAX_TILT = 1.8; // deg
+    const SCALE_X = 0.3; // card travel (world units) mapped to full offset
+    const SCALE_Y = 0.24;
+    const EASE = 0.1; // per-frame follow strength
+    const BASELINE_EASE = 0.008; // slow recentre so drift does not accumulate
+
+    let container: HTMLElement | null = null;
+    let raf = 0;
+    let baseX = 0;
+    let baseY = 0;
+    let primed = false;
+    let curX = 0;
+    let curY = 0;
+    let curTilt = 0;
+
+    const clamp = (value: number, min: number, max: number) =>
+      value < min ? min : value > max ? max : value;
+
+    const write = () => {
+      name.style.setProperty('--hero-name-x', `${curX.toFixed(2)}px`);
+      name.style.setProperty('--hero-name-y', `${curY.toFixed(2)}px`);
+      name.style.setProperty('--hero-name-rot', `${curTilt.toFixed(2)}deg`);
+    };
+
+    const frame = () => {
+      raf = requestAnimationFrame(frame);
+
+      if (!container) {
+        container = document.querySelector<HTMLElement>('[data-testid="lanyard-3d"]');
+        if (!container) return;
+      }
+
+      const rawX = Number.parseFloat(container.getAttribute('data-card-x') ?? '');
+      const rawY = Number.parseFloat(container.getAttribute('data-card-y') ?? '');
+      if (!Number.isFinite(rawX) || !Number.isFinite(rawY)) return;
+
+      if (!primed) {
+        baseX = rawX;
+        baseY = rawY;
+        primed = true;
+        return;
+      }
+
+      baseX += (rawX - baseX) * BASELINE_EASE;
+      baseY += (rawY - baseY) * BASELINE_EASE;
+
+      const dx = clamp((rawX - baseX) / SCALE_X, -1, 1);
+      const dy = clamp((rawY - baseY) / SCALE_Y, -1, 1);
+
+      curX += (dx * MAX_X - curX) * EASE;
+      curY += (-dy * MAX_Y - curY) * EASE;
+      curTilt += (dx * MAX_TILT - curTilt) * EASE;
+
+      write();
+    };
+
+    const stop = () => {
+      if (!raf) return;
+      cancelAnimationFrame(raf);
+      raf = 0;
+    };
+
+    const start = () => {
+      if (raf || motionQuery.matches || document.hidden) return;
+      text.classList.add('is-live');
+      raf = requestAnimationFrame(frame);
+    };
+
+    const onReady = () => {
+      if (hero.getAttribute('data-lanyard-ready') === 'true') start();
+    };
+
+    const readyObserver = new MutationObserver(onReady);
+    readyObserver.observe(hero, { attributes: true, attributeFilter: ['data-lanyard-ready'] });
+    onReady();
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stop();
+      else onReady();
+    });
+
+    motionQuery.addEventListener('change', () => {
+      if (motionQuery.matches) {
+        stop();
+        curX = curY = curTilt = 0;
+        write();
+      } else {
+        onReady();
+      }
+    });
+  }
+</script>
