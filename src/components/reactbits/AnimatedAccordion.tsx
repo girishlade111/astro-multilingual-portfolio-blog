@@ -24,6 +24,7 @@ export const AnimatedAccordionItem: React.FC<AnimatedAccordionItemProps> = ({
   title,
   subtitle,
   metaLabel,
+  icon,
   isOpen,
   onToggle,
   onKeyDown,
@@ -56,7 +57,12 @@ export const AnimatedAccordionItem: React.FC<AnimatedAccordionItemProps> = ({
             data-testid={`${testIdPrefix}-trigger-${id}`}
             className="accordion-trigger"
           >
-            <span className="accordion-label">{title}</span>
+            <span className="accordion-label">
+              {isPrimary && icon && (
+                <span className="accordion-section-icon" aria-hidden="true">{icon}</span>
+              )}
+              <span>{title}</span>
+            </span>
             <span
               className="accordion-indicator"
               aria-hidden="true"
