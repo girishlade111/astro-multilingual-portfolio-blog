@@ -1036,6 +1036,7 @@ const Lanyard = ({
     let time = 0;
     let visible = true;
     let alive = true;
+    let skipFrame = 0;
     let placed = false;
     let hovering = false;
     let press = null;
@@ -1404,6 +1405,22 @@ const Lanyard = ({
     const tick = now => {
       raf = 0;
       if (!alive) return;
+      if (document.hidden) {
+        visible = false;
+        return;
+      }
+      // After the intro, with no interaction, halve the frame rate. The breeze
+      // still reads as smooth at ~30fps and the hero stops burning CPU forever.
+      const idleish = !press && !sim.grab && !hovering && !sim.gyro.active && time > 3;
+      if (idleish) {
+        skipFrame ^= 1;
+        if (skipFrame) {
+          raf = requestAnimationFrame(tick);
+          return;
+        }
+      } else {
+        skipFrame = 0;
+      }
       const dt = Math.min(1 / 30, Math.max(1 / 240, (now - last) / 1000));
       last = now;
       time += dt;
@@ -1696,7 +1713,12 @@ const Lanyard = ({
     });
     intersectionObserver.observe(heroSlotEl || container);
     const onVisibility = () => {
-      if (!document.hidden) start();
+      if (document.hidden) {
+        visible = false;
+      } else {
+        visible = true;
+        start();
+      }
     };
     document.addEventListener('visibilitychange', onVisibility);
 

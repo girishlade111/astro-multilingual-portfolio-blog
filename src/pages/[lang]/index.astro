@@ -2,7 +2,7 @@
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import HeroBackground from '../../components/HeroBackground.astro';
-import Lanyard from '../../components/Lanyard.jsx';
+import Lanyard from '../../components/LanyardDeferred';
 import PortfolioSections from '../../components/PortfolioSections';
 import {
   LOCALES,
@@ -92,7 +92,7 @@ const heroBackgroundImageUrl = '/assets/aistudio/image_a475d35f.webp';
         class="pointer-events-none absolute top-0 left-0 right-0 h-[780px] sm:h-[880px] lg:h-[940px] z-30 overflow-visible"
       >
         <Lanyard
-          client:load
+          client:idle
           frontImage={profileImageUrl}
           backImage={profileImageUrl}
           imageFit="cover"
