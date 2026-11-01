@@ -107,7 +107,7 @@ export const AnimatedAccordionItem: React.FC<AnimatedAccordionItemProps> = ({
                   {title}
                 </h2>
                 {metaLabel && (
-                  <span className="hidden sm:inline font-mono text-[10px] text-zinc-500 shrink-0">
+                  <span className="font-mono text-[10px] text-zinc-500">
                     · {metaLabel}
                   </span>
                 )}
