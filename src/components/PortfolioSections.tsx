@@ -181,14 +181,14 @@ export const PortfolioSections: React.FC<PortfolioSectionsProps> = ({
   };
 
   return (
-    <div className="relative z-10 w-full pt-2 pb-14 sm:pb-20">
+    <div className="portfolio-content relative z-10 w-full pt-2 pb-14 sm:pb-20">
       {/* Compact, Clean Identity Intro Below Lanyard Hero */}
       <SpotlightCard
         as="section"
-        className="rounded-xl border border-zinc-200/85 bg-white/95 p-4 sm:p-5 mb-4 sm:mb-5"
+        className="identity-card rounded-xl border border-zinc-200/85 bg-white/95 p-4 sm:p-5 mb-4 sm:mb-5"
       >
         <div className="space-y-3">
-          <div className="flex items-baseline justify-between gap-2">
+          <div className="identity-heading flex items-baseline justify-between gap-2">
             <h1 className="font-display text-lg sm:text-2xl font-bold tracking-tight text-zinc-950 truncate">
               {c.fullName}
             </h1>
@@ -207,7 +207,7 @@ export const PortfolioSections: React.FC<PortfolioSectionsProps> = ({
           </div>
 
           {/* Ultra-Compact Single-Row Action Bar */}
-          <div className="pt-2.5 flex items-center justify-between gap-1 border-t border-zinc-100">
+          <div className="identity-actions pt-2.5 flex items-center justify-between gap-1 border-t border-zinc-100">
             <div className="flex items-center gap-1 min-w-0">
               <button
                 type="button"
@@ -268,7 +268,7 @@ export const PortfolioSections: React.FC<PortfolioSectionsProps> = ({
       <AnimatedAccordionGroup
         ariaLabel="Expandable Portfolio Sections"
         itemIds={SECTION_KEYS}
-        className="space-y-2"
+        className="portfolio-directory space-y-2"
       >
         {({ getTriggerProps }) =>
           SECTION_KEYS.map((key, index) => {
@@ -311,6 +311,7 @@ export const PortfolioSections: React.FC<PortfolioSectionsProps> = ({
                               key={mode}
                               type="button"
                               onClick={() => setOpenBioMode(mode)}
+                              aria-pressed={openBioMode === mode}
                               className={`h-6 px-2.5 rounded-md text-[11px] font-mono transition-colors cursor-pointer ${
                                 openBioMode === mode
                                   ? 'bg-zinc-950 text-white'
@@ -881,7 +882,7 @@ export const PortfolioSections: React.FC<PortfolioSectionsProps> = ({
                             <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-400 block">
                               {sc.platform}
                             </span>
-                            <p className="text-xs font-semibold text-zinc-900 truncate group-hover:underline underline-offset-4">
+                            <p className="text-xs font-semibold text-zinc-900 group-hover:underline underline-offset-4">
                               {sc.handleOrLabel}
                             </p>
                           </div>

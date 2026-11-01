@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout locale="en" title="Page not found" description="This page could not be found. Return to Girish Lade’s portfolio or browse the blog." currentPath="/404/" noindex>
+  <section class="error-page" aria-labelledby="error-title">
+    <p class="error-code">404</p>
+    <h1 id="error-title">Page not found.</h1>
+    <p>This link may have moved, or the address may be incorrect.</p>
+    <nav aria-label="Continue browsing">
+      <a href="/en/">Back to portfolio</a>
+      <a href="/en/blog/">Read the blog</a>
+    </nav>
+  </section>
+</BaseLayout>
+
+<style>
+  .error-page { padding: clamp(72px, 16vh, 160px) 8px; max-width: 44ch; }
+  .error-code { font: 12px var(--font-mono); color: #71717a; margin-bottom: 24px; }
+  h1 { font-size: clamp(28px, 6vw, 40px); font-weight: 600; letter-spacing: -0.05em; line-height: 1.2; }
+  h1 + p { color: #626269; font-size: 14px; line-height: 1.8; margin-top: 16px; }
+  nav { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+  nav a { display: inline-flex; align-items: center; min-height: 44px; padding: 10px 16px; border: 1px solid #e4e4e7; border-radius: 8px; font-size: 12px; }
+  nav a:first-child { background: #18181b; border-color: #18181b; color: white; }
+</style>

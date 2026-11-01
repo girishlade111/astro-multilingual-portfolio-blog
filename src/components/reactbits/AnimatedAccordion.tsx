@@ -45,12 +45,12 @@ export const AnimatedAccordionItem: React.FC<AnimatedAccordionItemProps> = ({
       spotlightColor={isOpen ? 'rgba(24, 24, 27, 0.045)' : 'rgba(24, 24, 27, 0.03)'}
       className={
         isPrimary
-          ? `rounded-xl border transition-colors duration-150 ${
+          ? `portfolio-section rounded-xl border transition-colors duration-150 ${
               isOpen
                 ? 'border-zinc-900/30 bg-white shadow-[0_1px_4px_rgba(0,0,0,0.03)]'
                 : 'border-zinc-200/80 bg-white/90 hover:border-zinc-300 hover:bg-white'
             }`
-          : `rounded-lg border transition-colors duration-150 ${
+          : `portfolio-topic rounded-lg border transition-colors duration-150 ${
               isOpen
                 ? 'border-zinc-900/20 bg-zinc-50/70'
                 : 'border-zinc-200/75 bg-white hover:border-zinc-300'
@@ -67,13 +67,14 @@ export const AnimatedAccordionItem: React.FC<AnimatedAccordionItemProps> = ({
           type="button"
           onClick={onToggle}
           onKeyDown={onKeyDown}
+          id={`${testIdPrefix}-heading-${id}`}
           aria-expanded={isOpen}
           aria-controls={`${testIdPrefix}-panel-${id}`}
           data-testid={`${testIdPrefix}-trigger-${id}`}
           className={
             isPrimary
-              ? 'w-full text-left px-3.5 sm:px-4 py-2.5 sm:py-3 flex items-center justify-between gap-2.5 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-900 rounded-xl'
-              : 'w-full text-left px-3 py-2.5 flex items-center justify-between gap-2.5 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-900 rounded-lg'
+              ? 'accordion-trigger w-full text-left px-3.5 sm:px-4 py-2.5 sm:py-3 flex items-center justify-between gap-2.5 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-900 rounded-xl'
+              : 'accordion-trigger w-full text-left px-3 py-2.5 flex items-center justify-between gap-2.5 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-900 rounded-lg'
           }
         >
           <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
@@ -90,7 +91,7 @@ export const AnimatedAccordionItem: React.FC<AnimatedAccordionItemProps> = ({
             )}
 
             <div className="min-w-0 flex-1">
-              <div className="flex items-baseline gap-1.5 min-w-0">
+              <div className="accordion-title flex flex-wrap items-baseline gap-x-1.5 gap-y-0.5 min-w-0">
                 {indexLabel && (
                   <span className="font-mono text-[10px] font-medium text-zinc-500 shrink-0">
                     {indexLabel}
@@ -99,8 +100,8 @@ export const AnimatedAccordionItem: React.FC<AnimatedAccordionItemProps> = ({
                 <h2
                   className={
                     isPrimary
-                      ? 'font-display text-xs sm:text-sm font-semibold text-zinc-950 tracking-tight truncate'
-                      : 'text-xs font-semibold text-zinc-950 leading-snug truncate'
+                      ? 'font-display text-xs sm:text-sm font-semibold text-zinc-950 tracking-tight'
+                      : 'text-xs font-semibold text-zinc-950 leading-snug'
                   }
                 >
                   {title}
@@ -112,7 +113,7 @@ export const AnimatedAccordionItem: React.FC<AnimatedAccordionItemProps> = ({
                 )}
               </div>
               {subtitle && (
-                <p className="text-[11px] text-zinc-500 truncate mt-0.5">
+                <p className="text-[11px] text-zinc-500 mt-0.5">
                   {subtitle}
                 </p>
               )}
@@ -120,7 +121,8 @@ export const AnimatedAccordionItem: React.FC<AnimatedAccordionItemProps> = ({
           </div>
 
           <span
-            aria-label={isOpen ? collapseHint : expandHint}
+            aria-hidden="true"
+            title={isOpen ? collapseHint : expandHint}
             className={
               isPrimary
                 ? `inline-flex items-center justify-center w-6 h-6 rounded-md border text-[11px] font-mono shrink-0 transition-transform duration-150 ${
@@ -149,25 +151,24 @@ export const AnimatedAccordionItem: React.FC<AnimatedAccordionItemProps> = ({
           </span>
         </button>
 
-        {isOpen && (
-          <div
+        <div
+            hidden={!isOpen}
             id={`${testIdPrefix}-panel-${id}`}
             role="region"
-            aria-label={title}
+            aria-labelledby={`${testIdPrefix}-heading-${id}`}
             data-testid={`${testIdPrefix}-panel-${id}`}
-            className="overflow-hidden transition-opacity duration-150 ease-out"
+            className="accordion-panel"
           >
             <div
               className={
                 isPrimary
-                  ? 'px-3.5 sm:px-4 pb-4 pt-3 border-t border-zinc-100 space-y-4'
-                  : 'px-3 pb-3 pt-2.5 border-t border-zinc-200/60 space-y-2.5'
+                  ? 'accordion-body px-3.5 sm:px-4 pb-4 pt-3 border-t border-zinc-100 space-y-4'
+                  : 'accordion-body px-3 pb-3 pt-2.5 border-t border-zinc-200/60 space-y-2.5'
               }
             >
               {children}
             </div>
           </div>
-        )}
       </div>
     </SpotlightCard>
   );

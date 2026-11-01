@@ -17,6 +17,7 @@ interface Props {
   currentPath: string;
   pageType?: 'website' | 'article';
   publishedTime?: string;
+  noindex?: boolean;
 }
 
 const {
@@ -26,6 +27,7 @@ const {
   currentPath,
   pageType = 'website',
   publishedTime,
+  noindex = false,
 } = Astro.props;
 
 const t = getTranslations(locale);
@@ -108,7 +110,8 @@ const jsonLd =
     </script>
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow'} />
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <!-- Fonts: preconnect + stylesheet link instead of a blocking CSS @import -->
@@ -184,7 +187,7 @@ const jsonLd =
   </head>
   <body class="min-h-screen flex flex-col overflow-x-hidden bg-[#fafafa] text-zinc-900 antialiased selection:bg-zinc-900 selection:text-white">
     <Navbar locale={locale} currentPath={currentPath} />
-    <main class="flex-1 w-full max-w-3xl mx-auto px-3.5 sm:px-6">
+    <main id="main-content" class="flex-1 min-w-0 w-full max-w-3xl mx-auto px-3.5 sm:px-6">
       <slot />
     </main>
     <Footer locale={locale} currentPath={currentPath} />

@@ -3,7 +3,7 @@ import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  site: process.env.APP_URL || 'http://localhost:3000',
+  site: process.env.APP_URL || 'https://ladestack.in',
   integrations: [react()],
   i18n: {
     defaultLocale: 'en',
