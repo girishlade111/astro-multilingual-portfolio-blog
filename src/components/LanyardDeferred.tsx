@@ -2,7 +2,9 @@ import React, { lazy, Suspense, useEffect, useState } from 'react';
 
 // three.js (~600 KB) must stay off the critical path. The static SSR preview
 // keeps the hero looking complete until this chunk is fetched and mounted.
-const Lanyard = lazy(() => import('./Lanyard.jsx'));
+const Lanyard = lazy(() => import('./Lanyard.jsx')) as React.LazyExoticComponent<
+  React.ComponentType<any>
+>;
 
 type DeferredProps = Record<string, unknown>;
 
