@@ -92,7 +92,7 @@ export const AnimatedAccordionItem: React.FC<AnimatedAccordionItemProps> = ({
             <div className="min-w-0 flex-1">
               <div className="flex items-baseline gap-1.5 min-w-0">
                 {indexLabel && (
-                  <span className="font-mono text-[10px] font-medium text-zinc-400 shrink-0">
+                  <span className="font-mono text-[10px] font-medium text-zinc-500 shrink-0">
                     {indexLabel}
                   </span>
                 )}
@@ -106,7 +106,7 @@ export const AnimatedAccordionItem: React.FC<AnimatedAccordionItemProps> = ({
                   {title}
                 </h2>
                 {metaLabel && (
-                  <span className="hidden sm:inline font-mono text-[10px] text-zinc-400 shrink-0">
+                  <span className="hidden sm:inline font-mono text-[10px] text-zinc-500 shrink-0">
                     · {metaLabel}
                   </span>
                 )}
@@ -128,7 +128,7 @@ export const AnimatedAccordionItem: React.FC<AnimatedAccordionItemProps> = ({
                       ? 'border-zinc-900 bg-zinc-900 text-white rotate-180'
                       : 'border-zinc-200 bg-zinc-50 text-zinc-600'
                   }`
-                : 'font-mono text-xs text-zinc-400 shrink-0 select-none w-5 text-center'
+                : 'font-mono text-xs text-zinc-500 shrink-0 select-none w-5 text-center'
             }
           >
             {isPrimary ? (
