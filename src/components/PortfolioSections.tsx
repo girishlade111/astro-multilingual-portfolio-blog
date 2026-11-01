@@ -116,9 +116,8 @@ const MinimalSectionIcon: React.FC<{ section: SectionKey }> = ({ section }) => {
 
 export const PortfolioSections: React.FC<PortfolioSectionsProps> = ({
   locale,
-  initialContent,
 }) => {
-  const c = initialContent || getPortfolioContent(locale);
+  const c = getPortfolioContent(locale);
 
   // All main sections and sub-accordions start 100% collapsed/hidden by default
   const [openSections, setOpenSections] = useState(createInitialAccordionState);

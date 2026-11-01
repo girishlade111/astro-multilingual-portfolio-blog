@@ -4,7 +4,6 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import HeroBackground from '../../components/HeroBackground.astro';
 import Lanyard from '../../components/Lanyard.jsx';
 import PortfolioSections from '../../components/PortfolioSections';
-import { getPortfolioContent } from '../../data/portfolioContent';
 import {
   LOCALES,
   resolveLocale,
@@ -20,7 +19,6 @@ export function getStaticPaths() {
 const activeLocale = Astro.currentLocale || Astro.params.lang;
 const locale: Locale = resolveLocale(activeLocale);
 const currentPath = getRelativeLocaleUrl(locale, '');
-const portfolioContent = getPortfolioContent(locale);
 
 const LANYARD_HINTS: Record<Locale, string> = {
   en: 'Drag · Tilt · Tap',
@@ -34,8 +32,8 @@ const LANYARD_HINTS: Record<Locale, string> = {
   es: 'Arrastra · Inclina · Toca',
 };
 
-const profileImageUrl = '/assets/aistudio/profile_34f4dafb.jpeg';
-const heroBackgroundImageUrl = '/assets/aistudio/image_a475d35f.png';
+const profileImageUrl = '/assets/aistudio/profile_34f4dafb.webp';
+const heroBackgroundImageUrl = '/assets/aistudio/image_a475d35f.webp';
 ---
 
 <BaseLayout
@@ -126,10 +124,6 @@ const heroBackgroundImageUrl = '/assets/aistudio/image_a475d35f.png';
     </section>
 
     <!-- Portfolio Master Content (Hydrates on idle so 3D Lanyard gets 100% initial load priority) -->
-    <PortfolioSections
-      client:idle
-      locale={locale}
-      initialContent={portfolioContent}
-    />
+    <PortfolioSections client:idle locale={locale} />
   </div>
 </BaseLayout>

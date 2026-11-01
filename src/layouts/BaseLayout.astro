@@ -109,18 +109,40 @@ const jsonLd =
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
     <meta name="robots" content="index, follow" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Fonts: preconnect + stylesheet link instead of a blocking CSS @import -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap"
+      />
+    </noscript>
 
     <!-- High-priority preload for Lanyard profile image & Hero background so they are ready at t=0ms -->
     <link
       rel="preload"
       as="image"
-      href="/assets/aistudio/profile_34f4dafb.jpeg"
+      href="/assets/aistudio/profile_34f4dafb.webp"
       fetchpriority="high"
     />
     <link
       rel="preload"
       as="image"
-      href="/assets/aistudio/image_a475d35f.png"
+      href="/assets/aistudio/image_a475d35f.webp"
       fetchpriority="high"
     />
 
