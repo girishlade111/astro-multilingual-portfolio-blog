@@ -124,7 +124,7 @@ const heroBackgroundImageUrl = '/assets/aistudio/image_a475d35f.webp';
           id="hero-name"
           class="hero-name font-display text-[20px] sm:text-[22px] lg:text-[24px] font-semibold tracking-[-0.035em] leading-none text-zinc-950 whitespace-nowrap"
         >
-          <span id="hero-name-text" class="hero-name__text inline-block">Girish Lade</span>
+          Girish Lade
         </p>
       </div>
 
@@ -232,7 +232,6 @@ const heroBackgroundImageUrl = '/assets/aistudio/image_a475d35f.webp';
 
     const start = () => {
       if (raf || motionQuery.matches || document.hidden) return;
-      text.classList.add('is-live');
       raf = requestAnimationFrame(frame);
     };
 
