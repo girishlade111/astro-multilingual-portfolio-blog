@@ -14,20 +14,14 @@ export default function LanyardDeferred(props: DeferredProps) {
   useEffect(() => {
     let cancelled = false;
     let timer: ReturnType<typeof setTimeout> | undefined;
-    let idleId: number | undefined;
 
+    // Wait for load, then give the page a quiet window before pulling in
+    // three.js. The static SSR card is already visible, so nothing is missing.
     const enable = () => {
       if (cancelled) return;
-      const ric = (window as any).requestIdleCallback;
-      if (typeof ric === 'function') {
-        idleId = ric(() => {
-          if (!cancelled) setEnabled(true);
-        }, { timeout: 1500 });
-      } else {
-        timer = setTimeout(() => {
-          if (!cancelled) setEnabled(true);
-        }, 200);
-      }
+      timer = setTimeout(() => {
+        if (!cancelled) setEnabled(true);
+      }, 2500);
     };
 
     if (document.readyState === 'complete') {
@@ -40,8 +34,6 @@ export default function LanyardDeferred(props: DeferredProps) {
       cancelled = true;
       window.removeEventListener('load', enable);
       if (timer) clearTimeout(timer);
-      const cic = (window as any).cancelIdleCallback;
-      if (idleId !== undefined && typeof cic === 'function') cic(idleId);
     };
   }, []);
 
