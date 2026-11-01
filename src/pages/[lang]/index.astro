@@ -241,9 +241,9 @@ const heroBackgroundImageUrl = '/assets/aistudio/image_a475d35f.webp';
       velY = (velY + (targetY - y) * STIFF) * DAMP;
       velRot = (velRot + (targetRot - rot) * STIFF) * DAMP;
 
-      x += velX;
-      y += velY;
-      rot += velRot;
+      x = clamp(x + velX, -10, 10);
+      y = clamp(y + velY, -7, 7);
+      rot = clamp(rot + velRot, -3, 3);
 
       write();
     };
@@ -252,6 +252,8 @@ const heroBackgroundImageUrl = '/assets/aistudio/image_a475d35f.webp';
       if (!raf) return;
       cancelAnimationFrame(raf);
       raf = 0;
+      primed = false;
+      velX = velY = velRot = 0;
     };
 
     const start = () => {
@@ -275,7 +277,8 @@ const heroBackgroundImageUrl = '/assets/aistudio/image_a475d35f.webp';
     motionQuery.addEventListener('change', () => {
       if (motionQuery.matches) {
         stop();
-        curX = curY = curTilt = 0;
+        x = y = rot = 0;
+        velX = velY = velRot = 0;
         write();
       } else {
         onReady();
