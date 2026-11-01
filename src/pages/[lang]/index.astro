@@ -161,9 +161,8 @@ const heroBackgroundImageUrl = '/assets/aistudio/image_a475d35f.webp';
   // script only reads them and never touches the 3D component.
   const hero = document.getElementById('lanyard-hero-slot');
   const name = document.getElementById('hero-name');
-  const text = document.getElementById('hero-name-text');
 
-  if (hero && name && text) {
+  if (hero && name) {
     const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 
     const MAX_X = 5; // px
