@@ -1,0 +1,58 @@
+---
+/**
+ * Responsive Botanical Frame Hero Background
+ * Uses the user-provided botanical reference asset (/assets/aistudio/image_a475d35f.png)
+ * and optimizes framing for both portrait mobile screens and wide desktop viewports
+ * while keeping the center behind the 3D Lanyard clean and watermark-free.
+ */
+interface Props {
+  imageUrl?: string;
+}
+
+const { imageUrl = '/assets/aistudio/image_a475d35f.png' } = Astro.props;
+---
+
+<div
+  id="lanyard-hero-background"
+  data-testid="lanyard-hero-background"
+  aria-hidden="true"
+  class="pointer-events-none absolute inset-x-0 top-1.5 bottom-1.5 z-0 overflow-hidden rounded-2xl border border-zinc-200/80 bg-[#f4f5f6] shadow-2xs"
+>
+  <!-- Desktop & Tablet Botanical Frame (sm and up): Full 4-side frame with seamless center studio-paper blend -->
+  <div class="hidden sm:block absolute inset-0">
+    <div
+      class="absolute inset-0 bg-cover bg-center bg-no-repeat scale-[1.01]"
+      style={`background-image: url('${imageUrl}');`}
+    />
+    <!-- Seamless center radial blend that removes the stock watermark while preserving all outer flowers, eucalyptus, rosemary & lace -->
+    <div
+      class="absolute inset-0"
+      style="background: radial-gradient(ellipse 46% 34% at 50% 50%, #f4f5f6 0%, #f4f5f6 60%, rgba(244, 245, 246, 0.82) 76%, rgba(244, 245, 246, 0) 100%);"
+    />
+  </div>
+
+  <!-- Mobile Portrait Botanical Frame (< 640px): Dual edge-anchored layers so left eucalyptus/rosemary and right camellia/lace both frame the portrait hero cleanly -->
+  <div class="block sm:hidden absolute inset-0">
+    <!-- Left botanical edge (eucalyptus, white camellia, bottom-left rosemary) -->
+    <div
+      class="absolute inset-y-0 left-0 w-[64%] bg-cover bg-left bg-no-repeat"
+      style={`background-image: url('${imageUrl}'); -webkit-mask-image: linear-gradient(to right, #000 0%, #000 54%, transparent 100%); mask-image: linear-gradient(to right, #000 0%, #000 54%, transparent 100%);`}
+    />
+    <!-- Right botanical edge (top-right gardenia & rosemary, bottom-right floral lace) -->
+    <div
+      class="absolute inset-y-0 right-0 w-[64%] bg-cover bg-right bg-no-repeat"
+      style={`background-image: url('${imageUrl}'); -webkit-mask-image: linear-gradient(to left, #000 0%, #000 54%, transparent 100%); mask-image: linear-gradient(to left, #000 0%, #000 54%, transparent 100%);`}
+    />
+    <!-- Center vertical studio-paper blend for crisp 3D Lanyard contrast and zero watermark -->
+    <div
+      class="absolute inset-0"
+      style="background: radial-gradient(ellipse 50% 44% at 50% 50%, #f4f5f6 0%, #f4f5f6 62%, rgba(244, 245, 246, 0.85) 78%, rgba(244, 245, 246, 0) 100%);"
+    />
+  </div>
+
+  <!-- Subtle inner studio vignette & bottom caption scrim for clean typography contrast -->
+  <div
+    class="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-[#f4f5f6]/90 via-[#f4f5f6]/45 to-transparent"
+  />
+  <div class="absolute inset-0 rounded-2xl ring-1 ring-inset ring-black/[0.04]" />
+</div>

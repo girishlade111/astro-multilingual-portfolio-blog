@@ -1,0 +1,143 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import {
+  LOCALES,
+  LOCALE_METADATA,
+  getTranslations,
+  switchLocalePath,
+  extractSubPath,
+  type Locale,
+} from '../i18n/config';
+
+interface Props {
+  locale: Locale;
+  currentPath: string;
+}
+
+const { locale, currentPath } = Astro.props;
+const t = getTranslations(locale);
+const subPath = extractSubPath(currentPath);
+const isHome = subPath === '/';
+const isBlog = subPath.startsWith('/blog');
+
+const homeUrl = getRelativeLocaleUrl(locale, '');
+const blogUrl = getRelativeLocaleUrl(locale, 'blog');
+---
+
+<header class="sticky top-0 z-40 bg-[#fafafa]/90 backdrop-blur-md border-b border-zinc-200/70">
+  <div class="max-w-3xl mx-auto flex items-center justify-between gap-2 px-3.5 sm:px-6 h-12 sm:h-14">
+    <!-- Zone 1: Minimal Brand Wordmark -->
+    <a
+      href={homeUrl}
+      class="font-display text-sm sm:text-base font-bold tracking-tight text-zinc-950 hover:text-zinc-700 transition-colors whitespace-nowrap shrink-0"
+    >
+      {t.brandName}
+    </a>
+
+    <!-- Zone 2: Compact Home & Blog Links -->
+    <nav
+      aria-label="Primary Navigation"
+      class="flex items-center gap-4 sm:gap-6 text-xs sm:text-sm font-medium text-zinc-500"
+    >
+      <a
+        href={homeUrl}
+        aria-current={isHome ? 'page' : undefined}
+        class={`inline-flex items-center h-8 px-1 transition-colors whitespace-nowrap shrink-0 ${
+          isHome
+            ? 'text-zinc-950 font-semibold underline underline-offset-4 decoration-zinc-950 decoration-1.5'
+            : 'hover:text-zinc-950'
+        }`}
+      >
+        {t.nav.home}
+      </a>
+      <a
+        href={blogUrl}
+        aria-current={isBlog ? 'page' : undefined}
+        class={`inline-flex items-center h-8 px-1 transition-colors whitespace-nowrap shrink-0 ${
+          isBlog
+            ? 'text-zinc-950 font-semibold underline underline-offset-4 decoration-zinc-950 decoration-1.5'
+            : 'hover:text-zinc-950'
+        }`}
+      >
+        {t.nav.blog}
+      </a>
+    </nav>
+
+    <!-- Zone 3: Icon-Only Compact Language Switcher Button (Logo Only, No Text) -->
+    <div class="flex items-center shrink-0">
+      <div
+        class="relative inline-flex items-center justify-center w-8 h-8 rounded-lg border border-zinc-200/90 bg-white hover:border-zinc-400 hover:bg-zinc-50 text-zinc-800 transition-colors focus-within:ring-2 focus-within:ring-zinc-900"
+        title={t.nav.languageLabel}
+      >
+        <!-- Minimal Translation Logo Icon Only -->
+        <svg
+          aria-hidden="true"
+          class="w-4 h-4 text-zinc-800 pointer-events-none"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.75"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="m5 8 6 6" />
+          <path d="m4 14 6-6 2-3" />
+          <path d="M2 5h12" />
+          <path d="M7 2h1" />
+          <path d="m22 22-5-10-5 10" />
+          <path d="M14 18h6" />
+        </svg>
+
+        <select
+          id="language-switcher"
+          aria-label={t.nav.languageLabel}
+          class="absolute inset-0 w-full h-full opacity-0 cursor-pointer text-xs"
+        >
+          {
+            LOCALES.map((loc) => {
+              const targetUrl = switchLocalePath(currentPath, loc);
+              const meta = LOCALE_METADATA[loc];
+              return (
+                <option
+                  value={targetUrl}
+                  data-locale={loc}
+                  selected={loc === locale}
+                >
+                  {loc.toUpperCase()} · {meta.nativeName}
+                </option>
+              );
+            })
+          }
+        </select>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  (function () {
+    const switcher = document.getElementById('language-switcher');
+    if (!switcher) return;
+
+    const selectedOption = switcher.options[switcher.selectedIndex];
+    if (selectedOption && selectedOption.dataset.locale) {
+      try {
+        localStorage.setItem('preferred_locale', selectedOption.dataset.locale);
+      } catch (_) {}
+    }
+
+    switcher.addEventListener('change', function (event) {
+      const selectEl = event.target;
+      const targetUrl = selectEl.value;
+      const chosenOption = selectEl.options[selectEl.selectedIndex];
+      if (chosenOption && chosenOption.dataset.locale) {
+        try {
+          localStorage.setItem('preferred_locale', chosenOption.dataset.locale);
+        } catch (_) {}
+      }
+      if (targetUrl) {
+        window.location.assign(targetUrl);
+      }
+    });
+  })();
+</script>

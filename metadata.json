@@ -1,0 +1,6 @@
+{
+  "name": "Astro Multilingual Portfolio & Blog",
+  "description": "A minimal, SEO-optimized multilingual portfolio and Markdown blog built with Astro JS supporting 9 languages.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,170 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import {
+  resolveLocale,
+  getTranslations,
+  type Locale,
+} from '../../../i18n/config';
+import {
+  getAllLocaleBlogPaths,
+  type BlogMarkdownModule,
+} from '../../../utils/blog';
+
+export function getStaticPaths() {
+  return getAllLocaleBlogPaths();
+}
+
+interface Props {
+  post: BlogMarkdownModule;
+}
+
+const { slug } = Astro.params;
+const activeLocale = Astro.currentLocale || Astro.params.lang;
+const locale: Locale = resolveLocale(activeLocale);
+const t = getTranslations(locale);
+const { post } = Astro.props;
+const { Content } = post;
+const headings = post.getHeadings().filter((h) => h.depth === 2 || h.depth === 3);
+
+const currentPath = getRelativeLocaleUrl(locale, `blog/${slug}`);
+const blogIndexUrl = getRelativeLocaleUrl(locale, 'blog');
+---
+
+<BaseLayout
+  locale={locale}
+  title={post.frontmatter.title}
+  description={post.frontmatter.description}
+  currentPath={currentPath}
+  pageType="article"
+  publishedTime={post.frontmatter.pubDate}
+>
+  <div class="py-8 sm:py-16">
+    <!-- Back to Blog Link -->
+    <div class="mb-6 sm:mb-8">
+      <a
+        href={blogIndexUrl}
+        class="inline-flex items-center gap-2 min-h-[40px] text-xs font-medium text-zinc-500 hover:text-zinc-950 transition-colors whitespace-nowrap"
+      >
+        <svg
+          aria-hidden="true"
+          class="w-3.5 h-3.5"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.6"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M19 12H5" />
+          <path d="m11 18-6-6 6-6" />
+        </svg>
+        <span>{t.blog.backToBlog}</span>
+      </a>
+    </div>
+
+    <!-- Article Header & Content -->
+    <article class="space-y-8 sm:space-y-10">
+      <header class="pb-6 sm:pb-8 border-b border-zinc-200/80 space-y-4 w-full">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div class="flex flex-wrap items-center gap-2 text-xs text-zinc-500 font-mono">
+            <span>{post.frontmatter.category}</span>
+            <span aria-hidden="true">·</span>
+            <span>
+              {t.blog.publishedOn} {post.frontmatter.pubDate}
+            </span>
+            <span aria-hidden="true">·</span>
+            <span>
+              {post.frontmatter.readingTime} {t.blog.readingTime}
+            </span>
+          </div>
+
+          <button
+            type="button"
+            id="copy-article-link"
+            data-copy-label={t.blog.copyLink}
+            data-copied-label={t.blog.copiedLink}
+            class="inline-flex items-center gap-1.5 min-h-[36px] px-3 py-1.5 text-xs font-medium text-zinc-700 bg-white border border-zinc-200 hover:border-zinc-400 rounded-lg transition-colors cursor-pointer whitespace-nowrap shrink-0"
+          >
+            <svg
+              aria-hidden="true"
+              class="w-3.5 h-3.5 text-zinc-500"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect width="12" height="12" x="9" y="9" rx="2" />
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+            </svg>
+            <span id="copy-article-link-text">{t.blog.copyLink}</span>
+          </button>
+        </div>
+
+        <h1 class="font-display text-2xl sm:text-4xl font-semibold tracking-tight text-zinc-950 leading-tight max-w-3xl">
+          {post.frontmatter.title}
+        </h1>
+
+        <p class="text-sm sm:text-base text-zinc-600 leading-relaxed max-w-3xl">
+          {post.frontmatter.description}
+        </p>
+      </header>
+
+      <!-- Main Article Content & Responsive Table of Contents -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+        <!-- Compiled HTML from Markdown (.md -> HTML) -->
+        <div class="lg:col-span-8 markdown-prose w-full overflow-hidden">
+          <Content />
+        </div>
+
+        <!-- Minimal Table of Contents Sidebar -->
+        {
+          headings.length > 0 && (
+            <aside
+              aria-label={t.blog.tableOfContents}
+              class="lg:col-span-4 lg:sticky lg:top-24 p-4 sm:p-5 rounded-xl bg-white border border-zinc-200/80 space-y-3 order-first lg:order-last"
+            >
+              <h2 class="font-display text-xs font-semibold text-zinc-900 tracking-tight">
+                {t.blog.tableOfContents}
+              </h2>
+              <ul class="space-y-2 text-xs text-zinc-600">
+                {headings.map((h) => (
+                  <li class={h.depth === 3 ? 'pl-3' : ''}>
+                    <a
+                      href={`#${h.slug}`}
+                      class="hover:text-zinc-950 transition-colors block py-0.5 leading-snug"
+                    >
+                      {h.text}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </aside>
+          )
+        }
+      </div>
+    </article>
+  </div>
+</BaseLayout>
+
+<script is:inline>
+  (function () {
+    const copyBtn = document.getElementById('copy-article-link');
+    const copyText = document.getElementById('copy-article-link-text');
+    if (!copyBtn || !copyText) return;
+
+    copyBtn.addEventListener('click', async function () {
+      const copiedLabel = copyBtn.getAttribute('data-copied-label') || 'Copied';
+      const defaultLabel = copyBtn.getAttribute('data-copy-label') || 'Copy link';
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+      } catch (_) {}
+      copyText.textContent = copiedLabel;
+      setTimeout(function () {
+        copyText.textContent = defaultLabel;
+      }, 2000);
+    });
+  })();
+</script>
