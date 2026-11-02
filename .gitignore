@@ -39,3 +39,6 @@ pnpm-debug.log*
 
 # AI Studio artifacts
 .aistudio/
+
+.vercel
+.env*
