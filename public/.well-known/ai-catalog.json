@@ -1,28 +1,48 @@
 {
-  "$schema": "https://agenticresourcediscovery.org/schema/v1/ai-catalog.json",
-  "name": "Girish Lade Portfolio & Developer Ecosystem",
-  "description": "Developer portfolio, client-side web tools, and software engineering blog created by Girish Lade.",
-  "url": "https://ladestack.in",
-  "provider": {
-    "name": "Girish Lade",
-    "url": "https://ladestack.in"
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "Girish Lade",
+    "identifier": "ladestack.in"
   },
-  "resources": [
+  "entries": [
     {
-      "type": "documentation",
-      "name": "LLMs.txt Developer Overview",
-      "url": "https://ladestack.in/llms.txt"
+      "identifier": "urn:air:ladestack.in:resource:llms-txt",
+      "displayName": "LLMs.txt Developer Overview",
+      "type": "text/markdown",
+      "url": "https://ladestack.in/llms.txt",
+      "description": "Developer overview, skills, and product index for AI agents.",
+      "representativeQueries": [
+        "who is Girish Lade",
+        "what tools are built by LadeStack",
+        "Girish Lade portfolio and projects"
+      ],
+      "tags": ["portfolio", "developer", "documentation"]
     },
     {
-      "type": "documentation",
-      "name": "Comprehensive Knowledge Base",
-      "url": "https://ladestack.in/llms-full.txt"
+      "identifier": "urn:air:ladestack.in:resource:llms-full-txt",
+      "displayName": "Full Developer Knowledge Base",
+      "type": "text/markdown",
+      "url": "https://ladestack.in/llms-full.txt",
+      "description": "Comprehensive knowledge base and technical writings of Girish Lade.",
+      "representativeQueries": [
+        "LadeStack developer philosophy",
+        "GB Coder architecture",
+        "LS PDF client side tools"
+      ],
+      "tags": ["knowledge-base", "architecture", "articles"]
     },
     {
-      "type": "website",
-      "name": "Portfolio & Blog",
-      "url": "https://ladestack.in/en/"
+      "identifier": "urn:air:ladestack.in:website:portfolio",
+      "displayName": "Girish Lade Portfolio",
+      "type": "text/html",
+      "url": "https://ladestack.in/en/",
+      "description": "Official interactive multilingual portfolio of Girish Lade.",
+      "representativeQueries": [
+        "Girish Lade contact",
+        "hire Girish Lade",
+        "Girish Lade full stack developer"
+      ],
+      "tags": ["portfolio", "website", "resume"]
     }
   ]
 }
-
