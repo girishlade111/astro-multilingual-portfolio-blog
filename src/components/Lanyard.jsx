@@ -763,14 +763,14 @@ const stepSimulation = (sim, dt, physics, time) => {
     }
     if (!grab) {
       const spin = body.angular.dot(up);
-      const targetYaw = sim.turn + gyro.tiltRoll * 0.25;
+      const targetYaw = sim.turn + gyro.tiltRoll * 0.2;
       body.angular.addScaledVector(up, (physics.twist * (targetYaw - sim.twist) - physics.twistDamping * spin) * h);
 
       if (gyro.active) {
         const right = scratch.c.set(1, 0, 0).applyQuaternion(q);
         const forward = scratch.d.set(0, 0, 1).applyQuaternion(q);
-        const rollTorque = (-gyro.tiltRoll * 1.6 - body.angular.dot(forward)) * 8;
-        const pitchTorque = (gyro.tiltPitch * 1.3 - body.angular.dot(right)) * 8;
+        const rollTorque = (-gyro.tiltRoll * 1.2 - body.angular.dot(forward)) * 6;
+        const pitchTorque = (gyro.tiltPitch * 0.8 - body.angular.dot(right)) * 6;
         body.angular.addScaledVector(forward, rollTorque * h);
         body.angular.addScaledVector(right, pitchTorque * h);
       }
