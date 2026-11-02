@@ -314,11 +314,11 @@
 
 header > div { flex-wrap: wrap; height: auto; min-height: 56px; padding-block: 6px; }
 header nav { gap: clamp(8px, 3vw, 24px); }
-header nav a, footer a { min-height: 40px; }
+header nav a { min-height: 40px; }
 
 
 
-footer > div > div:first-child { flex-wrap: wrap; justify-content: center; }
+
 .markdown-prose { overflow-wrap: anywhere; min-width: 0; }
 .markdown-prose :where(img, video, iframe) { max-width: 100%; }
 .markdown-prose pre { max-width: 100%; }
