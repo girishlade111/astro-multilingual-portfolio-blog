@@ -4,7 +4,7 @@ export interface GyroInput {
   neutralBeta?: number; // Baseline holding angle in degrees (default 48)
   screenAngle?: number; // Screen orientation angle (0, 90, -90, 180)
   gravity?: number; // Base gravity magnitude (default 40)
-  sensitivity?: number; // Gyroscope response multiplier (default 0.9)
+  sensitivity?: number; // Gyroscope response multiplier (default 1.0)
 }
 
 export interface GyroForceVector {
@@ -32,7 +32,7 @@ export function computeGyroForces(input: GyroInput): GyroForceVector {
     neutralBeta = 48,
     screenAngle = 0,
     gravity = 40,
-    sensitivity = 0.9,
+    sensitivity = 1.0,
   } = input;
 
   if (beta === null || gamma === null || !Number.isFinite(beta) || !Number.isFinite(gamma)) {
@@ -51,19 +51,22 @@ export function computeGyroForces(input: GyroInput): GyroForceVector {
   const rollRad = rollDeg * DEG_TO_RAD;
   const pitchRad = pitchDelta * DEG_TO_RAD;
 
-  // Omnidirectional 3D gravity decomposition:
-  // - Lateral force fx: tilts card left (-X) or right (+X)
-  const fx = gravity * Math.sin(rollRad) * sensitivity;
+  // Lateral force fx:
+  // Negated so that tilting phone to LEFT moves card LEFT (-X),
+  // and tilting phone to RIGHT moves card RIGHT (+X).
+  // Power curve (0.80) boosts response at natural hand tilts (10°-25°) for high sensitivity.
+  const rollNormalized = rollDeg / 90;
+  const lateralFactor = Math.sign(rollNormalized) * Math.pow(Math.abs(rollNormalized), 0.80);
+  const fx = -gravity * lateralFactor * (sensitivity * 1.5);
 
-  // - Longitudinal force fy:
-  //   * Upright holding (pitchDelta ~ 0) => -gravity (hangs down)
-  //   * Upside-down holding (pitchDelta ~ 180/-180) => +gravity (falls UPWARDS towards navbar)
-  //   * In-between angles smoothly transition between -gravity and +gravity
-  const fy = -gravity * Math.cos(pitchRad) * Math.cos(rollRad * 0.7) * sensitivity;
+  // Longitudinal force fy:
+  // * Upright holding (pitchDelta ~ 0) => -gravity (hangs down)
+  // * Upside-down holding (pitchDelta ~ 180/-180) => +gravity (falls UPWARDS towards navbar)
+  const fy = -gravity * Math.cos(pitchRad) * Math.cos(rollRad * 0.7) * (sensitivity * 1.15);
 
-  // - Depth force fz:
-  //   * Tilted flat on desk => settles gently into screen plane (-Z)
-  const fz = gravity * Math.sin(pitchRad) * Math.cos(rollRad) * (sensitivity * 0.7);
+  // Depth force fz:
+  // Tilted flat on desk => settles into screen plane (-Z)
+  const fz = gravity * Math.sin(pitchRad) * Math.cos(rollRad) * (sensitivity * 0.75);
 
   let gx = fx;
   let gy = fy;
@@ -82,8 +85,8 @@ export function computeGyroForces(input: GyroInput): GyroForceVector {
     gx,
     gy,
     gz,
-    // Smoothly clamped surface glint & specular tilt values to prevent flip distortion
-    tiltRoll: clamp(rollRad, -0.5, 0.5),
+    // Tilt roll aligns with lateral deflection
+    tiltRoll: clamp(-rollRad, -0.5, 0.5),
     tiltPitch: clamp(pitchRad, -0.5, 0.5),
   };
 }

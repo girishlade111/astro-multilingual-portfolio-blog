@@ -708,7 +708,7 @@ const stepSimulation = (sim, dt, physics, time) => {
         })
       : { gx: 0, gy: -physics.gravity, gz: 0, tiltRoll: 0, tiltPitch: 0 };
 
-  const gyroBlend = 1 - Math.exp(-14 * dt);
+  const gyroBlend = 1 - Math.exp(-24 * dt);
   gyro.gx += (gyroTarget.gx - gyro.gx) * gyroBlend;
   gyro.gy += (gyroTarget.gy - gyro.gy) * gyroBlend;
   gyro.gz += (gyroTarget.gz - gyro.gz) * gyroBlend;
