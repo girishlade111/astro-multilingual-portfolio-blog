@@ -1752,7 +1752,7 @@ const Lanyard = ({
       window.removeEventListener('touchmove', onTouchMove, { capture: true });
       setCursor('');
       [bodyMesh, frontMesh, backMesh, ring, clampMesh, eyelet, band].forEach(mesh => mesh.geometry?.dispose());
-      [frontMaterial, backMaterial, edgeMaterial, metalMaterial, bandMaterial].forEach(material => material.dispose());
+      [frontMaterial, backMaterial, edgeMaterial, capMaterial, metalMaterial, bandMaterial].forEach(material => material.dispose());
       [frontTexture, backTexture, strapTexture, grain, weave].forEach(texture => texture.dispose());
       environment.dispose();
       renderer.dispose();
