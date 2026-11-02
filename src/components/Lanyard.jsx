@@ -1761,6 +1761,8 @@ const Lanyard = ({
       window.removeEventListener('deviceorientation', onDeviceOrientation, true);
       window.removeEventListener('devicemotion', onDeviceMotion, true);
       window.removeEventListener('lanyard:gyro', onCustomGyroEvent);
+      window.removeEventListener('touchstart', requestIosGyroPermissionIfNeeded);
+      window.removeEventListener('pointerdown', requestIosGyroPermissionIfNeeded);
       window.removeEventListener('pointerdown', onPointerDown, { capture: true });
       window.removeEventListener('pointermove', onPointerMove);
       window.removeEventListener('pointerup', onPointerUp, { capture: true });
