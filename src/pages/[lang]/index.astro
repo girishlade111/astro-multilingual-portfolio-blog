@@ -107,10 +107,10 @@ const heroBackgroundImageUrl = '/assets/aistudio/image_a475d35f.webp';
       </div>
 
       <!-- Name plate: sits directly under the hanging card -->
-      <div class="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-[58px] sm:bottom-[56px] lg:bottom-[64px] z-20">
+      <div class="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-[46px] sm:bottom-[48px] lg:bottom-[52px] z-20">
         <p
           id="hero-name"
-          class="hero-name font-display text-[20px] sm:text-[22px] lg:text-[24px] font-semibold tracking-[-0.035em] leading-none text-zinc-950 whitespace-nowrap"
+          class="hero-name text-[28px] sm:text-[32px] lg:text-[36px] font-semibold leading-none text-zinc-950 whitespace-nowrap select-none"
         >
           Girish Lade
         </p>
@@ -123,9 +123,12 @@ const heroBackgroundImageUrl = '/assets/aistudio/image_a475d35f.webp';
 </BaseLayout>
 
 <style>
-  /* Name plate motion: driven by custom properties set from the lanyard card
+  /* Name plate motion & luxury editorial typography: driven by custom properties set from the lanyard card
      position. Amplitude stays small so the text reads as calm, not animated. */
   .hero-name {
+    font-family: 'Cormorant Garamond', 'Playfair Display', Didot, 'Bodoni MT', Georgia, serif;
+    letter-spacing: -0.01em;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9), 0 2px 12px rgba(0, 0, 0, 0.04);
     transform: translate3d(var(--hero-name-x, 0px), var(--hero-name-y, 0px), 0)
       rotate(var(--hero-name-rot, 0deg));
     will-change: transform;
