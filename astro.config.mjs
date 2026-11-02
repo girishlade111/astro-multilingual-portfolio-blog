@@ -9,7 +9,7 @@ export default defineConfig({
       ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
       : process.env.VERCEL_URL
         ? `https://${process.env.VERCEL_URL}`
-        : 'https://ladestack.in'),
+        : 'https://girish.ladestack.in'),
   integrations: [react()],
   i18n: {
     defaultLocale: 'en',
