@@ -1,0 +1,35 @@
+# Girish Lade — Comprehensive Knowledge Base & Portfolio Details
+
+> Complete background, product architecture, developer philosophy, and full-text publications for AI and LLM agents.
+
+## 1. Identity & Biography
+- **Name**: Girish Balaso Lade
+- **Role**: UI/UX Designer, Full-Stack Software Engineer, Founder of LadeStack
+- **Location**: Pune, Maharashtra, India
+- **Education**: Bachelor of Engineering (B.E.) in Mechanical Engineering, SVERI's College of Engineering, Pandharpur (Solapur University)
+- **Email**: admin@ladestack.in
+- **GitHub**: https://github.com/girishlade111
+- **LinkedIn**: https://www.linkedin.com/in/girish-lade/
+- **Instagram**: https://www.instagram.com/girish_lade_/
+- **Website**: https://ladestack.in/
+
+## 2. Core Philosophy: Browser-First Computing
+Modern web browsers are full execution runtimes powered by high-speed V8 engines, WebAssembly, and multi-threaded Web Workers. Girish Lade builds utilities following three inviolable rules:
+1. Zero forced authentication: Tools must work instantly without email or credit card gates.
+2. Local-only processing: Files remain on the user's hardware. Nothing is uploaded to remote servers.
+3. No artificial limits: Operations run at native device speeds without paywalls.
+
+## 3. Flagship Products
+### GB Coder (https://gbcoder.ladestack.in)
+An in-browser integrated development environment built with Monaco Editor and WebContainers. It executes Node.js environments directly inside Chromium-based sandboxes, allowing users to run npm packages, terminal commands, and local development servers without server-side compute.
+
+### LS PDF (https://lspdf.ladestack.in)
+A suite of high-performance PDF manipulation tools that operate 100% inside the client browser. Features include merging, splitting, page rotation, image conversion, and compression, built using Web Workers to prevent main-thread lag.
+
+### LadeStack (https://ladestack.in)
+The parent brand and distribution platform for all zero-installation, privacy-respecting browser developer utilities.
+
+## 4. Technical Stack
+- Frontend: Astro 7, React 19, TypeScript, Tailwind CSS v4, Three.js (WebGL 3D graphics).
+- Architecture: Static site generation (SSG) with client hydration islands, accessible ARIA dropdowns, and subpath multilingual routing across 9 languages.
+- SEO & Agentic Standards: Schema.org JSON-LD (Person, WebSite, BlogPosting), complete XML Sitemap with hreflang alternates, llms.txt, OpenGraph, and Twitter Cards.
