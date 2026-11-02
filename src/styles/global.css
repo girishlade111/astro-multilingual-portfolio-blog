@@ -315,9 +315,9 @@
 header > div { flex-wrap: wrap; height: auto; min-height: 56px; padding-block: 6px; }
 header nav { gap: clamp(8px, 3vw, 24px); }
 header nav a, footer a { min-height: 40px; }
-header select { min-width: 40px; min-height: 40px; }
-header select#language-switcher { width: 100%; height: 100%; min-width: 0; min-height: 0; }
-header div:has(> #language-switcher) { width: 40px; height: 40px; }
+
+
+
 footer > div > div:first-child { flex-wrap: wrap; justify-content: center; }
 .markdown-prose { overflow-wrap: anywhere; min-width: 0; }
 .markdown-prose :where(img, video, iframe) { max-width: 100%; }

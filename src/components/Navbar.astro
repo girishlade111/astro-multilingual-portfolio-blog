@@ -63,20 +63,25 @@ const blogUrl = getRelativeLocaleUrl(locale, 'blog');
       </a>
     </nav>
 
-    <!-- Zone 3: Icon-Only Compact Language Switcher Button (Logo Only, No Text) -->
-    <div class="flex items-center shrink-0">
-      <div
-        class="relative inline-flex items-center justify-center w-8 h-8 rounded-lg border border-zinc-200/90 bg-white hover:border-zinc-400 hover:bg-zinc-50 text-zinc-800 transition-colors focus-within:ring-2 focus-within:ring-zinc-900"
-        title={t.nav.languageLabel}
+    <!-- Zone 3: Modern Accessible Language Dropdown (Untitled UI / React Aria pattern) -->
+    <div class="relative shrink-0" id="language-dropdown-root">
+      <button
+        type="button"
+        id="language-dropdown-trigger"
+        aria-haspopup="listbox"
+        aria-expanded="false"
+        aria-controls="language-dropdown-popover"
+        aria-label={t.nav.languageLabel}
+        class="group inline-flex items-center gap-1.5 h-8 px-2.5 rounded-lg border border-zinc-200/90 bg-white hover:border-zinc-300 hover:bg-zinc-50/80 text-zinc-700 text-xs font-medium shadow-2xs transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-900 focus-visible:ring-offset-1 cursor-pointer"
       >
-        <!-- Minimal Translation Logo Icon Only -->
+        <!-- Translation Icon -->
         <svg
           aria-hidden="true"
-          class="w-4 h-4 text-zinc-800 pointer-events-none"
+          class="w-3.5 h-3.5 text-zinc-700 shrink-0"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          stroke-width="1.75"
+          stroke-width="1.8"
           stroke-linecap="round"
           stroke-linejoin="round"
         >
@@ -88,27 +93,79 @@ const blogUrl = getRelativeLocaleUrl(locale, 'blog');
           <path d="M14 18h6" />
         </svg>
 
-        <select
-          id="language-switcher"
-          aria-label={t.nav.languageLabel}
-          class="absolute inset-0 w-full h-full opacity-0 cursor-pointer text-xs"
+        <span class="font-mono text-[11px] font-semibold text-zinc-900 uppercase tracking-wide">
+          {locale}
+        </span>
+
+        <!-- ChevronDown Icon -->
+        <svg
+          aria-hidden="true"
+          id="language-dropdown-chevron"
+          class="w-3.5 h-3.5 text-zinc-400 transition-transform duration-200 shrink-0"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.25"
+          stroke-linecap="round"
+          stroke-linejoin="round"
         >
+          <path d="m6 9 6 6 6-6" />
+        </svg>
+      </button>
+
+      <!-- Dropdown Popover & Menu -->
+      <div
+        id="language-dropdown-popover"
+        role="listbox"
+        aria-label={t.nav.languageLabel}
+        class="hidden absolute right-0 mt-1.5 w-52 origin-top-right rounded-xl border border-zinc-200/90 bg-white/98 backdrop-blur-md p-1 shadow-lg shadow-zinc-950/5 ring-1 ring-black/5 focus:outline-none z-50"
+      >
+        <div class="px-2.5 py-1.5 text-[10px] font-mono font-medium text-zinc-400 tracking-wider uppercase border-b border-zinc-100 mb-1">
+          {t.nav.languageLabel}
+        </div>
+        <div class="space-y-0.5 max-h-72 overflow-y-auto">
           {
             LOCALES.map((loc) => {
               const targetUrl = switchLocalePath(currentPath, loc);
               const meta = LOCALE_METADATA[loc];
+              const isSelected = loc === locale;
               return (
-                <option
-                  value={targetUrl}
+                <a
+                  href={targetUrl}
+                  role="option"
+                  aria-selected={isSelected ? "true" : "false"}
                   data-locale={loc}
-                  selected={loc === locale}
+                  class={`flex items-center justify-between w-full px-2.5 py-1.5 rounded-lg text-xs transition-colors cursor-pointer select-none ${
+                    isSelected
+                      ? 'bg-zinc-100 text-zinc-950 font-semibold'
+                      : 'text-zinc-600 hover:text-zinc-950 hover:bg-zinc-50'
+                  }`}
                 >
-                  {loc.toUpperCase()} · {meta.nativeName}
-                </option>
+                  <div class="flex items-center gap-2">
+                    <span class="inline-flex items-center justify-center w-6 h-5 rounded text-[10px] font-mono font-bold tracking-wider uppercase bg-zinc-100 text-zinc-700">
+                      {loc}
+                    </span>
+                    <span class="font-sans text-xs">{meta.nativeName}</span>
+                  </div>
+                  {isSelected && (
+                    <svg
+                      aria-hidden="true"
+                      class="w-3.5 h-3.5 text-zinc-950 shrink-0"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.25"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                  )}
+                </a>
               );
             })
           }
-        </select>
+        </div>
       </div>
     </div>
   </div>
@@ -116,28 +173,61 @@ const blogUrl = getRelativeLocaleUrl(locale, 'blog');
 
 <script is:inline>
   (function () {
-    const switcher = document.getElementById('language-switcher');
-    if (!switcher) return;
+    const root = document.getElementById('language-dropdown-root');
+    const trigger = document.getElementById('language-dropdown-trigger');
+    const popover = document.getElementById('language-dropdown-popover');
+    const chevron = document.getElementById('language-dropdown-chevron');
+    if (!root || !trigger || !popover) return;
 
-    const selectedOption = switcher.options[switcher.selectedIndex];
-    if (selectedOption && selectedOption.dataset.locale) {
-      try {
-        localStorage.setItem('preferred_locale', selectedOption.dataset.locale);
-      } catch (_) {}
+    function openMenu() {
+      popover.classList.remove('hidden');
+      trigger.setAttribute('aria-expanded', 'true');
+      if (chevron) chevron.classList.add('rotate-180');
     }
 
-    switcher.addEventListener('change', function (event) {
-      const selectEl = event.target;
-      const targetUrl = selectEl.value;
-      const chosenOption = selectEl.options[selectEl.selectedIndex];
-      if (chosenOption && chosenOption.dataset.locale) {
-        try {
-          localStorage.setItem('preferred_locale', chosenOption.dataset.locale);
-        } catch (_) {}
+    function closeMenu() {
+      popover.classList.add('hidden');
+      trigger.setAttribute('aria-expanded', 'false');
+      if (chevron) chevron.classList.remove('rotate-180');
+    }
+
+    function toggleMenu() {
+      const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+      if (isExpanded) {
+        closeMenu();
+      } else {
+        openMenu();
       }
-      if (targetUrl) {
-        window.location.assign(targetUrl);
+    }
+
+    trigger.addEventListener('click', function (e) {
+      e.stopPropagation();
+      toggleMenu();
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!root.contains(e.target)) {
+        closeMenu();
       }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        closeMenu();
+        trigger.focus();
+      }
+    });
+
+    const options = popover.querySelectorAll('a[data-locale]');
+    options.forEach(function (option) {
+      option.addEventListener('click', function () {
+        const loc = option.getAttribute('data-locale');
+        if (loc) {
+          try {
+            localStorage.setItem('preferred_locale', loc);
+          } catch (_) {}
+        }
+      });
     });
   })();
 </script>
