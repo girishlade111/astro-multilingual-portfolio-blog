@@ -704,14 +704,14 @@ const stepSimulation = (sim, dt, physics, time) => {
       ? computeGyroForces({
           beta: gyro.beta,
           gamma: gyro.gamma,
-          neutralBeta: gyro.neutralBeta ?? 50,
+          neutralBeta: gyro.neutralBeta ?? 45,
           screenAngle: gyro.screenAngle || 0,
           gravity: physics.gravity,
           sensitivity: physics.gyroSensitivity
         })
       : { gx: 0, gy: -physics.gravity, gz: 0, tiltRoll: 0, tiltPitch: 0 };
 
-  const gyroBlend = 1 - Math.exp(-14 * dt);
+  const gyroBlend = 1 - Math.exp(-12 * dt);
   gyro.gx += (gyroTarget.gx - gyro.gx) * gyroBlend;
   gyro.gy += (gyroTarget.gy - gyro.gy) * gyroBlend;
   gyro.gz += (gyroTarget.gz - gyro.gz) * gyroBlend;
@@ -721,12 +721,14 @@ const stepSimulation = (sim, dt, physics, time) => {
   const windX = physics.breeze * (Math.sin(time * 0.53) * 0.7 + Math.sin(time * 1.31 + 1.7) * 0.3) * 3;
   const windZ = physics.breeze * Math.sin(time * 0.37 + 0.6) * 2;
   const accelX = windX + gyro.gx + gyro.impulseX;
+  const accelY = gyro.active ? gyro.gy : -physics.gravity;
   const accelZ = windZ + gyro.gz + gyro.impulseZ;
   const bodyAccelX = windX * 0.35 + gyro.gx + gyro.impulseX;
+  const bodyAccelY = gyro.active ? gyro.gy : -physics.gravity;
   const bodyAccelZ = windZ * 0.35 + gyro.gz + gyro.impulseZ;
 
   // Decay transient DeviceMotion shake impulses cleanly
-  const impulseDecay = Math.exp(-10 * dt);
+  const impulseDecay = Math.exp(-8 * dt);
   gyro.impulseX *= impulseDecay;
   gyro.impulseY *= impulseDecay;
   gyro.impulseZ *= impulseDecay;
@@ -740,7 +742,7 @@ const stepSimulation = (sim, dt, physics, time) => {
   for (let s = 0; s < steps; s++) {
     for (let i = 1; i < JOINTS; i++) {
       const v = velocities[i];
-      v.y -= physics.gravity * h;
+      v.y += accelY * h;
       v.x += accelX * h;
       v.z += accelZ * h;
       previous[i].copy(nodes[i]);
@@ -770,10 +772,19 @@ const stepSimulation = (sim, dt, physics, time) => {
     }
     if (!grab) {
       const spin = body.angular.dot(up);
-      const targetYaw = sim.turn + gyro.tiltRoll * 0.35;
+      const targetYaw = sim.turn + gyro.tiltRoll * 0.25;
       body.angular.addScaledVector(up, (physics.twist * (targetYaw - sim.twist) - physics.twistDamping * spin) * h);
+
+      if (gyro.active) {
+        const right = scratch.c.set(1, 0, 0).applyQuaternion(q);
+        const forward = scratch.d.set(0, 0, 1).applyQuaternion(q);
+        const rollTorque = (-gyro.tiltRoll * 1.6 - body.angular.dot(forward)) * 8;
+        const pitchTorque = (gyro.tiltPitch * 1.3 - body.angular.dot(right)) * 8;
+        body.angular.addScaledVector(forward, rollTorque * h);
+        body.angular.addScaledVector(right, pitchTorque * h);
+      }
     }
-    body.velocity.y -= physics.gravity * h;
+    body.velocity.y += bodyAccelY * h;
     body.velocity.x += bodyAccelX * h;
     body.velocity.z += bodyAccelZ * h;
     body.position.addScaledVector(body.velocity, h);
