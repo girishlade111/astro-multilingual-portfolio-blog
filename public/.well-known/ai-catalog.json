@@ -2,14 +2,14 @@
   "specVersion": "1.0",
   "host": {
     "displayName": "Girish Lade",
-    "identifier": "ladestack.in"
+    "identifier": "girish.ladestack.in"
   },
   "entries": [
     {
-      "identifier": "urn:air:ladestack.in:resource:llms-txt",
+      "identifier": "urn:air:girish.ladestack.in:resource:llms-txt",
       "displayName": "LLMs.txt Developer Overview",
       "type": "text/markdown; profile=\"urn:air:agent-skills\"",
-      "url": "https://ladestack.in/llms.txt",
+      "url": "https://girish.ladestack.in/llms.txt",
       "description": "Developer overview, skills, and product index for AI agents.",
       "representativeQueries": [
         "who is Girish Lade",
@@ -19,10 +19,10 @@
       "tags": ["portfolio", "developer", "documentation"]
     },
     {
-      "identifier": "urn:air:ladestack.in:resource:llms-full-txt",
+      "identifier": "urn:air:girish.ladestack.in:resource:llms-full-txt",
       "displayName": "Full Developer Knowledge Base",
       "type": "text/markdown; profile=\"urn:air:agent-skills\"",
-      "url": "https://ladestack.in/llms-full.txt",
+      "url": "https://girish.ladestack.in/llms-full.txt",
       "description": "Comprehensive knowledge base and technical writings of Girish Lade.",
       "representativeQueries": [
         "LadeStack developer philosophy",
@@ -32,10 +32,10 @@
       "tags": ["knowledge-base", "architecture", "articles"]
     },
     {
-      "identifier": "urn:air:ladestack.in:card:portfolio",
+      "identifier": "urn:air:girish.ladestack.in:card:portfolio",
       "displayName": "Girish Lade Developer Agent Card",
       "type": "application/agent-card+json",
-      "url": "https://ladestack.in/ai-catalog.json",
+      "url": "https://girish.ladestack.in/ai-catalog.json",
       "description": "Official interactive multilingual portfolio and developer tools by Girish Lade.",
       "representativeQueries": [
         "Girish Lade contact",
