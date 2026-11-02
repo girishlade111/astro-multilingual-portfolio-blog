@@ -20,18 +20,6 @@ const activeLocale = Astro.currentLocale || Astro.params.lang;
 const locale: Locale = resolveLocale(activeLocale);
 const currentPath = getRelativeLocaleUrl(locale, '');
 
-const LANYARD_HINTS: Record<Locale, string> = {
-  en: 'Drag · Tilt · Tap',
-  jp: 'ドラッグ · 傾ける · タップ',
-  ko: '드래그 · 기울이기 · 탭',
-  zh: '拖动 · 倾斜 · 点击',
-  ru: 'Тяните · Наклоняйте · Нажмите',
-  pt: 'Arraste · Incline · Toque',
-  tr: 'Sürükle · Eğ · Dokun',
-  fr: 'Glisser · Incliner · Toucher',
-  es: 'Arrastra · Inclina · Toca',
-};
-
 const profileImageUrl = '/assets/aistudio/profile_34f4dafb.webp';
 const heroBackgroundImageUrl = '/assets/aistudio/image_a475d35f.webp';
 ---
@@ -118,7 +106,7 @@ const heroBackgroundImageUrl = '/assets/aistudio/image_a475d35f.webp';
         />
       </div>
 
-      <!-- Name plate: sits directly under the hanging card, above the drag hint -->
+      <!-- Name plate: sits directly under the hanging card -->
       <div class="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-[58px] sm:bottom-[56px] lg:bottom-[64px] z-20">
         <p
           id="hero-name"
@@ -127,10 +115,6 @@ const heroBackgroundImageUrl = '/assets/aistudio/image_a475d35f.webp';
           Girish Lade
         </p>
       </div>
-
-      <p class="relative z-10 pb-3 text-[10px] font-mono uppercase tracking-widest text-zinc-500 text-center pointer-events-none">
-        {LANYARD_HINTS[locale]}
-      </p>
     </section>
 
     <!-- Portfolio Master Content (Hydrates on idle so 3D Lanyard gets 100% initial load priority) -->
