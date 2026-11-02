@@ -1,4 +1,4 @@
-export const LOCALES = ['en', 'jp', 'ko', 'zh', 'ru', 'pt', 'tr', 'fr', 'es'] as const;
+export const LOCALES = ['en', 'jp', 'ko', 'zh', 'ru', 'pt', 'tr', 'fr', 'es', 'mr'] as const;
 
 export type Locale = (typeof LOCALES)[number];
 
@@ -75,6 +75,13 @@ export const LOCALE_METADATA: Record<Locale, LocaleMetadata> = {
     nativeName: 'Español',
     htmlLang: 'es',
     ogLocale: 'es_ES',
+  },
+  mr: {
+    code: 'mr',
+    label: 'Marathi',
+    nativeName: 'मराठी',
+    htmlLang: 'mr',
+    ogLocale: 'mr_IN',
   },
 };
 
@@ -628,6 +635,61 @@ export const UI_TRANSLATIONS: Record<Locale, UIStrings> = {
       rights: 'Todos los derechos reservados.',
       seoNote: 'Desarrollado con Astro JS · i18n Nativo y Optimizado para SEO',
       activeLocaleLabel: 'Idioma',
+    },
+  },
+  mr: {
+    siteTitle: 'गिरीश लाडे — UI/UX डिझायनर आणि फुल-स्टॅक इंजिनिअर',
+    siteDescription: 'प्रायव्हसी-फर्स्ट वेब टूल्स, ब्राउझर आयडीई, क्लायंट-साइड प्रोसेसिंग आणि आधुनिक सॉफ्टवेअर आर्किटेक्चर.',
+    brandName: 'Girish Lade.',
+    nav: {
+      home: 'मुख्यपृष्ठ',
+      info: 'माहिती',
+      projects: 'प्रकल्प',
+      journey: 'प्रवास',
+      blog: 'ब्लॉग',
+      languageLabel: 'भाषा निवडा',
+    },
+    home: {
+      shellKicker: 'अ‍ॅस्ट्रो जेएस · बहुभाषिक आर्किटेक्चर',
+      shellHeadline: 'प्रायव्हसी-फर्स्ट वेब इंजिनिअरिंग',
+      shellSubtext: 'क्लाउड किंवा सर्व्हरवर डेटा न पाठवता थेट ब्राउझरमध्ये हाय-स्पीड प्रोसेसिंग देणारे आधुनिक डेव्हलपर टूल्स.',
+      exploreBlogCta: 'ब्लॉग वाचा',
+      infoTitle: '०१. माहिती',
+      infoPlaceholder: 'माझा परिचय, तांत्रिक कौशल्ये आणि सॉफ्टवेअर दृष्टिकोन.',
+      projectsTitle: '०२. प्रकल्प',
+      projectsPlaceholder: 'LadeStack, GB Coder आणि सर्व लाइव्ह टूल्स.',
+      journeyTitle: '०३. प्रवास',
+      journeyPlaceholder: 'मेकॅनिकल इंजिनिअरिंग ते फुल-स्टॅक सॉफ्टवेअर इंजिनिअरिंगचा प्रवास.',
+      awaitingContentLabel: 'सविस्तर माहिती खालील कार्ड्समध्ये उपलब्ध',
+    },
+    blog: {
+      title: 'तांत्रिक ब्लॉग आणि विचार',
+      subtitle: 'सॉफ्टवेअर आर्किटेक्चर, ब्राउझर कम्प्युटिंग आणि वेब डेव्हलपमेंटवरील अस्सल तांत्रिक लेख.',
+      readArticle: 'लेख वाचा',
+      backToBlog: 'सर्व लेखांकडे परत',
+      publishedOn: 'प्रसिद्ध केले',
+      readingTime: 'मि. वाचन',
+      allPostsLabel: 'सर्व लेख',
+      markdownBadge: 'मार्कडाउन → एचटीएमएल',
+      availableLanguages: 'हा लेख इतर भाषांमध्ये वाचा',
+      tableOfContents: 'अनुक्रमणिका',
+      copyLink: 'लिंक कॉपी करा',
+      copiedLink: 'लिंक कॉपी झाली',
+      searchPlaceholder: 'शीर्षक, विषय किंवा टॅगनुसार लेख शोधा...',
+      searchAriaLabel: 'ब्लॉग लेख शोधा',
+      clearSearch: 'शोध साफ करा',
+      noResultsTitle: 'कोणताही लेख सापडला नाही',
+      noResultsHint: 'दुसरे शब्द वापरून पहा किंवा वेगळी कॅटेगरी निवडा.',
+      filterAll: 'सर्व विषय',
+      paginationPrev: 'मागील',
+      paginationNext: 'पुढील',
+      pageOf: 'पान {current} पैकी {total}',
+      showingResults: '{count} लेख दाखवत आहे',
+    },
+    footer: {
+      rights: 'सर्व हक्क राखीव.',
+      seoNote: 'अ‍ॅस्ट्रो जेएस सह विकसित · १० भाषांमध्ये नेटिव्ह i18n आणि संपूर्ण SEO ऑप्टिमाइझ्ड',
+      activeLocaleLabel: 'सध्याची भाषा',
     },
   },
 };
