@@ -54,7 +54,7 @@ export const GET: APIRoute = ({ site }) => {
     ],
   });
 
-  // 2. Localized Homepages (9 locales)
+  // 2. Localized Homepages (10 locales)
   for (const locale of LOCALES) {
     entries.push({
       loc: getAbsoluteUrl(`/${locale}/`),
@@ -74,7 +74,7 @@ export const GET: APIRoute = ({ site }) => {
     });
   }
 
-  // 3. Localized Blog Index Pages (9 locales)
+  // 3. Localized Blog Index Pages (10 locales)
   for (const locale of LOCALES) {
     const localePosts = posts.filter((p) => p.frontmatter.lang === locale);
     const localeDates = localePosts
@@ -102,7 +102,7 @@ export const GET: APIRoute = ({ site }) => {
     });
   }
 
-  // 4. Individual Blog Articles (36 articles across 9 locales)
+  // 4. Individual Blog Articles (25 articles across 10 locales (250 posts))
   for (const locale of LOCALES) {
     const localePosts = posts.filter((p) => p.frontmatter.lang === locale);
     for (const post of localePosts) {

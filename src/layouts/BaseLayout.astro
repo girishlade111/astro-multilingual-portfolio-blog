@@ -69,7 +69,11 @@ const defaultKeywords = [
   'TypeScript Solo Engineer',
 ].join(', ');
 
-const ogImageUrl = `${siteOrigin}/assets/aistudio/image_a475d35f.webp`;
+const articleSlugMatch = isArticle ? currentPath.match(/\/blog\/([^/]+)/) : null;
+const articleSlug = articleSlugMatch ? articleSlugMatch[1] : '';
+const ogImageUrl = isArticle && articleSlug
+  ? `${siteOrigin}/api/og/${locale}/${articleSlug}.svg`
+  : `${siteOrigin}/assets/aistudio/image_a475d35f.webp`;
 
 // Comprehensive multi-entity Linked Schema.org Graph
 const jsonLdGraph = {
@@ -289,6 +293,10 @@ const jsonLdGraph = {
     <link rel="alternate" type="text/markdown" href="/llms-full.txt" title="Full LLMs.txt" />
     <link rel="help" type="text/markdown" href="/llms.txt" />
     <link rel="agent-catalog" type="application/json" href="/ai-catalog.json" />
+
+    <!-- RSS 2.0 Feeds -->
+    <link rel="alternate" type="application/rss+xml" title="Girish Lade — Full RSS 2.0 Feed" href="/rss.xml" />
+    <link rel="alternate" type="application/rss+xml" title={`Girish Lade — ${meta.label} RSS Feed`} href={`/${locale}/rss.xml`} />
 
     <!-- Canonical & Multilingual hreflang Alternates for SEO -->
     <link rel="canonical" href={canonicalUrl} />

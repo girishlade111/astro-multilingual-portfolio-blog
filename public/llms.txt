@@ -6,7 +6,9 @@ Girish Lade is a UI/UX designer and full-stack developer based in Pune, India. H
 
 ## Developer & Portfolio Overview
 
-- [Portfolio Homepage](https://girish.ladestack.in/en/): Core portfolio presenting engineering background, interactive 3D lanyard, verified experience, and contact channels.
+- [Portfolio Homepage](https://girish.ladestack.in/en/):
+- [मराठी मुख्यपृष्ठ (Marathi Edition)](https://girish.ladestack.in/mr/): अस्सल मराठी भाषेतील तांत्रिक ब्लॉग आणि पोर्टफोलिओ.
+- [RSS 2.0 Feed](https://girish.ladestack.in/rss.xml): Syndication feed covering all articles. Core portfolio presenting engineering background, interactive 3D lanyard, verified experience, and contact channels.
 - [Technical Blog](https://girish.ladestack.in/en/blog/): Deep-dive technical articles on browser IDE architecture, client-side WebAssembly file processing, software philosophy, and developer journey.
 - [GitHub Profile](https://github.com/girishlade111): Open-source repositories, developer tools, and code experiments.
 - [LinkedIn Profile](https://www.linkedin.com/in/girish-lade/): Professional experience, education, and career milestones.
@@ -24,7 +26,7 @@ Girish Lade is a UI/UX designer and full-stack developer based in Pune, India. H
 - [GameHub](https://games.ladestack.in): 33 in-browser games engineered for sub-0.8s First Contentful Paint.
 - [LadeStack Drive](https://drive.ladestack.in): Zero-knowledge client-side encrypted file storage.
 
-## Technical Engineering Articles (25 Topics in 9 Languages)
+## Technical Engineering Articles (25 Topics in 10 Languages (including Marathi))
 
 - [Real-Time Verlet Physics and Sensor Fusion: Engineering an Interactive 3D Lanyard](https://girish.ladestack.in/en/blog/3d-web-physics-interactive-lanyard-threejs/): How we built the weightless 3D ID card with Verlet particle integration, Catmull-Rom band curves, and gyroscope gravity mapping in Three.js.
 - [Engineering the Bharat Land Measurement Converter for Regional Precision](https://girish.ladestack.in/en/blog/bharat-land-converter-indian-measurement-systems/): Demystifying Indias fragmented land measurement systems: building a deterministic, offline-capable unit converter across Guntha, Bigha, Ground, and Cent.
