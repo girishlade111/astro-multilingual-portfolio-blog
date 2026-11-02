@@ -51,6 +51,17 @@ const jsonLd =
         inLanguage: meta.htmlLang,
         datePublished: publishedTime || '2026-11-01',
         url: canonicalUrl,
+        author: {
+          '@type': 'Person',
+          name: 'Girish Balaso Lade',
+          url: 'https://girish.ladestack.in',
+          jobTitle: 'Founder & Full-Stack Engineer',
+        },
+        publisher: {
+          '@type': 'Organization',
+          name: 'LadeStack',
+          url: 'https://ladestack.in',
+        },
         mainEntityOfPage: {
           '@type': 'WebPage',
           '@id': canonicalUrl,
@@ -63,6 +74,11 @@ const jsonLd =
         description: pageDescription,
         inLanguage: meta.htmlLang,
         url: canonicalUrl,
+        author: {
+          '@type': 'Person',
+          name: 'Girish Balaso Lade',
+          url: 'https://girish.ladestack.in',
+        },
       };
 ---
 
