@@ -108,8 +108,8 @@ test('has 9 localized Markdown files for template-post across all 9 languages', 
 });
 
 test('integrates 3D Lanyard component with attached user profile image and responsive Hero background in Hero section', () => {
-  const profileImgPath = path.resolve(process.cwd(), 'public/assets/aistudio/profile_34f4dafb.webp');
-  assert.equal(fs.existsSync(profileImgPath), true, 'Attached profile image must exist in public/assets/aistudio');
+  const profileImgPath = path.resolve(process.cwd(), 'public/assets/profile.jpeg');
+  assert.equal(fs.existsSync(profileImgPath), true, 'Attached profile image must exist in public/assets');
 
   const heroBgImgPath = path.resolve(process.cwd(), 'public/assets/aistudio/image_a475d35f.webp');
   assert.equal(fs.existsSync(heroBgImgPath), true, 'Attached hero reference background image must exist in public/assets/aistudio');
@@ -132,7 +132,7 @@ test('integrates 3D Lanyard component with attached user profile image and respo
   assert.ok(indexContent.includes('id="lanyard-ssr-preview"'), 'Homepage must render instant 0ms SSR Lanyard preview');
   assert.ok(indexContent.includes('id="lanyard-preload-profile"'), 'Homepage must include high-priority preloaded profile img in SSR HTML');
   assert.ok(indexContent.includes('<Lanyard'), 'Homepage must render <Lanyard />');
-  assert.ok(indexContent.includes('/assets/aistudio/profile_34f4dafb.webp'), 'Homepage must pass attached profile image to Lanyard');
+  assert.ok(indexContent.includes('/assets/profile.jpeg'), 'Homepage must pass attached profile image to Lanyard');
   assert.ok(indexContent.includes('gyroscope={true}'), 'Homepage must enable gyroscope on Lanyard');
   assert.ok(indexContent.includes('<PortfolioSections'), 'Homepage must render <PortfolioSections /> below Hero');
 });
