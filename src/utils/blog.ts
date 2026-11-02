@@ -9,9 +9,25 @@ export interface BlogFrontmatter {
   category: string;
   slug: string;
   lang: Locale;
+  tags?: string[];
+  tool?: string;
+  featured?: boolean;
 }
 
 export type BlogMarkdownModule = MarkdownInstance<BlogFrontmatter>;
+
+export interface SearchableBlogPost {
+  slug: string;
+  title: string;
+  description: string;
+  pubDate: string;
+  readingTime: number;
+  category: string;
+  lang: Locale;
+  tags: string[];
+  tool?: string;
+  contentSnippet: string;
+}
 
 /**
  * Loads all Markdown files from /src/content/blog/<lang>/*.md
@@ -32,6 +48,39 @@ export function getBlogsByLocale(locale: Locale): BlogMarkdownModule[] {
         new Date(b.frontmatter.pubDate).getTime() -
         new Date(a.frontmatter.pubDate).getTime()
     );
+}
+
+export function getSearchableBlogsByLocale(locale: Locale): SearchableBlogPost[] {
+  return getBlogsByLocale(locale).map((post) => {
+    let raw = '';
+    try {
+      raw = typeof post.rawContent === 'function' ? post.rawContent() : '';
+    } catch {
+      raw = '';
+    }
+    // Clean markdown syntax for search indexing
+    const cleanSnippet = raw
+      .replace(/#+\s+/g, '')
+      .replace(/`{1,3}[^`]*`{1,3}/g, '')
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+      .replace(/[*_~]/g, '')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .slice(0, 500);
+
+    return {
+      slug: post.frontmatter.slug,
+      title: post.frontmatter.title,
+      description: post.frontmatter.description,
+      pubDate: post.frontmatter.pubDate,
+      readingTime: post.frontmatter.readingTime,
+      category: post.frontmatter.category,
+      lang: post.frontmatter.lang,
+      tags: post.frontmatter.tags || [],
+      tool: post.frontmatter.tool,
+      contentSnippet: cleanSnippet,
+    };
+  });
 }
 
 export function getBlogByLocaleAndSlug(

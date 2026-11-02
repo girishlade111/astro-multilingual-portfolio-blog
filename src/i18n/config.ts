@@ -116,6 +116,16 @@ export interface UIStrings {
     tableOfContents: string;
     copyLink: string;
     copiedLink: string;
+    searchPlaceholder: string;
+    searchAriaLabel: string;
+    clearSearch: string;
+    noResultsTitle: string;
+    noResultsHint: string;
+    filterAll: string;
+    paginationPrev: string;
+    paginationNext: string;
+    pageOf: string;
+    showingResults: string;
   };
   footer: {
     rights: string;
@@ -163,6 +173,16 @@ export const UI_TRANSLATIONS: Record<Locale, UIStrings> = {
       tableOfContents: 'On this page',
       copyLink: 'Copy link',
       copiedLink: 'Link copied',
+      searchPlaceholder: 'Search articles by title, topic, tool, or tags...',
+      searchAriaLabel: 'Search blog articles',
+      clearSearch: 'Clear search',
+      noResultsTitle: 'No articles found',
+      noResultsHint: 'Try adjusting your search terms or selecting another category filter.',
+      filterAll: 'All Topics',
+      paginationPrev: 'Previous',
+      paginationNext: 'Next',
+      pageOf: 'Page {current} of {total}',
+      showingResults: 'Showing {count} articles',
     },
     footer: {
       rights: 'All rights reserved.',
