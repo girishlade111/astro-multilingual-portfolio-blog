@@ -1,0 +1,43 @@
+# Girish Lade - UI/UX Designer & Full-Stack Developer
+
+> Portfolio, software engineering blog, and privacy-first client-side web utilities created by Girish Balaso Lade, founder of LadeStack.
+
+Girish Lade is a UI/UX designer and full-stack developer based in Pune, India. Holding a Bachelor's degree in Mechanical Engineering from SVERI's College of Engineering, Pandharpur, he transitioned into software engineering, specializing in browser-first web applications, zero-friction developer tooling, and client-side computing.
+
+## Developer & Portfolio Overview
+
+- [Portfolio Homepage](https://ladestack.in/en/): Core portfolio presenting engineering background, interactive 3D lanyard, verified experience, and contact channels.
+- [Technical Blog](https://ladestack.in/en/blog/): Deep-dive technical articles on browser IDE architecture, client-side WebAssembly file processing, software philosophy, and developer journey.
+- [GitHub Profile](https://github.com/girishlade111): Open-source repositories, developer tools, and code experiments.
+- [LinkedIn Profile](https://www.linkedin.com/in/girish-lade/): Professional experience, education, and career milestones.
+
+## Featured Products & Applications
+
+- [LadeStack](https://ladestack.in/): Fast, private, zero-onboarding utility ecosystem where compute executes entirely in the user's browser.
+- [GB Coder](https://gbcoder.ladestack.in): In-browser client-side integrated development environment (IDE) powered by WebContainers, Monaco editor, and live execution runtimes.
+- [LS PDF](https://lspdf.ladestack.in): In-browser, zero-upload PDF manipulation tool suite providing local PDF merging, splitting, rotation, and compression with complete user privacy.
+
+## Technical Articles
+
+- [Why I Built LadeStack: The Case for Browser-First, Zero-Setup Developer Tools](https://ladestack.in/en/blog/why-i-built-ladestack-browser-first-tools/): Product philosophy advocating for client-side processing over forced account walls and mystery cloud uploads.
+- [Building an In-Browser IDE with Monaco Editor and WebContainers](https://ladestack.in/en/blog/building-in-browser-ide-monaco-webcontainers/): Architectural breakdown of GB Coder, Node.js runtimes in browser sandboxes, and virtual file systems.
+- [Privacy-First Local File Processing in the Modern Web](https://ladestack.in/en/blog/privacy-first-local-file-processing-web/): How WebAssembly, Web Workers, and modern browser APIs enable secure, local document processing.
+- [From Mechanical Engineering to Full-Stack Developer: Lessons from Self-Directed Learning](https://ladestack.in/en/blog/from-mechanical-engineering-to-fullstack-dev/): Non-traditional journey from mechanical CAD/finite element analysis to production web architecture.
+
+## Multilingual Support
+
+The website and all technical articles are fully localized across 9 languages:
+- English (en): `https://ladestack.in/en/`
+- Japanese (jp / ja): `https://ladestack.in/jp/`
+- Korean (ko): `https://ladestack.in/ko/`
+- Chinese (zh / zh-CN): `https://ladestack.in/zh/`
+- Russian (ru): `https://ladestack.in/ru/`
+- Portuguese (pt / pt-BR): `https://ladestack.in/pt/`
+- Turkish (tr): `https://ladestack.in/tr/`
+- French (fr): `https://ladestack.in/fr/`
+- Spanish (es): `https://ladestack.in/es/`
+
+## Optional
+
+- [Full Site & Blog Content (llms-full.txt)](https://ladestack.in/llms-full.txt): Complete uncompressed textual content of all portfolio sections and blog publications formatted for LLM context ingestion.
+- [XML Sitemap](https://ladestack.in/sitemap.xml): Complete machine-readable XML sitemap indexing all 55 canonical URLs and bidirectional hreflang alternates.
