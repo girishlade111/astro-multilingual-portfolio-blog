@@ -128,7 +128,7 @@ export const GET: APIRoute = ({ site }) => {
       entries.push({
         loc: getAbsoluteUrl(`/${locale}/blog/${slug}/`),
         lastmod: post.frontmatter.pubDate || latestDate,
-        changefreq: 'monthly',
+        changefreq: 'weekly',
         priority: '0.7',
         alternates,
       });
