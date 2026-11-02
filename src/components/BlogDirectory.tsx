@@ -320,3 +320,4 @@ export default function BlogDirectory({ posts, strings, locale }: BlogDirectoryP
     </div>
   );
 }
+
