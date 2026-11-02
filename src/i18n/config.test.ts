@@ -96,14 +96,14 @@ test('provides complete translations for every language', () => {
   }
 });
 
-test('has 9 localized Markdown files for template-post across all 9 languages', () => {
+test('has 9 localized Markdown files for blog posts across all 9 languages', () => {
   for (const locale of LOCALES) {
-    const filePath = path.resolve(process.cwd(), 'src/content/blog', locale, 'template-post.md');
+    const filePath = path.resolve(process.cwd(), 'src/content/blog', locale, 'why-i-built-ladestack-browser-first-tools.md');
     assert.equal(fs.existsSync(filePath), true, `Missing markdown file for locale: ${locale}`);
     const content = fs.readFileSync(filePath, 'utf-8');
-    assert.ok(content.includes('slug: "template-post"'), `Missing slug in ${locale}/template-post.md`);
-    assert.ok(content.includes(`lang: "${locale}"`), `Missing lang in ${locale}/template-post.md`);
-    assert.ok(content.includes('## 1.'), `Missing Markdown H2 section in ${locale}/template-post.md`);
+    assert.ok(content.includes('slug: "why-i-built-ladestack-browser-first-tools"'), `Missing slug in ${locale}/why-i-built-ladestack-browser-first-tools.md`);
+    assert.ok(content.includes(`lang: "${locale}"`), `Missing lang in ${locale}/why-i-built-ladestack-browser-first-tools.md`);
+    assert.ok(content.includes('## '), `Missing Markdown H2 section in ${locale}/why-i-built-ladestack-browser-first-tools.md`);
   }
 });
 
