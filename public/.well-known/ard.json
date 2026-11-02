@@ -8,7 +8,7 @@
     {
       "identifier": "urn:air:ladestack.in:resource:llms-txt",
       "displayName": "LLMs.txt Developer Overview",
-      "type": "text/markdown",
+      "type": "text/markdown; profile=\"urn:air:agent-skills\"",
       "url": "https://ladestack.in/llms.txt",
       "description": "Developer overview, skills, and product index for AI agents.",
       "representativeQueries": [
@@ -21,7 +21,7 @@
     {
       "identifier": "urn:air:ladestack.in:resource:llms-full-txt",
       "displayName": "Full Developer Knowledge Base",
-      "type": "text/markdown",
+      "type": "text/markdown; profile=\"urn:air:agent-skills\"",
       "url": "https://ladestack.in/llms-full.txt",
       "description": "Comprehensive knowledge base and technical writings of Girish Lade.",
       "representativeQueries": [
@@ -32,11 +32,11 @@
       "tags": ["knowledge-base", "architecture", "articles"]
     },
     {
-      "identifier": "urn:air:ladestack.in:website:portfolio",
-      "displayName": "Girish Lade Portfolio",
-      "type": "text/html",
-      "url": "https://ladestack.in/en/",
-      "description": "Official interactive multilingual portfolio of Girish Lade.",
+      "identifier": "urn:air:ladestack.in:card:portfolio",
+      "displayName": "Girish Lade Developer Agent Card",
+      "type": "application/agent-card+json",
+      "url": "https://ladestack.in/ai-catalog.json",
+      "description": "Official interactive multilingual portfolio and developer tools by Girish Lade.",
       "representativeQueries": [
         "Girish Lade contact",
         "hire Girish Lade",
@@ -46,4 +46,3 @@
     }
   ]
 }
-
