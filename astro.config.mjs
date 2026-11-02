@@ -13,7 +13,7 @@ export default defineConfig({
   integrations: [react()],
   i18n: {
     defaultLocale: 'en',
-    locales: ['en', 'jp', 'ko', 'zh', 'ru', 'pt', 'tr', 'fr', 'es'],
+    locales: ['en', 'jp', 'ko', 'zh', 'ru', 'pt', 'tr', 'fr', 'es', 'mr'],
     routing: {
       prefixDefaultLocale: true,
       redirectToDefaultLocale: false,
