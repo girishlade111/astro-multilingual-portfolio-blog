@@ -20,15 +20,9 @@ const { imageUrl = '/assets/aistudio/image_a475d35f.webp' } = Astro.props;
 >
   <!-- Desktop & Tablet Botanical Frame (sm and up): Full 4-side frame with seamless center studio-paper blend -->
   <div class="hidden sm:block absolute inset-0">
-    <img
-      src={imageUrl}
-      alt=""
-      width="800"
-      height="533"
-      fetchpriority="high"
-      loading="eager"
-      decoding="async"
-      class="absolute inset-0 w-full h-full object-cover object-center scale-[1.01] pointer-events-none select-none"
+    <div
+      class="absolute inset-0 bg-cover bg-center bg-no-repeat scale-[1.01]"
+      style={`background-image: url('${imageUrl}');`}
     />
     <!-- Seamless center radial blend that removes the stock watermark while preserving all outer flowers, eucalyptus, rosemary & lace -->
     <div
