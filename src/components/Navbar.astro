@@ -1,5 +1,6 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n';
+import CommandPalette from './CommandPalette';
 import {
   LOCALES,
   LOCALE_METADATA,
@@ -63,8 +64,11 @@ const blogUrl = getRelativeLocaleUrl(locale, 'blog');
       </a>
     </nav>
 
-    <!-- Zone 3: Modern Accessible Language Dropdown (Untitled UI / React Aria pattern) -->
-    <div class="relative shrink-0" id="language-dropdown-root">
+    <!-- Zone 3: Search Command Palette & Modern Accessible Language Dropdown -->
+    <div class="flex items-center gap-2 shrink-0">
+      <CommandPalette client:idle locale={locale} currentPath={currentPath} />
+
+      <div class="relative shrink-0" id="language-dropdown-root">
       <button
         type="button"
         id="language-dropdown-trigger"
