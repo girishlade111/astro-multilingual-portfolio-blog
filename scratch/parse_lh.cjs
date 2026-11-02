@@ -25,3 +25,4 @@ for (const ref of report.categories.performance.auditRefs) {
     }
   }
 }
+

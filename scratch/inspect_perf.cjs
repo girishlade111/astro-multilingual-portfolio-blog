@@ -28,3 +28,4 @@ console.log('\n=== Unused CSS / JS ===');
     console.log(k, audits[k].displayValue, audits[k].details.items.slice(0, 5));
   }
 });
+
