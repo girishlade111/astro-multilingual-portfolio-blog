@@ -39,6 +39,13 @@ const blogIndexUrl = getRelativeLocaleUrl(locale, 'blog');
   pageType="article"
   publishedTime={post.frontmatter.pubDate}
 >
+  <!-- Reading Progress Bar (Scroll Tracker) -->
+  <div
+    id="reading-progress-bar"
+    aria-hidden="true"
+    class="fixed top-0 left-0 right-0 h-[2.5px] bg-zinc-950 z-50 origin-left scale-x-0 transition-transform duration-75"
+  ></div>
+
   <div class="py-8 sm:py-16">
     <!-- Back to Blog Link -->
     <div class="mb-6 sm:mb-8">
@@ -151,20 +158,92 @@ const blogIndexUrl = getRelativeLocaleUrl(locale, 'blog');
 
 <script is:inline>
   (function () {
+    // 1. Article Link Share Copy
     const copyBtn = document.getElementById('copy-article-link');
     const copyText = document.getElementById('copy-article-link-text');
-    if (!copyBtn || !copyText) return;
+    if (copyBtn && copyText) {
+      copyBtn.addEventListener('click', async function () {
+        const copiedLabel = copyBtn.getAttribute('data-copied-label') || 'Copied';
+        const defaultLabel = copyBtn.getAttribute('data-copy-label') || 'Copy link';
+        try {
+          await navigator.clipboard.writeText(window.location.href);
+        } catch (_) {}
+        copyText.textContent = copiedLabel;
+        setTimeout(function () {
+          copyText.textContent = defaultLabel;
+        }, 2000);
+      });
+    }
 
-    copyBtn.addEventListener('click', async function () {
-      const copiedLabel = copyBtn.getAttribute('data-copied-label') || 'Copied';
-      const defaultLabel = copyBtn.getAttribute('data-copy-label') || 'Copy link';
-      try {
-        await navigator.clipboard.writeText(window.location.href);
-      } catch (_) {}
-      copyText.textContent = copiedLabel;
-      setTimeout(function () {
-        copyText.textContent = defaultLabel;
-      }, 2000);
+    // 2. Reading Progress Calculation
+    const progressBar = document.getElementById('reading-progress-bar');
+    const articleEl = document.querySelector('article');
+    if (progressBar && articleEl) {
+      let ticking = false;
+      function updateProgress() {
+        const rect = articleEl.getBoundingClientRect();
+        const totalHeight = rect.height - window.innerHeight;
+        if (totalHeight <= 0) {
+          progressBar.style.transform = 'scaleX(1)';
+          return;
+        }
+        const scrolled = Math.max(0, -rect.top);
+        const progress = Math.min(1, Math.max(0, scrolled / totalHeight));
+        progressBar.style.transform = 'scaleX(' + progress + ')';
+        ticking = false;
+      }
+
+      window.addEventListener('scroll', function () {
+        if (!ticking) {
+          window.requestAnimationFrame(updateProgress);
+          ticking = true;
+        }
+      }, { passive: true });
+      updateProgress();
+    }
+
+    // 3. Code Block Copy Button & Language Badge Enhancer
+    const codeBlocks = document.querySelectorAll('.markdown-prose pre');
+    codeBlocks.forEach(function (pre) {
+      if (pre.closest('.code-block-wrapper')) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'code-block-wrapper relative group my-6 rounded-xl overflow-hidden border border-zinc-800 bg-[#121214] text-zinc-100 shadow-sm';
+
+      const header = document.createElement('div');
+      header.className = 'flex items-center justify-between px-4 py-2 border-b border-zinc-800/80 bg-zinc-900/90 text-xs text-zinc-400 font-mono select-none';
+
+      const codeEl = pre.querySelector('code');
+      const langClass = (codeEl?.className || pre.className || '').match(/language-([a-z0-9_-]+)/i);
+      const lang = langClass ? langClass[1].toUpperCase() : 'CODE';
+
+      const langBadge = document.createElement('span');
+      langBadge.className = 'font-semibold tracking-wider text-[11px] text-zinc-400';
+      langBadge.textContent = lang;
+
+      const copyBtn = document.createElement('button');
+      copyBtn.type = 'button';
+      copyBtn.className = 'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-medium text-zinc-300 hover:text-white bg-zinc-800 hover:bg-zinc-700 transition-colors cursor-pointer';
+      copyBtn.innerHTML = '<svg class="w-3.5 h-3.5 text-zinc-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect width="12" height="12" x="9" y="9" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span>';
+
+      copyBtn.addEventListener('click', async function () {
+        const text = codeEl ? codeEl.innerText : pre.innerText;
+        try {
+          await navigator.clipboard.writeText(text);
+          copyBtn.innerHTML = '<svg class="w-3.5 h-3.5 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span class="text-emerald-400 font-medium">Copied!</span>';
+          setTimeout(function () {
+            copyBtn.innerHTML = '<svg class="w-3.5 h-3.5 text-zinc-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect width="12" height="12" x="9" y="9" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span>';
+          }, 2000);
+        } catch (_) {}
+      });
+
+      header.appendChild(langBadge);
+      header.appendChild(copyBtn);
+
+      pre.parentNode.insertBefore(wrapper, pre);
+      wrapper.appendChild(header);
+      wrapper.appendChild(pre);
+      pre.classList.add('p-4', 'overflow-x-auto', 'text-sm', 'leading-relaxed', 'm-0', 'bg-transparent');
     });
   })();
 </script>
