@@ -155,3 +155,4 @@ ${post.content.trim()}
 });
 
 console.log('Batch 2 (Articles 6-10 in Marathi) generated successfully!');
+

@@ -365,3 +365,4 @@ export default function CommandPalette({ locale, currentPath }: CommandPalettePr
     </>
   );
 }
+

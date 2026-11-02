@@ -185,3 +185,4 @@ port = port.replace(/  es: \{[\s\S]*?    \},(\r?\n)  \},(\r?\n)\};/, (match, p1,
 
 fs.writeFileSync('src/data/portfolioContent.ts', port, 'utf8');
 console.log('src/data/portfolioContent.ts updated with Marathi overrides!');
+
