@@ -6,8 +6,8 @@ Girish Lade is a UI/UX designer and full-stack developer based in Pune, India. H
 
 ## Developer & Portfolio Overview
 
-- [Portfolio Homepage](https://ladestack.in/en/): Core portfolio presenting engineering background, interactive 3D lanyard, verified experience, and contact channels.
-- [Technical Blog](https://ladestack.in/en/blog/): Deep-dive technical articles on browser IDE architecture, client-side WebAssembly file processing, software philosophy, and developer journey.
+- [Portfolio Homepage](https://girish.ladestack.in/en/): Core portfolio presenting engineering background, interactive 3D lanyard, verified experience, and contact channels.
+- [Technical Blog](https://girish.ladestack.in/en/blog/): Deep-dive technical articles on browser IDE architecture, client-side WebAssembly file processing, software philosophy, and developer journey.
 - [GitHub Profile](https://github.com/girishlade111): Open-source repositories, developer tools, and code experiments.
 - [LinkedIn Profile](https://www.linkedin.com/in/girish-lade/): Professional experience, education, and career milestones.
 
@@ -19,23 +19,23 @@ Girish Lade is a UI/UX designer and full-stack developer based in Pune, India. H
 
 ## Technical Articles
 
-- [Why I Built LadeStack: The Case for Browser-First, Zero-Setup Developer Tools](https://ladestack.in/en/blog/why-i-built-ladestack-browser-first-tools/): Product philosophy advocating for client-side processing over forced account walls and mystery cloud uploads.
-- [Building an In-Browser IDE with Monaco Editor and WebContainers](https://ladestack.in/en/blog/building-in-browser-ide-monaco-webcontainers/): Architectural breakdown of GB Coder, Node.js runtimes in browser sandboxes, and virtual file systems.
-- [Privacy-First Local File Processing in the Modern Web](https://ladestack.in/en/blog/privacy-first-local-file-processing-web/): How WebAssembly, Web Workers, and modern browser APIs enable secure, local document processing.
-- [From Mechanical Engineering to Full-Stack Developer: Lessons from Self-Directed Learning](https://ladestack.in/en/blog/from-mechanical-engineering-to-fullstack-dev/): Non-traditional journey from mechanical CAD/finite element analysis to production web architecture.
+- [Why I Built LadeStack: The Case for Browser-First, Zero-Setup Developer Tools](https://girish.ladestack.in/en/blog/why-i-built-ladestack-browser-first-tools/): Product philosophy advocating for client-side processing over forced account walls and mystery cloud uploads.
+- [Building an In-Browser IDE with Monaco Editor and WebContainers](https://girish.ladestack.in/en/blog/building-in-browser-ide-monaco-webcontainers/): Architectural breakdown of GB Coder, Node.js runtimes in browser sandboxes, and virtual file systems.
+- [Privacy-First Local File Processing in the Modern Web](https://girish.ladestack.in/en/blog/privacy-first-local-file-processing-web/): How WebAssembly, Web Workers, and modern browser APIs enable secure, local document processing.
+- [From Mechanical Engineering to Full-Stack Developer: Lessons from Self-Directed Learning](https://girish.ladestack.in/en/blog/from-mechanical-engineering-to-fullstack-dev/): Non-traditional journey from mechanical CAD/finite element analysis to production web architecture.
 
 ## Multilingual Support
 
 The website and all technical articles are fully localized across 9 languages:
-- English (en): `https://ladestack.in/en/`
-- Japanese (jp / ja): `https://ladestack.in/jp/`
-- Korean (ko): `https://ladestack.in/ko/`
-- Chinese (zh / zh-CN): `https://ladestack.in/zh/`
-- Russian (ru): `https://ladestack.in/ru/`
-- Portuguese (pt / pt-BR): `https://ladestack.in/pt/`
-- Turkish (tr): `https://ladestack.in/tr/`
-- French (fr): `https://ladestack.in/fr/`
-- Spanish (es): `https://ladestack.in/es/`
+- English (en): `https://girish.ladestack.in/en/`
+- Japanese (jp / ja): `https://girish.ladestack.in/jp/`
+- Korean (ko): `https://girish.ladestack.in/ko/`
+- Chinese (zh / zh-CN): `https://girish.ladestack.in/zh/`
+- Russian (ru): `https://girish.ladestack.in/ru/`
+- Portuguese (pt / pt-BR): `https://girish.ladestack.in/pt/`
+- Turkish (tr): `https://girish.ladestack.in/tr/`
+- French (fr): `https://girish.ladestack.in/fr/`
+- Spanish (es): `https://girish.ladestack.in/es/`
 
 ## Optional
 
