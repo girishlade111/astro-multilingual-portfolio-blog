@@ -99,3 +99,4 @@ Un editor de código se utiliza durante horas seguidas, por lo que cualquier peq
 ## Conclusión
 
 GB Coder demuestra que los navegadores web modernos han superado con creces sus límites iniciales. Al unir Monaco Editor, WebAssembly y mecanismos de persistencia local, podemos ofrecer a los desarrolladores herramientas con una potencia creativa inmensa sin atarlos a instalaciones complejas ni a suscripciones mensuales.
+

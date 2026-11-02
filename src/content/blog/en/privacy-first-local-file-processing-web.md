@@ -88,3 +88,4 @@ Architecting web software for client-side execution creates a win-win scenario t
 - **Offline Capability**: Because the logic resides in cached JavaScript bundles, tools can be loaded once and used on the go, even with an intermittent or disconnected internet connection.
 
 Privacy should not be an expensive premium feature sold as an enterprise add-on. By building software that respects the computational power of the browser, we can build tools that are faster, cheaper, and fundamentally safer for everyone.
+

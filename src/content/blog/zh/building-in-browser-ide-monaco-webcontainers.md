@@ -99,3 +99,4 @@ interface VirtualFile {
 ## 结语
 
 GB Coder 充分证明了现代浏览器早已具备突破往日天花板的硬核实力。通过将 Monaco Editor、WebAssembly 与本地存储技术有机融为一体，我们完全有能力赋予开发者惊人的创作自由，而无需让他们忍受繁重的环境配置与昂贵的按月订阅。
+

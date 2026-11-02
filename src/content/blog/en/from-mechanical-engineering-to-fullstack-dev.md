@@ -61,3 +61,4 @@ Many people view engineering and UI/UX design as opposing disciplines: one is an
 Good design is simply engineering that accounts for human psychology and perceptual ergonomics. Just as a physical lathe needs well-placed safety levers, intuitive dial markings, and comfortable grip angles, a digital application needs clear typographic hierarchy, keyboard accessibility, sensible defaults, and unambiguous error states.
 
 Transitioning from mechanical workshops in Pandharpur to shipping full-stack products from Pune has taught me that the medium may change, but the core craft remains identical: understand the system, respect the physics of your platform, eliminate unnecessary friction, and build tools that people can rely on.
+

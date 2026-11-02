@@ -65,3 +65,4 @@ Building browser-first software is not without challenges. Browsers impose stric
 To overcome this, I rely heavily on background **Web Workers** to prevent UI freezing, chunked array buffers to avoid running out of memory, and progressive streaming when handling larger files.
 
 Building LadeStack independently has taught me that the most valuable software is often the quietest: tools that load instantly, do the job reliably, respect your data, and let you get on with your day. That is the standard I will continue to build toward.
+

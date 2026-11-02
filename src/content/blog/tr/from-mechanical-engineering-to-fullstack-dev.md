@@ -61,3 +61,4 @@ Birçok insan mühendislik ile UI/UX tasarımını zıt kutuplar olarak görür:
 İyi tasarım, insan algısına ve psikolojisine göre uyarlanmış mühendislikten başka bir şey değildir. Bir torna tezgahında acil durdurma kolunun kolay erişilir bir yerde olması, göstergelerin parlamaması ve kolların ergonomik olması gerektiği gibi; dijital bir arayüzde de hiyerarşik yazı tipleri, klavye erişilebilirliği, mantıklı varsayılan ayarlar ve net hata mesajları bulunmalıdır.
 
 Pandharpur'daki atölye tezgâhlarından Pune'da bağımsız dijital ürünler geliştirmeye uzanan bu yolculuk bana şunu öğretti: İşlenen malzeme değişebilir ama zanaatın özü daima aynıdır. Sistemi derinlemesine kavramak, platformun kurallarına saygı duymak, gereksiz zorlukları ayıklamak ve insanların her koşulda güvenebileceği sağlam araçlar üretmek.
+

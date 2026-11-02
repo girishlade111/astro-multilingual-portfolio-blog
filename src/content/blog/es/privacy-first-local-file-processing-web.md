@@ -88,3 +88,4 @@ Diseñar aplicaciones web para que se ejecuten en el cliente crea un beneficio m
 - **Funcionamiento sin conexión**: Dado que el código se almacena en la caché del navegador, una vez cargada la página puedes utilizar las herramientas incluso sin conexión a internet.
 
 La privacidad no debería ser una función de pago reservada a planes corporativos. Aprovechando la potencia real de los navegadores, podemos construir utilidades que son más rápidas, más baratas y mucho más seguras para todos.
+

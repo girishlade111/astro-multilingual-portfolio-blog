@@ -65,3 +65,4 @@ Executar tarefas complexas no navegador exige atenção redobrada. As abas do na
 Para solucionar isso, utilizo **Web Workers** em segundo plano para não congelar a interface, manipulação binária com `Uint8Array` para evitar alocações excessivas e processamento de dados em partes fracionadas.
 
 Construir o LadeStack de forma independente me mostrou que o melhor software é aquele que funciona rápido, faz exatamente o que promete, respeita seus dados e sai do seu caminho. Esse é o compromisso que continuarei mantendo.
+

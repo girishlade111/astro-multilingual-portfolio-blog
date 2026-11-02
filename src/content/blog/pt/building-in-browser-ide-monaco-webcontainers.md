@@ -99,3 +99,4 @@ Um ambiente de código é utilizado durante horas a fio. Qualquer descuido visua
 ## Conclusão
 
 O GB Coder prova que os navegadores modernos superaram suas antigas amarras. Ao unir o Monaco Editor, WebAssembly e persistência local, podemos colocar nas mãos dos desenvolvedores uma ferramenta criativa poderosa, sem instalações complexas e sem custos mensais desnecessários.
+

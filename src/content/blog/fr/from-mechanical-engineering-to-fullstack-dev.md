@@ -61,3 +61,4 @@ On oppose souvent l'ingénierie et le design d'interface : la première serait r
 Un bon design n'est que de l'ingénierie pensée à l'échelle des sens humains. De même qu'un tour mécanique exige des leviers de sécurité accessibles, des graduations visibles et des poignées ergonomiques, une application numérique exige une hiérarchie typographique limpide, une prise en charge exemplaire du clavier, des options par défaut équilibrées et des messages d'erreur sans ambiguïté.
 
 Partir des ateliers de Pandharpur pour concevoir des produits web à Pune m'a confirmé une certitude : la matière change, mais l'exigence reste la même. Il faut comprendre son environnement, respecter les lois de sa plateforme, éliminer les frictions inutiles et fabriquer des outils sur lesquels les gens peuvent compter sans hésiter.
+

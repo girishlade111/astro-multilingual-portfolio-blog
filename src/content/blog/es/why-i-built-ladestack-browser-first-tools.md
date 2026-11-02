@@ -65,3 +65,4 @@ Construir aplicaciones centradas en el navegador exige resolver problemas reales
 Para resolver esto, utilizo **Web Workers** en segundo plano para no congelar la interfaz, trabajo con búferes de memoria en fragmentos (`Uint8Array`) y aplico flujos de datos progresivos.
 
 Desarrollar LadeStack de forma independiente me ha confirmado que el mejor software es aquel que no estorba: herramientas que cargan rápido, hacen bien su trabajo, respetan tus datos y te permiten seguir con tu día. Ese es el estándar con el que sigo construyendo.
+

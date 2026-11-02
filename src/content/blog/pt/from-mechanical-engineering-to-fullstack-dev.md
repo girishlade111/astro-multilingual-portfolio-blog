@@ -61,3 +61,4 @@ Muitos enxergam a engenharia e o design UI/UX como lados opostos: um racional e 
 O bom design nada mais é do que engenharia adaptada aos sentidos e à psicologia humana. Assim como um torno mecânico exige alavancas de parada bem posicionadas, manípulos firmes e mostradores nítidos, um software precisa de hierarquia tipográfica, suporte a teclado, valores padrão conscientes e mensagens de erro diretas.
 
 Sair das oficinas em Pandharpur para entregar produtos digitais a partir de Pune me provou que a matéria-prima muda, mas o compromisso permanece o mesmo: entender o sistema, respeitar os limites da plataforma, remover atritos e construir ferramentas em que as pessoas possam confiar plenamente.
+

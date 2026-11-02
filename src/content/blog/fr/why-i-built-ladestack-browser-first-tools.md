@@ -65,3 +65,4 @@ Développer des applications basées sur le navigateur n'est pas sans contrainte
 Pour surmonter ces écueils, j'isole les calculs lourds dans des **Web Workers** pour garantir une interface fluide à 60 images par seconde, j'utilise des flux fractionnés de données binaires (`Uint8Array`) et j'optimise minutieusement la libération de la mémoire.
 
 Bâtir LadeStack en tant que développeur indépendant m'a appris une chose essentielle : les logiciels les plus précieux sont ceux qui se font oublier, font leur travail avec rigueur, respectent vos données et vous rendent immédiatement la main. C'est exactement cette vision que je poursuis au quotidien.
+

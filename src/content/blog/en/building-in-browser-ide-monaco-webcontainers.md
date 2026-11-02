@@ -99,3 +99,4 @@ A development tool is used for hours at a time, meaning small UI annoyances quic
 ## The Bigger Picture
 
 GB Coder is proof that modern web browsers have outgrown their original limitations. With the combination of Monaco, WebAssembly, and local storage primitives, we can build tools that give developers immense creative power without the burden of complex installations or expensive monthly subscriptions.
+

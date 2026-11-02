@@ -88,3 +88,4 @@ Penser les logiciels web pour une exécution locale crée un équilibre vertueux
 - **Utilisation hors ligne** : Les fichiers de code étant mis en cache dans le navigateur, les outils restent utilisables en déplacement, même sans connexion Internet.
 
 La protection de la vie privée ne devrait pas être une option de luxe vendue sous forme d'abonnement pour grandes entreprises. En s'appuyant sur la puissance réelle des navigateurs web, nous pouvons concevoir des utilitaires plus véloces, plus économiques et infiniment plus sûrs pour tout le monde.
+

@@ -65,3 +65,4 @@ Hesaplamaları tarayıcı içerisine taşımak kolay bir süreç değildir. Tara
 Bu sorunları aşmak için arayüz akışını kilitlemeyen **Web Workers** mimarisinden, bellek sızıntılarını önleyen `Uint8Array` dizilerinden ve parçalı veri akışlarından yoğun olarak yararlanıyorum.
 
 LadeStack'i tek başıma inşa ederken öğrendiğim en değerli kural şudur: En iyi yazılım, varlığını hissettirmeden çalışan, hızlı açılan, verilerinize saygı duyan ve işiniz bittiğinde kenara çekilen yazılımdır. Geliştirmelerimi her zaman bu çizgide sürdüreceğim.
+

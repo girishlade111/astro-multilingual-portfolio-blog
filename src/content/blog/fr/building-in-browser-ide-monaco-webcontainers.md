@@ -99,3 +99,4 @@ Un outil de développement est utilisé durant des heures entières. La moindre 
 ## Conclusion
 
 GB Coder est la preuve concrète que les navigateurs ont franchi un cap décisif. En conjuguant Monaco Editor, WebAssembly et le stockage local, nous pouvons mettre entre les mains des développeurs une puissance créative considérable, sans contraintes de configuration locale ni abonnements mensuels superflus.
+

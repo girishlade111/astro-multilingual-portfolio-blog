@@ -61,3 +61,4 @@ A menudo se piensa que la ingeniería y el diseño UI/UX son polos opuestos: uno
 El buen diseño no es más que ingeniería adaptada a la psicología y a la percepción humana. Del mismo modo que un torno necesita palancas seguras al alcance de la mano, marcas legibles y mandos con buen tacto, una aplicación digital necesita jerarquía tipográfica, soporte completo para teclado, valores por defecto sensatos y mensajes de error sin ambigüedades.
 
 Pasar de los talleres de mecanizado en Pandharpur a publicar software desde Pune me enseñó que la materia cambia, pero el oficio es el mismo: comprender el sistema, respetar los límites de la plataforma, eliminar fricciones y construir herramientas en las que la gente pueda confiar.
+
