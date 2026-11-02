@@ -71,7 +71,7 @@ const blogUrl = getRelativeLocaleUrl(locale, 'blog');
         aria-haspopup="listbox"
         aria-expanded="false"
         aria-controls="language-dropdown-popover"
-        aria-label={t.nav.languageLabel}
+        aria-label={`${t.nav.languageLabel} (${locale.toUpperCase()})`}
         class="group inline-flex items-center gap-1.5 h-8 px-2.5 rounded-lg border border-zinc-200/90 bg-white hover:border-zinc-300 hover:bg-zinc-50/80 text-zinc-700 text-xs font-medium shadow-2xs transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-900 focus-visible:ring-offset-1 cursor-pointer"
       >
         <!-- Translation Icon -->
