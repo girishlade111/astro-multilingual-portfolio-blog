@@ -1167,9 +1167,9 @@ const Lanyard = ({
         bodyMesh.geometry = geometry.body;
         frontMesh.geometry = geometry.face;
         backMesh.geometry = geometry.face.clone();
-        frontMesh.position.z = THICKNESS / 2 + BEVEL + 0.0006;
+        frontMesh.position.z = THICKNESS / 2 + BEVEL + 0.0015;
         backMesh.rotation.y = Math.PI;
-        backMesh.position.z = -(THICKNESS / 2 + BEVEL + 0.0006);
+        backMesh.position.z = -(THICKNESS / 2 + BEVEL + 0.0015);
         ring.position.set(0, layout.ringY, 0);
         applied.heroFramingKey = '';
         applied.fullFramingKey = '';
