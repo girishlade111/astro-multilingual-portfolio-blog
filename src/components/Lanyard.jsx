@@ -27,7 +27,7 @@ const CLAMP_BODY = 0.15;
 const FACE_WIDTH = 512;
 
 const FINISHES = {
-  glossy: { roughness: 0.45, metalness: 0, clearcoat: 0.4, clearcoatRoughness: 0.35, foil: 0, anisotropy: 0 },
+  glossy: { roughness: 0.55, metalness: 0, clearcoat: 0, clearcoatRoughness: 0.6, foil: 0, anisotropy: 0 },
   matte: { roughness: 0.85, metalness: 0, clearcoat: 0, clearcoatRoughness: 0.6, foil: 0, anisotropy: 0 },
   holographic: { roughness: 0.3, metalness: 0, clearcoat: 1, clearcoatRoughness: 0.04, foil: 1, anisotropy: 0 },
   metallic: { roughness: 0.36, metalness: 0.75, clearcoat: 0.5, clearcoatRoughness: 0.18, foil: 0, anisotropy: 0.7 }
@@ -375,13 +375,13 @@ const buildEnvironment = renderer => {
     mesh.rotateZ(rotation);
     scene.add(mesh);
   };
-  panel(2.6, [0, 4.5, 8], [9, 4]);
-  panel(4.5, [-5.5, 0.5, 7], [0.9, 14]);
-  panel(3.5, [5, -0.5, 8], [0.6, 14]);
-  panel(1.6, [0, 0, 9], [12, 12]);
-  panel(1.4, [0, 6, -6], [12, 4]);
-  panel(0.5, [0, -7, 1], [16, 6]);
-  panel(0.9, [8, 0, -2], [4, 10]);
+  panel(2.2, [0, 4.5, 8], [9, 5]);
+  panel(1.8, [-4.5, 1, 7], [6, 10]);
+  panel(1.6, [4.5, 1, 8], [6, 10]);
+  panel(1.4, [0, 0, 9], [12, 12]);
+  panel(1.2, [0, 6, -6], [12, 6]);
+  panel(0.6, [0, -7, 1], [16, 6]);
+  panel(0.8, [8, 0, -2], [6, 10]);
   const pmrem = new THREE.PMREMGenerator(renderer);
   const target = pmrem.fromScene(scene, 0.035);
   pmrem.dispose();
