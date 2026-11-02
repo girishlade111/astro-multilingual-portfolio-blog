@@ -296,3 +296,4 @@ ${data.content.trim()}
   fs.writeFileSync(filePath, fileContent, 'utf8');
   console.log(`Wrote ${lang}/${slug}.md`);
 }
+
