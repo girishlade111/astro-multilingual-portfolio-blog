@@ -558,10 +558,7 @@ const createSimulation = () => {
       gy: 0,
       gz: 0,
       tiltRoll: 0,
-      tiltPitch: 0,
-      impulseX: 0,
-      impulseY: 0,
-      impulseZ: 0
+      tiltPitch: 0
     },
     grab: null,
     turn: 0,

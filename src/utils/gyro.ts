@@ -1,10 +1,10 @@
 export interface GyroInput {
   beta: number | null; // Front-to-back tilt in degrees [-180, 180]
   gamma: number | null; // Left-to-right tilt in degrees [-90, 90]
-  neutralBeta?: number; // Baseline holding angle in degrees (default 50)
+  neutralBeta?: number; // Baseline holding angle in degrees (default 48)
   screenAngle?: number; // Screen orientation angle (0, 90, -90, 180)
   gravity?: number; // Base gravity magnitude (default 40)
-  sensitivity?: number; // Gyroscope response multiplier (default 0.85)
+  sensitivity?: number; // Gyroscope response multiplier (default 0.9)
 }
 
 export interface GyroForceVector {
@@ -21,54 +21,69 @@ const clamp = (val: number, min: number, max: number): number =>
 const DEG_TO_RAD = Math.PI / 180;
 
 /**
- * Converts DeviceOrientation (beta, gamma) angles in degrees into a 3D gravity/tilt
- * force vector for the 3D Lanyard simulation, accounting for screen orientation.
+ * Converts DeviceOrientation (beta, gamma) angles in degrees into a complete 3D gravity
+ * vector for the 3D Lanyard simulation across all 8 directions (including upside-down inversion),
+ * accounting for screen orientation.
  */
 export function computeGyroForces(input: GyroInput): GyroForceVector {
   const {
     beta,
     gamma,
-    neutralBeta = 45,
+    neutralBeta = 48,
     screenAngle = 0,
     gravity = 40,
-    sensitivity = 0.85,
+    sensitivity = 0.9,
   } = input;
 
   if (beta === null || gamma === null || !Number.isFinite(beta) || !Number.isFinite(gamma)) {
     return { gx: 0, gy: -gravity, gz: 0, tiltRoll: 0, tiltPitch: 0 };
   }
 
-  // Smoothly clamp raw angles to avoid gimbal lock or extreme inversion
-  const clampedGamma = clamp(gamma, -65, 65);
-  const clampedDeltaBeta = clamp(beta - neutralBeta, -55, 55);
+  // Normalize beta into [-180, 180]
+  let normBeta = ((beta + 180) % 360 + 360) % 360 - 180;
 
-  // Rotate according to screen orientation (portrait 0, landscape 90/-90/270, inverted 180)
-  const orientRad = (screenAngle || 0) * DEG_TO_RAD;
-  const cosO = Math.cos(orientRad);
-  const sinO = Math.sin(orientRad);
+  // Compute longitudinal tilt difference from neutral holding position (~48° pitch)
+  let pitchDelta = normBeta - neutralBeta;
+  pitchDelta = ((pitchDelta + 180) % 360 + 360) % 360 - 180;
 
-  const orientedRightDeg = clampedGamma * cosO + clampedDeltaBeta * sinO;
-  const orientedForwardDeg = -clampedGamma * sinO + clampedDeltaBeta * cosO;
+  // Lateral roll angle [-90, 90]
+  const rollDeg = clamp(gamma, -90, 90);
+  const rollRad = rollDeg * DEG_TO_RAD;
+  const pitchRad = pitchDelta * DEG_TO_RAD;
 
-  const rollRad = orientedRightDeg * DEG_TO_RAD;
-  const pitchRad = orientedForwardDeg * DEG_TO_RAD;
+  // Omnidirectional 3D gravity decomposition:
+  // - Lateral force fx: tilts card left (-X) or right (+X)
+  const fx = gravity * Math.sin(rollRad) * sensitivity;
 
-  // Real physical 3D gravity decomposition:
-  // - Lateral tilt (roll) directs gravity left/right
-  // - Pitch tilt directs gravity forward/backward (-Z into screen, +Z outward)
-  // - Vertical gravity magnitude reduces as device tilts off-axis
-  const cosRoll = Math.cos(rollRad);
-  const cosPitch = Math.cos(pitchRad);
+  // - Longitudinal force fy:
+  //   * Upright holding (pitchDelta ~ 0) => -gravity (hangs down)
+  //   * Upside-down holding (pitchDelta ~ 180/-180) => +gravity (falls UPWARDS towards navbar)
+  //   * In-between angles smoothly transition between -gravity and +gravity
+  const fy = -gravity * Math.cos(pitchRad) * Math.cos(rollRad * 0.7) * sensitivity;
 
-  const gx = gravity * Math.sin(rollRad) * sensitivity;
-  const gz = gravity * Math.sin(pitchRad) * (sensitivity * 0.75);
-  const gy = -gravity * Math.max(0.35, cosRoll * cosPitch);
+  // - Depth force fz:
+  //   * Tilted flat on desk => settles gently into screen plane (-Z)
+  const fz = gravity * Math.sin(pitchRad) * Math.cos(rollRad) * (sensitivity * 0.7);
+
+  let gx = fx;
+  let gy = fy;
+  let gz = fz;
+
+  // Rotate gravity vector according to screen orientation (portrait 0, landscape 90/270, inverted 180)
+  if (screenAngle !== 0) {
+    const sRad = -screenAngle * DEG_TO_RAD;
+    const cosS = Math.cos(sRad);
+    const sinS = Math.sin(sRad);
+    gx = fx * cosS - fy * sinS;
+    gy = fx * sinS + fy * cosS;
+  }
 
   return {
     gx,
     gy,
     gz,
-    tiltRoll: rollRad,
-    tiltPitch: pitchRad,
+    // Smoothly clamped surface glint & specular tilt values to prevent flip distortion
+    tiltRoll: clamp(rollRad, -0.5, 0.5),
+    tiltPitch: clamp(pitchRad, -0.5, 0.5),
   };
 }
