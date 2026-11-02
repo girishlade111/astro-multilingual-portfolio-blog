@@ -975,17 +975,24 @@ const Lanyard = ({
     const frontMaterial = new THREE.MeshPhysicalMaterial({
       map: frontTexture,
       normalMap: grain,
-      normalScale: new THREE.Vector2(0.06, 0.06)
+      normalScale: new THREE.Vector2(0.06, 0.06),
+      polygonOffset: true,
+      polygonOffsetFactor: -1.0,
+      polygonOffsetUnits: -4.0
     });
     const backMaterial = new THREE.MeshPhysicalMaterial({
       map: frontTexture,
       normalMap: grain,
-      normalScale: new THREE.Vector2(0.06, 0.06)
+      normalScale: new THREE.Vector2(0.06, 0.06),
+      polygonOffset: true,
+      polygonOffsetFactor: -1.0,
+      polygonOffsetUnits: -4.0
     });
     if (settingsRef.current.finish === 'holographic') {
       frontMaterial.onBeforeCompile = injectFoil;
       backMaterial.onBeforeCompile = injectFoil;
     }
+    const capMaterial = new THREE.MeshBasicMaterial({ visible: false });
     const edgeMaterial = new THREE.MeshPhysicalMaterial();
     const metalMaterial = new THREE.MeshStandardMaterial({ metalness: 1 });
     const bandMaterial = new THREE.MeshPhysicalMaterial({
@@ -1000,7 +1007,7 @@ const Lanyard = ({
     });
 
     const cardGroup = new THREE.Group();
-    const bodyMesh = new THREE.Mesh(undefined, edgeMaterial);
+    const bodyMesh = new THREE.Mesh(undefined, [capMaterial, edgeMaterial]);
     const frontMesh = new THREE.Mesh(undefined, frontMaterial);
     const backMesh = new THREE.Mesh(undefined, backMaterial);
     const ring = new THREE.Mesh(new THREE.TorusGeometry(RING_RADIUS, RING_TUBE, 12, 48), metalMaterial);
