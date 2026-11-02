@@ -1466,13 +1466,7 @@ const Lanyard = ({
       if (beta === null || gamma === null || !Number.isFinite(beta) || !Number.isFinite(gamma)) return;
 
       if (sim.gyro.neutralBeta === null) {
-        sim.gyro.neutralBeta = clamp(beta, 30, 60);
-      } else {
-        // Only very gently drift if user is holding phone steady near neutral range
-        const diff = beta - sim.gyro.neutralBeta;
-        if (Math.abs(diff) < 8 && Math.abs(gamma) < 6) {
-          sim.gyro.neutralBeta = mix(sim.gyro.neutralBeta, beta, 0.0008);
-        }
+        sim.gyro.neutralBeta = clamp(beta, 35, 60);
       }
 
       sim.gyro.active = true;
@@ -1487,26 +1481,11 @@ const Lanyard = ({
       applyOrientationReading(event.beta, event.gamma);
     };
 
-    const onDeviceMotion = event => {
-      if (!settingsRef.current.gyroscope) return;
-      const acc = event.acceleration || event.accelerationIncludingGravity;
-      if (acc && Number.isFinite(acc.x) && Number.isFinite(acc.z)) {
-        const mag = Math.hypot(acc.x, acc.z);
-        if (mag > 0.6 && mag < 25) {
-          sim.gyro.active = true;
-          sim.gyro.impulseX = clamp(sim.gyro.impulseX - acc.x * 0.8, -15, 15);
-          sim.gyro.impulseZ = clamp(sim.gyro.impulseZ - (acc.z - (event.acceleration ? 0 : 9.8)) * 0.8, -15, 15);
-          sim.calm = 0;
-          start();
-        }
-      }
-    };
-
     const onCustomGyroEvent = event => {
       const detail = event?.detail;
       if (!detail) return;
       applyOrientationReading(
-        typeof detail.beta === 'number' ? detail.beta : 45,
+        typeof detail.beta === 'number' ? detail.beta : 48,
         typeof detail.gamma === 'number' ? detail.gamma : 0
       );
     };
@@ -1523,7 +1502,6 @@ const Lanyard = ({
             .then(state => {
               if (state === 'granted' && alive) {
                 window.addEventListener('deviceorientation', onDeviceOrientation, true);
-                window.addEventListener('devicemotion', onDeviceMotion, true);
               }
             })
             .catch(() => {});
@@ -1532,7 +1510,6 @@ const Lanyard = ({
     };
 
     window.addEventListener('deviceorientation', onDeviceOrientation, true);
-    window.addEventListener('devicemotion', onDeviceMotion, true);
     window.addEventListener('lanyard:gyro', onCustomGyroEvent);
     window.addEventListener('touchstart', requestIosGyroPermissionIfNeeded, { once: true, passive: true });
     window.addEventListener('pointerdown', requestIosGyroPermissionIfNeeded, { once: true, passive: true });
