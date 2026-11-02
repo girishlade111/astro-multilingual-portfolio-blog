@@ -118,7 +118,7 @@ const heroBackgroundImageUrl = '/assets/aistudio/image_a475d35f.webp';
     </section>
 
     <!-- Portfolio Master Content (Hydrates on idle so 3D Lanyard gets 100% initial load priority) -->
-    <PortfolioSections client:idle locale={locale} />
+    <PortfolioSections client:visible={{ rootMargin: '200px' }} locale={locale} />
   </div>
 </BaseLayout>
 

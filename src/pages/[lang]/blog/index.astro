@@ -48,6 +48,6 @@ const currentPath = getRelativeLocaleUrl(locale, 'blog');
     </header>
 
     <!-- Interactive Search, Filter & Paginated List Island -->
-    <BlogDirectory client:load posts={searchablePosts} strings={t.blog} locale={locale} />
+    <BlogDirectory client:idle posts={searchablePosts} strings={t.blog} locale={locale} />
   </div>
 </BaseLayout>
