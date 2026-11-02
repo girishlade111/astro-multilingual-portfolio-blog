@@ -36,50 +36,156 @@ const meta = LOCALE_METADATA[locale];
 const pageTitle = title ? `${title} | ${t.brandName}` : t.siteTitle;
 const pageDescription = description || t.siteDescription;
 
-const siteOrigin = (Astro.site ? Astro.site.toString() : 'http://localhost:3000').replace(/\/+$/, '');
+const siteOrigin = (Astro.site ? Astro.site.toString() : 'https://girish.ladestack.in').replace(/\/+$/, '');
 const canonicalUrl = `${siteOrigin}${currentPath}`;
 const alternateLinks = getAlternateLinks(currentPath, siteOrigin);
 const defaultAlternateHref = `${siteOrigin}${switchLocalePath(currentPath, 'en')}`;
 
-const jsonLd =
-  pageType === 'article'
-    ? {
-        '@context': 'https://schema.org',
-        '@type': 'BlogPosting',
-        headline: pageTitle,
-        description: pageDescription,
-        inLanguage: meta.htmlLang,
-        datePublished: publishedTime || '2026-11-01',
-        url: canonicalUrl,
-        author: {
-          '@type': 'Person',
-          name: 'Girish Balaso Lade',
-          url: 'https://girish.ladestack.in',
-          jobTitle: 'Founder & Full-Stack Engineer',
-        },
-        publisher: {
-          '@type': 'Organization',
-          name: 'LadeStack',
-          url: 'https://ladestack.in',
-        },
-        mainEntityOfPage: {
-          '@type': 'WebPage',
-          '@id': canonicalUrl,
-        },
-      }
-    : {
-        '@context': 'https://schema.org',
-        '@type': 'WebSite',
-        name: t.siteTitle,
-        description: pageDescription,
-        inLanguage: meta.htmlLang,
-        url: canonicalUrl,
-        author: {
-          '@type': 'Person',
-          name: 'Girish Balaso Lade',
-          url: 'https://girish.ladestack.in',
-        },
-      };
+const isArticle = pageType === 'article';
+const isBlogIndex = currentPath.includes('/blog') && !isArticle;
+
+// Target short and long-tail keywords tailored to Girish Lade & LadeStack
+const defaultKeywords = [
+  'Girish Lade',
+  'Girish Balaso Lade',
+  'LadeStack',
+  'UI/UX Designer',
+  'Full-Stack Developer',
+  'Pune Software Engineer',
+  'Independent Product Builder',
+  'Browser-First Web Utilities',
+  'Privacy-First Web Apps',
+  'Client-Side Computing',
+  'GB Coder In-Browser IDE',
+  'LS PDF Local Processing',
+  'Bharat Land Converter',
+  'Swift Resume ATS Builder',
+  'LS Image Compressor WebP',
+  'GameHub 33 Games',
+  'LadeStack Drive Encrypted Storage',
+  'BYOK AI App Builder',
+  'WebAssembly Developer Tools',
+  'Astro Multilingual Architecture',
+  'TypeScript Solo Engineer',
+].join(', ');
+
+const ogImageUrl = `${siteOrigin}/assets/aistudio/image_a475d35f.webp`;
+
+// Comprehensive multi-entity Linked Schema.org Graph
+const jsonLdGraph = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${siteOrigin}/#website`,
+      url: siteOrigin,
+      name: 'Girish Lade · LadeStack',
+      description: t.siteDescription,
+      inLanguage: meta.htmlLang,
+      publisher: {
+        '@id': `${siteOrigin}/#organization`,
+      },
+    },
+    {
+      '@type': 'Organization',
+      '@id': `${siteOrigin}/#organization`,
+      name: 'LadeStack',
+      url: 'https://ladestack.in',
+      logo: `${siteOrigin}/favicon-32x32.png`,
+      founder: {
+        '@id': `${siteOrigin}/#person`,
+      },
+    },
+    {
+      '@type': 'Person',
+      '@id': `${siteOrigin}/#person`,
+      name: 'Girish Balaso Lade',
+      alternateName: 'Girish Lade',
+      jobTitle: 'Founder & Full-Stack Engineer',
+      url: siteOrigin,
+      image: `${siteOrigin}/assets/profile.jpeg`,
+      sameAs: [
+        'https://github.com/girishlade111',
+        'https://www.linkedin.com/in/girish-lade/',
+        'https://ladestack.in',
+      ],
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${canonicalUrl}#breadcrumb`,
+      itemListElement: isArticle
+        ? [
+            {
+              '@type': 'ListItem',
+              position: 1,
+              name: t.nav.home,
+              item: `${siteOrigin}/${locale}/`,
+            },
+            {
+              '@type': 'ListItem',
+              position: 2,
+              name: t.nav.blog,
+              item: `${siteOrigin}/${locale}/blog/`,
+            },
+            {
+              '@type': 'ListItem',
+              position: 3,
+              name: title || pageTitle,
+              item: canonicalUrl,
+            },
+          ]
+        : isBlogIndex
+          ? [
+              {
+                '@type': 'ListItem',
+                position: 1,
+                name: t.nav.home,
+                item: `${siteOrigin}/${locale}/`,
+              },
+              {
+                '@type': 'ListItem',
+                position: 2,
+                name: t.nav.blog,
+                item: `${siteOrigin}/${locale}/blog/`,
+              },
+            ]
+          : [
+              {
+                '@type': 'ListItem',
+                position: 1,
+                name: t.nav.home,
+                item: `${siteOrigin}/${locale}/`,
+              },
+            ],
+    },
+    ...(isArticle
+      ? [
+          {
+            '@type': 'BlogPosting',
+            '@id': `${canonicalUrl}#article`,
+            headline: pageTitle,
+            description: pageDescription,
+            inLanguage: meta.htmlLang,
+            datePublished: publishedTime || '2026-11-01',
+            dateModified: publishedTime || '2026-11-02',
+            url: canonicalUrl,
+            image: ogImageUrl,
+            author: {
+              '@id': `${siteOrigin}/#person`,
+            },
+            publisher: {
+              '@id': `${siteOrigin}/#organization`,
+            },
+            mainEntityOfPage: {
+              '@type': 'WebPage',
+              '@id': canonicalUrl,
+            },
+            keywords: defaultKeywords,
+          },
+        ]
+      : []),
+  ],
+};
 ---
 
 <!doctype html>
@@ -163,6 +269,13 @@ const jsonLd =
     </script>
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
+    <meta name="keywords" content={defaultKeywords} />
+    <meta name="author" content="Girish Balaso Lade" />
+    <meta name="creator" content="Girish Lade" />
+    <meta name="publisher" content="LadeStack" />
+    <meta name="theme-color" content="#fafafa" />
+    <meta name="color-scheme" content="light" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow'} />
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -173,10 +286,9 @@ const jsonLd =
 
     <!-- Agentic AI Discovery (llmstxt.org & ARD) -->
     <link rel="alternate" type="text/markdown" href="/llms.txt" title="LLMs.txt" />
+    <link rel="alternate" type="text/markdown" href="/llms-full.txt" title="Full LLMs.txt" />
     <link rel="help" type="text/markdown" href="/llms.txt" />
     <link rel="agent-catalog" type="application/json" href="/ai-catalog.json" />
-
-
 
     <!-- Canonical & Multilingual hreflang Alternates for SEO -->
     <link rel="canonical" href={canonicalUrl} />
@@ -194,6 +306,10 @@ const jsonLd =
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:site_name" content={t.brandName} />
     <meta property="og:locale" content={meta.ogLocale} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={pageTitle} />
     {
       alternateLinks
         .filter((alt) => alt.locale !== locale)
@@ -210,9 +326,12 @@ const jsonLd =
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:image:alt" content={pageTitle} />
+    <meta name="twitter:creator" content="@girishlade" />
 
-    <!-- Schema.org JSON-LD Structured Data -->
-    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <!-- Schema.org JSON-LD Structured Data (Linked Graph) -->
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLdGraph)} />
   </head>
   <body class="min-h-screen flex flex-col overflow-x-hidden bg-[#fafafa] text-zinc-900 antialiased selection:bg-zinc-900 selection:text-white">
     <Navbar locale={locale} currentPath={currentPath} />

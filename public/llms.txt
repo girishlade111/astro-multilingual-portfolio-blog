@@ -10,35 +10,57 @@ Girish Lade is a UI/UX designer and full-stack developer based in Pune, India. H
 - [Technical Blog](https://girish.ladestack.in/en/blog/): Deep-dive technical articles on browser IDE architecture, client-side WebAssembly file processing, software philosophy, and developer journey.
 - [GitHub Profile](https://github.com/girishlade111): Open-source repositories, developer tools, and code experiments.
 - [LinkedIn Profile](https://www.linkedin.com/in/girish-lade/): Professional experience, education, and career milestones.
+- [Full LLMs Documentation](https://girish.ladestack.in/llms-full.txt): Complete knowledge corpus and architectural summaries.
 
 ## Featured Products & Applications
 
 - [LadeStack](https://ladestack.in/): Fast, private, zero-onboarding utility ecosystem where compute executes entirely in the user's browser.
 - [GB Coder](https://gbcoder.ladestack.in): In-browser client-side integrated development environment (IDE) powered by WebContainers, Monaco editor, and live execution runtimes.
 - [LS PDF](https://lspdf.ladestack.in): In-browser, zero-upload PDF manipulation tool suite providing local PDF merging, splitting, rotation, and compression with complete user privacy.
+- [MD2PDF](https://md2pdf.ladestack.in): Publication-grade PDF book and specification generator directly from Markdown.
+- [Bharat Land Converter](https://land.ladestack.in): Regional Indian land area unit converter across 28 states.
+- [Swift Resume](https://resume.ladestack.in): ATS-friendly single-column resume builder with zero telemetry.
+- [LS Image Compressor](https://image.ladestack.in): Client-side image optimization using Canvas API and WebP.
+- [GameHub](https://games.ladestack.in): 33 in-browser games engineered for sub-0.8s First Contentful Paint.
+- [LadeStack Drive](https://drive.ladestack.in): Zero-knowledge client-side encrypted file storage.
 
-## Technical Articles
+## Technical Engineering Articles (25 Topics in 9 Languages)
 
-- [Why I Built LadeStack: The Case for Browser-First, Zero-Setup Developer Tools](https://girish.ladestack.in/en/blog/why-i-built-ladestack-browser-first-tools/): Product philosophy advocating for client-side processing over forced account walls and mystery cloud uploads.
-- [Building an In-Browser IDE with Monaco Editor and WebContainers](https://girish.ladestack.in/en/blog/building-in-browser-ide-monaco-webcontainers/): Architectural breakdown of GB Coder, Node.js runtimes in browser sandboxes, and virtual file systems.
-- [Privacy-First Local File Processing in the Modern Web](https://girish.ladestack.in/en/blog/privacy-first-local-file-processing-web/): How WebAssembly, Web Workers, and modern browser APIs enable secure, local document processing.
-- [From Mechanical Engineering to Full-Stack Developer: Lessons from Self-Directed Learning](https://girish.ladestack.in/en/blog/from-mechanical-engineering-to-fullstack-dev/): Non-traditional journey from mechanical CAD/finite element analysis to production web architecture.
+- [Real-Time Verlet Physics and Sensor Fusion: Engineering an Interactive 3D Lanyard](https://girish.ladestack.in/en/blog/3d-web-physics-interactive-lanyard-threejs/): How we built the weightless 3D ID card with Verlet particle integration, Catmull-Rom band curves, and gyroscope gravity mapping in Three.js.
+- [Engineering the Bharat Land Measurement Converter for Regional Precision](https://girish.ladestack.in/en/blog/bharat-land-converter-indian-measurement-systems/): Demystifying Indias fragmented land measurement systems: building a deterministic, offline-capable unit converter across Guntha, Bigha, Ground, and Cent.
+- [Scaling a 33-in-1 Web Game Portal Without Tanking First Contentful Paint](https://girish.ladestack.in/en/blog/building-33-mini-games-nextjs-code-splitting/): Architectural lessons from GameHub: dynamic imports, asset virtualization, and modular canvas state management across 33 games in a single web application.
+- [Building GB Coder: Running Node.js and Monaco Editor Directly Inside the Browser](https://girish.ladestack.in/en/blog/building-in-browser-ide-monaco-webcontainers/): A deep dive into the architecture of GB Coder: pairing Microsoft's Monaco Editor with WebContainers and IndexedDB to deliver a full-featured development studio without cloud virtual machines.
+- [Building in Public: Why Production Code Replaces the Traditional Resume](https://girish.ladestack.in/en/blog/building-in-public-independent-developer-philosophy/): How an open engineering portfolio, live tools, and transparent technical writing create undeniable proof of execution for software engineers.
+- [The BYOK Pattern: Building Sustainable AI Generation Workflows Without SaaS Markups](https://girish.ladestack.in/en/blog/byok-architecture-ai-app-builders/): Why the Bring-Your-Own-Key model provides superior economics, total prompt privacy, and resilience against rate limits for developer workflows.
+- [Zero-Upload Image Optimization: Pushing HTML5 Canvas and WebP to the Edge](https://girish.ladestack.in/en/blog/client-side-image-compression-canvas-webp/): How LS Image Compressor reduces multi-megabyte camera photos by 85% in milliseconds directly in browser memory without sending a single pixel across the wire.
+- [Scalable Design Systems: Building Resilient Three-Tier Token Architectures](https://girish.ladestack.in/en/blog/design-systems-three-tier-tokens-accessibility/): How we eliminate hardcoded styling, guarantee WCAG 2.2 AA contrast compliance, and support seamless multi-brand theming using tiered design tokens.
+- [Deterministic URL Normalization and Local Visual Bookmarking at Scale](https://girish.ladestack.in/en/blog/deterministic-url-deduplication-bookmark-manager/): How Visual Bookmark Manager strips tracking parameters, handles canonical duplicates, and manages thousands of visual resources locally in IndexedDB.
+- [The 8-Step Autonomous Production Workflow for Solo Software Engineers](https://girish.ladestack.in/en/blog/eight-step-engineering-workflow-solo-builders/): How to build, verify, and ship complex web utilities solo using rigorous architecture planning, automated quality gates, and zero-compromise standards.
+- [From Mechanical Engineering to Full-Stack Builder: How Physical Systems Shaped My Code](https://girish.ladestack.in/en/blog/from-mechanical-engineering-to-fullstack-dev/): How training in mechanical systems, tolerances, and physical constraints at Fabtech and SVERI provided the exact mental model needed for scalable web architecture and UI design.
+- [Building an In-Browser API Testing Studio: A Lightweight, Zero-Install Tool](https://girish.ladestack.in/en/blog/in-browser-api-testing-postman-alternative/): Why modern API clients became bloated, and how we engineered an in-browser REST & GraphQL tester with response streaming and cURL generation.
+- [Engineering LadeStack Drive: Zero-Knowledge File Sharing and Local Encryption](https://girish.ladestack.in/en/blog/ladestack-drive-decentralized-cloud-storage/): How LadeStack Drive implements client-side AES-GCM-256 encryption, auto-expiring scoped links, and zero-telemetry cloud storage for sensitive files.
+- [Architecting the LadeStack Ecosystem Portal: A Unified Hub for Browser Utilities](https://girish.ladestack.in/en/blog/ladestack-portal-unified-tool-directory/): How we unified 9 browser-first developer and productivity utilities into a cohesive, fast, and accessible single directory experience at ladestack.in.
+- [Document Intelligence: Running Local Vector Search and Embeddings in the Browser](https://girish.ladestack.in/en/blog/local-notes-document-intelligence-vector-embeddings/): How we implemented in-browser semantic vector retrieval using WebAssembly, quantized transformer models, and cosine similarity with zero server dependencies.
+- [Crafting Publication-Grade Technical Documents with MD2PDF](https://girish.ladestack.in/en/blog/md2pdf-markdown-documentation-book-publishing/): How we engineered a browser-first Markdown to PDF engine using CSS Paged Media, KaTeX math typesetting, and zero-telemetry local rendering.
+- [Architectural Trade-offs in Multi-Provider LLM Routing: Speed, Cost, and Fallbacks](https://girish.ladestack.in/en/blog/multi-provider-ai-routing-cost-latency-benchmarks/): How Multi-LLM Chat routes prompts dynamically across Google Gemini, OpenAI, and Anthropic with automatic fallbacks and client-side token analytics.
+- [Building a Zero-Overhead 9-Language Static Architecture with Astro and React Islands](https://girish.ladestack.in/en/blog/multilingual-astro-architecture-9-languages/): How we structured a static portfolio and Markdown blog supporting 9 global languages with zero hydration penalties and pristine hreflang SEO.
+- [Performance-Conscious Frontend: Engineering Smooth 60 FPS Web Interfaces](https://girish.ladestack.in/en/blog/performance-conscious-frontend-60fps-web/): How to avoid layout thrashing, leverage GPU compositing layers, and minimize JavaScript garbage collection pauses on budget mobile hardware.
+- [Privacy by Architecture: Processing PDFs and Media on the Client Without Servers](https://girish.ladestack.in/en/blog/privacy-first-local-file-processing-web/): Why uploading personal documents to remote cloud converters is an unnecessary risk, and how LS PDF and LS Image Compressor process files 100% locally in browser memory.
+- [Building Swift Resume: Real-Time ATS Parsing and Zero-Tracking Career Documents](https://girish.ladestack.in/en/blog/swift-resume-ats-friendly-browser-resume-builder/): Why modern Applicant Tracking Systems reject stylish PDF resumes, and how Swift Resume guarantees semantic parsing with 100% in-browser privacy.
+- [Systems Thinking: Applying Mechanical Engineering Principles to Software Architecture](https://girish.ladestack.in/en/blog/systems-thinking-mechanical-to-software-architecture/): How CAD constraints, material fatigue limits, and thermodynamic balance inform resilient state management and distributed software systems.
+- [WebAssembly and Web Workers: Turning the Browser into a Client Operating System](https://girish.ladestack.in/en/blog/webassembly-web-workers-browser-operating-system/): How modern web primitives allow solo engineers to run C/C++, Rust, and full execution environments directly on the users hardware.
+- [Why I Built LadeStack: The Case for Browser-First, Zero-Setup Developer Tools](https://girish.ladestack.in/en/blog/why-i-built-ladestack-browser-first-tools/): Modern web tools shouldn't force account creation or upload your private documents to mysterious cloud servers. Here is why I built LadeStack around client-side computing.
+- [Privacy by Architecture: Why Client-Side Processing Beats Corporate Privacy Policies](https://girish.ladestack.in/en/blog/zero-telemetry-privacy-by-architecture/): Legal privacy statements are fragile; mathematical and architectural isolation is permanent. How to engineer web software that cannot spy on users.
 
 ## Multilingual Support
 
-The website and all technical articles are fully localized across 9 languages:
-- English (en): `https://girish.ladestack.in/en/`
-- Japanese (jp / ja): `https://girish.ladestack.in/jp/`
-- Korean (ko): `https://girish.ladestack.in/ko/`
-- Chinese (zh / zh-CN): `https://girish.ladestack.in/zh/`
-- Russian (ru): `https://girish.ladestack.in/ru/`
-- Portuguese (pt / pt-BR): `https://girish.ladestack.in/pt/`
-- Turkish (tr): `https://girish.ladestack.in/tr/`
-- French (fr): `https://girish.ladestack.in/fr/`
-- Spanish (es): `https://girish.ladestack.in/es/`
-
-## Optional
-
-- [Full Site & Blog Content (llms-full.txt)](https://ladestack.in/llms-full.txt): Complete uncompressed textual content of all portfolio sections and blog publications formatted for LLM context ingestion.
-- [XML Sitemap](https://ladestack.in/sitemap.xml): Complete machine-readable XML sitemap indexing all 55 canonical URLs and bidirectional hreflang alternates.
-
+The website and all 25 technical articles are fully localized across 9 languages:
+- English (en): https://girish.ladestack.in/en/
+- Japanese (ja): https://girish.ladestack.in/jp/
+- Korean (ko): https://girish.ladestack.in/ko/
+- Chinese (zh-CN): https://girish.ladestack.in/zh/
+- Russian (ru): https://girish.ladestack.in/ru/
+- Portuguese (pt): https://girish.ladestack.in/pt/
+- Turkish (tr): https://girish.ladestack.in/tr/
+- French (fr): https://girish.ladestack.in/fr/
+- Spanish (es): https://girish.ladestack.in/es/
