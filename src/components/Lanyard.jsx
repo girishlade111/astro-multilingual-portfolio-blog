@@ -701,14 +701,14 @@ const stepSimulation = (sim, dt, physics, time) => {
       ? computeGyroForces({
           beta: gyro.beta,
           gamma: gyro.gamma,
-          neutralBeta: gyro.neutralBeta ?? 45,
+          neutralBeta: gyro.neutralBeta ?? 48,
           screenAngle: gyro.screenAngle || 0,
           gravity: physics.gravity,
           sensitivity: physics.gyroSensitivity
         })
       : { gx: 0, gy: -physics.gravity, gz: 0, tiltRoll: 0, tiltPitch: 0 };
 
-  const gyroBlend = 1 - Math.exp(-12 * dt);
+  const gyroBlend = 1 - Math.exp(-14 * dt);
   gyro.gx += (gyroTarget.gx - gyro.gx) * gyroBlend;
   gyro.gy += (gyroTarget.gy - gyro.gy) * gyroBlend;
   gyro.gz += (gyroTarget.gz - gyro.gz) * gyroBlend;
@@ -717,18 +717,12 @@ const stepSimulation = (sim, dt, physics, time) => {
 
   const windX = physics.breeze * (Math.sin(time * 0.53) * 0.7 + Math.sin(time * 1.31 + 1.7) * 0.3) * 3;
   const windZ = physics.breeze * Math.sin(time * 0.37 + 0.6) * 2;
-  const accelX = windX + gyro.gx + gyro.impulseX;
+  const accelX = windX + gyro.gx;
   const accelY = gyro.active ? gyro.gy : -physics.gravity;
-  const accelZ = windZ + gyro.gz + gyro.impulseZ;
-  const bodyAccelX = windX * 0.35 + gyro.gx + gyro.impulseX;
+  const accelZ = windZ + gyro.gz;
+  const bodyAccelX = windX * 0.35 + gyro.gx;
   const bodyAccelY = gyro.active ? gyro.gy : -physics.gravity;
-  const bodyAccelZ = windZ * 0.35 + gyro.gz + gyro.impulseZ;
-
-  // Decay transient DeviceMotion shake impulses cleanly
-  const impulseDecay = Math.exp(-8 * dt);
-  gyro.impulseX *= impulseDecay;
-  gyro.impulseY *= impulseDecay;
-  gyro.impulseZ *= impulseDecay;
+  const bodyAccelZ = windZ * 0.35 + gyro.gz;
 
   const grab = sim.grab;
   const pin = scratch.pin;
