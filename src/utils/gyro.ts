@@ -52,21 +52,21 @@ export function computeGyroForces(input: GyroInput): GyroForceVector {
   const pitchRad = pitchDelta * DEG_TO_RAD;
 
   // Lateral force fx:
-  // Negated so that tilting phone to LEFT moves card LEFT (-X),
-  // and tilting phone to RIGHT moves card RIGHT (+X).
-  // Power curve (0.80) boosts response at natural hand tilts (10°-25°) for high sensitivity.
+  // Tilting phone to LEFT (gamma < 0) moves card LEFT (-X).
+  // Tilting phone to RIGHT (gamma > 0) moves card RIGHT (+X).
+  // Power curve (0.75) gives instant responsive reaction for subtle hand tilts.
   const rollNormalized = rollDeg / 90;
-  const lateralFactor = Math.sign(rollNormalized) * Math.pow(Math.abs(rollNormalized), 0.80);
-  const fx = -gravity * lateralFactor * (sensitivity * 1.5);
+  const lateralFactor = Math.sign(rollNormalized) * Math.pow(Math.abs(rollNormalized), 0.75);
+  const fx = gravity * lateralFactor * (sensitivity * 1.6);
 
   // Longitudinal force fy:
   // * Upright holding (pitchDelta ~ 0) => -gravity (hangs down)
   // * Upside-down holding (pitchDelta ~ 180/-180) => +gravity (falls UPWARDS towards navbar)
-  const fy = -gravity * Math.cos(pitchRad) * Math.cos(rollRad * 0.7) * (sensitivity * 1.15);
+  const fy = -gravity * Math.cos(pitchRad) * Math.cos(rollRad * 0.7) * (sensitivity * 1.25);
 
   // Depth force fz:
   // Tilted flat on desk => settles into screen plane (-Z)
-  const fz = gravity * Math.sin(pitchRad) * Math.cos(rollRad) * (sensitivity * 0.75);
+  const fz = gravity * Math.sin(pitchRad) * Math.cos(rollRad) * (sensitivity * 0.8);
 
   let gx = fx;
   let gy = fy;
@@ -86,7 +86,7 @@ export function computeGyroForces(input: GyroInput): GyroForceVector {
     gy,
     gz,
     // Tilt roll aligns with lateral deflection
-    tiltRoll: clamp(-rollRad, -0.5, 0.5),
+    tiltRoll: clamp(rollRad, -0.5, 0.5),
     tiltPitch: clamp(pitchRad, -0.5, 0.5),
   };
 }
