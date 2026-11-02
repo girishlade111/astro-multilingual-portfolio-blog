@@ -33,3 +33,4 @@ The parent brand and distribution platform for all zero-installation, privacy-re
 - Frontend: Astro 7, React 19, TypeScript, Tailwind CSS v4, Three.js (WebGL 3D graphics).
 - Architecture: Static site generation (SSG) with client hydration islands, accessible ARIA dropdowns, and subpath multilingual routing across 9 languages.
 - SEO & Agentic Standards: Schema.org JSON-LD (Person, WebSite, BlogPosting), complete XML Sitemap with hreflang alternates, llms.txt, OpenGraph, and Twitter Cards.
+

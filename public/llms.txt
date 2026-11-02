@@ -41,3 +41,4 @@ The website and all technical articles are fully localized across 9 languages:
 
 - [Full Site & Blog Content (llms-full.txt)](https://ladestack.in/llms-full.txt): Complete uncompressed textual content of all portfolio sections and blog publications formatted for LLM context ingestion.
 - [XML Sitemap](https://ladestack.in/sitemap.xml): Complete machine-readable XML sitemap indexing all 55 canonical URLs and bidirectional hreflang alternates.
+
