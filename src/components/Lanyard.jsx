@@ -1727,7 +1727,6 @@ const Lanyard = ({
       intersectionObserver.disconnect();
       document.removeEventListener('visibilitychange', onVisibility);
       window.removeEventListener('deviceorientation', onDeviceOrientation, true);
-      window.removeEventListener('devicemotion', onDeviceMotion, true);
       window.removeEventListener('lanyard:gyro', onCustomGyroEvent);
       window.removeEventListener('touchstart', requestIosGyroPermissionIfNeeded);
       window.removeEventListener('pointerdown', requestIosGyroPermissionIfNeeded);
