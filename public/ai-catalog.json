@@ -1,0 +1,27 @@
+{
+  "$schema": "https://agenticresourcediscovery.org/schema/v1/ai-catalog.json",
+  "name": "Girish Lade Portfolio & Developer Ecosystem",
+  "description": "Developer portfolio, client-side web tools, and software engineering blog created by Girish Lade.",
+  "url": "https://ladestack.in",
+  "provider": {
+    "name": "Girish Lade",
+    "url": "https://ladestack.in"
+  },
+  "resources": [
+    {
+      "type": "documentation",
+      "name": "LLMs.txt Developer Overview",
+      "url": "https://ladestack.in/llms.txt"
+    },
+    {
+      "type": "documentation",
+      "name": "Comprehensive Knowledge Base",
+      "url": "https://ladestack.in/llms-full.txt"
+    },
+    {
+      "type": "website",
+      "name": "Portfolio & Blog",
+      "url": "https://ladestack.in/en/"
+    }
+  ]
+}
