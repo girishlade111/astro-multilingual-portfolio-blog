@@ -12,9 +12,10 @@ import {
 interface Props {
   locale: Locale;
   currentPath: string;
+  localeSwitchPath?: string;
 }
 
-const { locale, currentPath } = Astro.props;
+const { locale, currentPath, localeSwitchPath = currentPath } = Astro.props;
 const t = getTranslations(locale);
 const subPath = extractSubPath(currentPath);
 const isHome = subPath === '/';
@@ -126,7 +127,7 @@ const blogUrl = getRelativeLocaleUrl(locale, 'blog');
         <div class="space-y-0.5">
           {
             LOCALES.map((loc) => {
-              const targetUrl = switchLocalePath(currentPath, loc);
+              const targetUrl = switchLocalePath(localeSwitchPath, loc);
               const meta = LOCALE_METADATA[loc];
               const isSelected = loc === locale;
               return (

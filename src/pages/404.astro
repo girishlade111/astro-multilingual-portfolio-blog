@@ -1,25 +1,63 @@
 ---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { DEFAULT_LOCALE } from '../i18n/config';
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const homeUrl = getRelativeLocaleUrl(DEFAULT_LOCALE, '');
+const blogUrl = getRelativeLocaleUrl(DEFAULT_LOCALE, 'blog');
 ---
 
-<BaseLayout locale="en" title="Page not found" description="This page could not be found. Return to Girish Lade’s portfolio or browse the blog." currentPath="/404/" noindex>
-  <section class="error-page" aria-labelledby="error-title">
-    <p class="error-code">404</p>
-    <h1 id="error-title">Page not found.</h1>
-    <p>This link may have moved, or the address may be incorrect.</p>
-    <nav aria-label="Continue browsing">
-      <a href="/en/">Back to portfolio</a>
-      <a href="/en/blog/">Read the blog</a>
-    </nav>
+<BaseLayout
+  locale={DEFAULT_LOCALE}
+  title="Page not found"
+  description="This page could not be found. Return to Girish Lade’s portfolio or browse the blog."
+  currentPath="/404/"
+  localeSwitchPath="/"
+  noindex
+>
+  <section class="grid items-center gap-10 py-14 sm:grid-cols-[minmax(0,1fr)_12rem] sm:py-24 lg:py-32" aria-labelledby="error-title">
+    <div>
+      <p class="mb-4 font-mono text-xs font-medium tracking-wider text-zinc-600">ERROR 404</p>
+      <h1 id="error-title" class="text-4xl leading-tight font-semibold tracking-tight text-zinc-950 sm:text-5xl">
+        Page not found.
+      </h1>
+      <p class="mt-4 max-w-sm text-base leading-relaxed text-zinc-600">
+        The page may have moved, or the address may be incorrect. Check the URL or use the links below.
+      </p>
+
+      <nav class="mt-7 flex flex-wrap gap-3" aria-label="Continue browsing">
+        <a class="error-link border-transparent bg-zinc-950 text-white hover:bg-zinc-800 active:bg-zinc-700" href={homeUrl}>
+          <svg aria-hidden="true" class="size-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m12 19-7-7 7-7M5 12h14" />
+          </svg>
+          Back to portfolio
+        </a>
+        <a class="error-link border-zinc-200 bg-white text-zinc-900 hover:border-zinc-400 hover:bg-zinc-50 active:bg-zinc-100" href={blogUrl}>
+          Browse the blog
+          <svg aria-hidden="true" class="size-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14m-7-7 7 7-7 7" />
+          </svg>
+        </a>
+      </nav>
+    </div>
+
+    <svg aria-hidden="true" class="hidden w-full text-zinc-500 sm:block" viewBox="0 0 192 192" fill="none">
+      <rect x="0.5" y="0.5" width="191" height="191" rx="12" class="fill-zinc-100/50 stroke-zinc-200" />
+      <g class="stroke-zinc-200">
+        <path d="M24 48h144M24 96h144M24 144h144M48 24v144M96 24v144M144 24v144" />
+      </g>
+      <path d="M48 144V96h48V48h24" class="stroke-zinc-600" stroke-width="1.5" />
+      <path d="M120 48h18" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 4" />
+      <circle cx="48" cy="144" r="4" class="fill-zinc-700" />
+      <circle cx="144" cy="48" r="5" class="fill-zinc-50 stroke-zinc-600" stroke-width="1.5" />
+    </svg>
   </section>
 </BaseLayout>
 
 <style>
-  .error-page { padding: clamp(72px, 16vh, 160px) 8px; max-width: 44ch; }
-  .error-code { font: 12px var(--font-mono); color: #71717a; margin-bottom: 24px; }
-  h1 { font-size: clamp(28px, 6vw, 40px); font-weight: 600; letter-spacing: -0.05em; line-height: 1.2; }
-  h1 + p { color: #626269; font-size: 14px; line-height: 1.8; margin-top: 16px; }
-  nav { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
-  nav a { display: inline-flex; align-items: center; min-height: 44px; padding: 10px 16px; border: 1px solid #e4e4e7; border-radius: 8px; font-size: 12px; }
-  nav a:first-child { background: #18181b; border-color: #18181b; color: white; }
+  @reference '../styles/global.css';
+
+  .error-link {
+    @apply inline-flex min-h-11 items-center gap-2 rounded-lg border px-4 py-2 text-sm font-medium;
+  }
 </style>
