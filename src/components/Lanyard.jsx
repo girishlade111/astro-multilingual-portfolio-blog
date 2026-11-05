@@ -504,7 +504,7 @@ const paintFace = (canvas, image, color, fit) => {
   }
 };
 
-const paintStrap = (canvas, image, color) => {
+const paintStrap = (canvas, image, color, isDark = true) => {
   const across = 192;
   const along = image ? Math.max(64, Math.round((image.width / image.height) * across)) : across * 2;
   canvas.width = across;
@@ -521,14 +521,28 @@ const paintStrap = (canvas, image, color) => {
     ctx.restore();
     return along / across;
   }
-  ctx.fillStyle = 'rgba(0, 0, 0, 0.22)';
-  for (let y = 0; y < along; y += 4) ctx.fillRect(0, y, across, 1.5);
-  ctx.fillStyle = 'rgba(0, 0, 0, 0.32)';
-  ctx.fillRect(0, 0, 8, along);
-  ctx.fillRect(across - 8, 0, 8, along);
-  for (let y = 0; y < along; y += 14) {
-    ctx.fillRect(across * 0.08, y, 3, 8);
-    ctx.fillRect(across * 0.92 - 3, y, 3, 8);
+  if (isDark) {
+    // Dark theme: deep dark saffron with black/dark woven thread ribbing and stitching
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.22)';
+    for (let y = 0; y < along; y += 4) ctx.fillRect(0, y, across, 1.5);
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.32)';
+    ctx.fillRect(0, 0, 8, along);
+    ctx.fillRect(across - 8, 0, 8, along);
+    for (let y = 0; y < along; y += 14) {
+      ctx.fillRect(across * 0.08, y, 3, 8);
+      ctx.fillRect(across * 0.92 - 3, y, 3, 8);
+    }
+  } else {
+    // Light theme: soft light saffron with pure white woven thread ribbing and stitching
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.42)';
+    for (let y = 0; y < along; y += 4) ctx.fillRect(0, y, across, 1.5);
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.55)';
+    ctx.fillRect(0, 0, 8, along);
+    ctx.fillRect(across - 8, 0, 8, along);
+    for (let y = 0; y < along; y += 14) {
+      ctx.fillRect(across * 0.08, y, 3, 8);
+      ctx.fillRect(across * 0.92 - 3, y, 3, 8);
+    }
   }
   return along / across;
 };
@@ -847,7 +861,9 @@ const Lanyard = ({
   anchor = 'center',
   strapLength = 0.5,
   strapImage,
-  strapColor = '#c2410c',
+  strapColor,
+  darkStrapColor = '#c2410c',
+  lightStrapColor = '#fca066',
   strapWidth = 0.65,
   metal = 'silver',
   gravity = 1,
@@ -879,6 +895,8 @@ const Lanyard = ({
     strapLength,
     strapImage,
     strapColor,
+    darkStrapColor,
+    lightStrapColor,
     strapWidth,
     metal,
     gravity,
@@ -1139,8 +1157,19 @@ const Lanyard = ({
 
     const repaintStrap = () => {
       const s = settingsRef.current;
-      tileRatio = paintStrap(strapCanvas, images.strap, parseColor(s.strapColor, [0.07, 0.07, 0.07]));
+      const isDark = typeof document !== 'undefined' && document.documentElement.classList.contains('dark');
+      const effectiveStrapColor = isDark
+        ? (s.darkStrapColor || s.strapColor || '#c2410c')
+        : (s.lightStrapColor || '#fca066');
+      tileRatio = paintStrap(strapCanvas, images.strap, parseColor(effectiveStrapColor, [0.07, 0.07, 0.07]), isDark);
       weave.repeat.set(2, 2 * tileRatio);
+      if (isDark) {
+        bandMaterial.sheenColor.setRGB(0.28, 0.12, 0.04);
+        bandMaterial.roughness = 0.68;
+      } else {
+        bandMaterial.sheenColor.setRGB(0.85, 0.65, 0.50);
+        bandMaterial.roughness = 0.62;
+      }
       strapTexture.needsUpdate = true;
       start();
     };
@@ -1215,6 +1244,10 @@ const Lanyard = ({
       const isDark = typeof document !== 'undefined' && document.documentElement.classList.contains('dark');
       const themeKey = isDark ? 'dark' : 'light';
       const effectiveCardColor = isDark && (s.cardColor === '#ffffff' || !s.cardColor) ? '#141416' : s.cardColor;
+      const effectiveStrapColor = isDark
+        ? (s.darkStrapColor || s.strapColor || '#c2410c')
+        : (s.lightStrapColor || '#fca066');
+      const strapKey = `${effectiveStrapColor}|${themeKey}|${s.strapImage || ''}`;
       const imageKey = `${s.frontImage}|${s.backImage}|${s.strapImage}`;
       const faceKey = `${layoutKey}|${effectiveCardColor}|${s.imageFit}|${themeKey}`;
       let paintedSynchronously = false;
@@ -1261,7 +1294,7 @@ const Lanyard = ({
         }
       }
       if (!paintedSynchronously && faceKey !== applied.faceKey) paintFaces();
-      if (!paintedSynchronously && s.strapColor !== applied.strapColor) repaintStrap();
+      if (!paintedSynchronously && strapKey !== applied.strapKey) repaintStrap();
 
       const finish = FINISHES[s.finish] || FINISHES.glossy;
       const card = parseColor(effectiveCardColor, isDark ? [0.08, 0.08, 0.09] : [1, 1, 1]);
@@ -1302,7 +1335,7 @@ const Lanyard = ({
         fullFramingKey,
         imageKey,
         faceKey,
-        strapColor: s.strapColor,
+        strapKey,
         strapScale
       };
       start();
