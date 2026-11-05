@@ -521,13 +521,14 @@ const paintStrap = (canvas, image, color) => {
     ctx.restore();
     return along / across;
   }
-  const ink = luminance(color) > 0.5 ? [0, 0, 0] : [1, 1, 1];
-  ctx.fillStyle = toCss(ink, 0.05);
-  for (let y = 0; y < along; y += 4) ctx.fillRect(0, y, across, 1);
-  ctx.fillStyle = toCss(ink, 0.2);
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.22)';
+  for (let y = 0; y < along; y += 4) ctx.fillRect(0, y, across, 1.5);
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.32)';
+  ctx.fillRect(0, 0, 8, along);
+  ctx.fillRect(across - 8, 0, 8, along);
   for (let y = 0; y < along; y += 14) {
-    ctx.fillRect(across * 0.075, y, 2, 8);
-    ctx.fillRect(across * 0.925 - 2, y, 2, 8);
+    ctx.fillRect(across * 0.08, y, 3, 8);
+    ctx.fillRect(across * 0.92 - 3, y, 3, 8);
   }
   return along / across;
 };
@@ -846,7 +847,7 @@ const Lanyard = ({
   anchor = 'center',
   strapLength = 0.5,
   strapImage,
-  strapColor = '#f4a261',
+  strapColor = '#c2410c',
   strapWidth = 0.65,
   metal = 'silver',
   gravity = 1,
