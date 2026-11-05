@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body { margin: 0; min-height: 4000px; }
+.overflow-hidden-parent { overflow-x: hidden; }
+.overflow-clip-parent { overflow-x: clip; }
+.grid-start { display: grid; grid-template-columns: 8fr 4fr; align-items: start; gap: 20px; }
+.grid-normal { display: grid; grid-template-columns: 8fr 4fr; gap: 20px; }
+.content { height: 2500px; background: #eee; }
+.toc { position: sticky; top: 100px; background: lightblue; padding: 20px; }
+</style>
+</head>
+<body id="test-body">
+<div id="container" class="grid-start">
+  <div class="content">Content</div>
+  <aside id="toc" class="toc">TOC</aside>
+</div>
+</body>
+</html>
