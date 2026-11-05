@@ -246,5 +246,37 @@ const blogIndexUrl = getRelativeLocaleUrl(locale, 'blog');
       wrapper.appendChild(pre);
       pre.classList.add('p-4', 'overflow-x-auto', 'text-sm', 'leading-relaxed', 'm-0', 'bg-transparent');
     });
+
+    // 4. Active Heading Spy for Sticky "On this page" TOC
+    const tocLinks = document.querySelectorAll('.toc-link');
+    const headingEls = Array.from(document.querySelectorAll('.markdown-prose :is(h2, h3)'));
+    if (tocLinks.length > 0 && headingEls.length > 0) {
+      function highlightToc() {
+        const scrollY = window.scrollY;
+        let currentSlug = '';
+        for (let i = 0; i < headingEls.length; i++) {
+          const el = headingEls[i];
+          const top = el.offsetTop - 120;
+          if (scrollY >= top) {
+            currentSlug = el.id;
+          } else {
+            break;
+          }
+        }
+        if (!currentSlug && headingEls[0]) {
+          currentSlug = headingEls[0].id;
+        }
+        tocLinks.forEach(function (link) {
+          if (link.getAttribute('data-heading') === currentSlug) {
+            link.classList.add('active-toc-item');
+          } else {
+            link.classList.remove('active-toc-item');
+          }
+        });
+      }
+
+      window.addEventListener('scroll', highlightToc, { passive: true });
+      highlightToc();
+    }
   })();
 </script>
