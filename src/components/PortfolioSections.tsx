@@ -185,34 +185,34 @@ export const PortfolioSections: React.FC<PortfolioSectionsProps> = ({
       {/* Compact, Clean Identity Intro Below Lanyard Hero */}
       <SpotlightCard
         as="section"
-        className="identity-card rounded-xl border border-zinc-200/85 bg-white/95 p-4 sm:p-5 mb-4 sm:mb-5"
+        className="identity-card rounded-xl border border-zinc-200/85 bg-white/95 dark:border-zinc-800/85 dark:bg-[#121214]/95 p-4 sm:p-5 mb-4 sm:mb-5 transition-colors duration-150"
       >
         <div className="space-y-3">
           <div className="identity-heading flex items-baseline justify-between gap-2">
-            <h1 className="font-display text-lg sm:text-2xl font-bold tracking-tight text-zinc-950 truncate">
+            <h1 className="font-display text-lg sm:text-2xl font-bold tracking-tight text-zinc-950 dark:text-white truncate">
               {c.fullName}
             </h1>
-            <span className="font-mono text-[10px] sm:text-[11px] text-zinc-400 shrink-0">
+            <span className="font-mono text-[10px] sm:text-[11px] text-zinc-400 dark:text-zinc-400 shrink-0">
               {c.location}
             </span>
           </div>
 
           <div className="space-y-1">
-            <p className="text-xs sm:text-sm font-medium text-zinc-800 leading-snug">
+            <p className="text-xs sm:text-sm font-medium text-zinc-800 dark:text-zinc-200 leading-snug">
               {c.headline}
             </p>
-            <p className="text-xs text-zinc-500 leading-relaxed">
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed">
               {c.positioningQuote}
             </p>
           </div>
 
           {/* Ultra-Compact Single-Row Action Bar */}
-          <div className="identity-actions pt-2.5 flex items-center justify-between gap-1 border-t border-zinc-100">
+          <div className="identity-actions pt-2.5 flex items-center justify-between gap-1 border-t border-zinc-100 dark:border-zinc-800/80">
             <div className="flex items-center gap-1 min-w-0">
               <button
                 type="button"
                 onClick={handleExploreProducts}
-                className="inline-flex items-center justify-center h-6 sm:h-7 px-2 sm:px-2.5 rounded-md bg-zinc-950 text-white text-[10px] sm:text-[11px] font-medium hover:bg-zinc-800 transition-colors cursor-pointer whitespace-nowrap"
+                className="inline-flex items-center justify-center h-6 sm:h-7 px-2 sm:px-2.5 rounded-md bg-zinc-950 text-white text-[10px] sm:text-[11px] font-medium hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-950 dark:hover:bg-white transition-colors cursor-pointer whitespace-nowrap"
               >
                 <span>{c.exploreProductsBtn}</span>
               </button>
@@ -221,7 +221,7 @@ export const PortfolioSections: React.FC<PortfolioSectionsProps> = ({
                 href="https://ladestack.in/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-0.5 h-6 sm:h-7 px-2 sm:px-2.5 rounded-md border border-zinc-200 bg-zinc-50/80 text-zinc-800 text-[10px] sm:text-[11px] font-medium hover:border-zinc-400 hover:bg-white transition-colors whitespace-nowrap"
+                className="inline-flex items-center gap-0.5 h-6 sm:h-7 px-2 sm:px-2.5 rounded-md border border-zinc-200 bg-zinc-50/80 text-zinc-800 text-[10px] sm:text-[11px] font-medium hover:border-zinc-400 hover:bg-white dark:border-zinc-800 dark:bg-zinc-900/80 dark:text-zinc-200 dark:hover:border-zinc-700 dark:hover:bg-zinc-800 transition-colors whitespace-nowrap"
               >
                 <span>LadeStack</span>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" className="w-2.5 h-2.5 text-zinc-400">
@@ -233,7 +233,7 @@ export const PortfolioSections: React.FC<PortfolioSectionsProps> = ({
                 href="https://github.com/girishlade111"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-0.5 h-6 sm:h-7 px-2 sm:px-2.5 rounded-md border border-zinc-200 bg-zinc-50/80 text-zinc-800 text-[10px] sm:text-[11px] font-medium hover:border-zinc-400 hover:bg-white transition-colors whitespace-nowrap"
+                className="inline-flex items-center gap-0.5 h-6 sm:h-7 px-2 sm:px-2.5 rounded-md border border-zinc-200 bg-zinc-50/80 text-zinc-800 text-[10px] sm:text-[11px] font-medium hover:border-zinc-400 hover:bg-white dark:border-zinc-800 dark:bg-zinc-900/80 dark:text-zinc-200 dark:hover:border-zinc-700 dark:hover:bg-zinc-800 transition-colors whitespace-nowrap"
               >
                 <span>GitHub</span>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" className="w-2.5 h-2.5 text-zinc-400">
@@ -244,7 +244,7 @@ export const PortfolioSections: React.FC<PortfolioSectionsProps> = ({
               <button
                 type="button"
                 onClick={handleOpenContact}
-                className="inline-flex items-center justify-center h-6 sm:h-7 px-2 sm:px-2.5 rounded-md border border-zinc-200 bg-white text-zinc-700 text-[10px] sm:text-[11px] font-medium hover:border-zinc-400 hover:text-zinc-950 transition-colors cursor-pointer whitespace-nowrap"
+                className="inline-flex items-center justify-center h-6 sm:h-7 px-2 sm:px-2.5 rounded-md border border-zinc-200 bg-white text-zinc-700 text-[10px] sm:text-[11px] font-medium hover:border-zinc-400 hover:text-zinc-950 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:border-zinc-700 dark:hover:text-white transition-colors cursor-pointer whitespace-nowrap"
               >
                 <span>{c.contactBtn}</span>
               </button>
@@ -255,7 +255,7 @@ export const PortfolioSections: React.FC<PortfolioSectionsProps> = ({
               onClick={handleToggleAll}
               data-testid="toggle-all-sections"
               aria-label={allExpanded ? c.collapseAllLabel : c.expandAllLabel}
-              className="inline-flex items-center justify-center gap-1 h-6 sm:h-7 px-2 rounded-md border border-zinc-200/80 text-[10px] font-mono text-zinc-500 hover:text-zinc-950 hover:border-zinc-400 transition-colors cursor-pointer shrink-0"
+              className="inline-flex items-center justify-center gap-1 h-6 sm:h-7 px-2 rounded-md border border-zinc-200/80 text-[10px] font-mono text-zinc-500 hover:text-zinc-950 hover:border-zinc-400 dark:border-zinc-800 dark:text-zinc-400 dark:hover:text-white dark:hover:border-zinc-600 transition-colors cursor-pointer shrink-0"
             >
               <span className="hidden sm:inline">{allExpanded ? c.collapseAllLabel : c.expandAllLabel}</span>
               <span aria-hidden="true">{allExpanded ? '−' : '+'}</span>
@@ -324,7 +324,7 @@ export const PortfolioSections: React.FC<PortfolioSectionsProps> = ({
                         })}
                       </div>
 
-                      <div className="rounded-lg border border-zinc-200/80 bg-zinc-50/60 p-3 sm:p-3.5 text-xs text-zinc-700 leading-relaxed space-y-2">
+                      <div className="rounded-lg border border-zinc-200/80 bg-zinc-50/60 dark:border-zinc-800 dark:bg-zinc-900/60 p-3 sm:p-3.5 text-xs text-zinc-700 dark:text-zinc-300 leading-relaxed space-y-2 dark:border-zinc-800 dark:bg-zinc-900/60 dark:text-zinc-300">
                         {openBioMode === 'short' && <p>{c.shortBio}</p>}
                         {openBioMode === 'medium' && <p>{c.mediumBio}</p>}
                         {openBioMode === 'extended' &&
@@ -332,20 +332,20 @@ export const PortfolioSections: React.FC<PortfolioSectionsProps> = ({
                       </div>
                     </div>
 
-                    <div className="divide-y divide-zinc-100 rounded-lg border border-zinc-200/80 bg-white overflow-hidden">
+                    <div className="divide-y divide-zinc-100 rounded-lg border border-zinc-200/80 bg-white dark:border-zinc-800 dark:bg-[#121214] overflow-hidden dark:divide-zinc-800 dark:border-zinc-800 dark:bg-[#121214]">
                       {c.identityRows.map((row) => (
                         <div
                           key={row.field}
                           className="grid grid-cols-1 sm:grid-cols-3 gap-0.5 sm:gap-3 px-3 py-2 text-xs"
                         >
                           <span className="font-mono text-[11px] text-zinc-400">{row.field}</span>
-                          <span className="sm:col-span-2 text-zinc-800">
+                          <span className="sm:col-span-2 text-zinc-800 dark:text-zinc-200">
                             {row.href ? (
                               <a
                                 href={row.href}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="underline decoration-zinc-300 underline-offset-4 hover:decoration-zinc-900"
+                                className="underline decoration-zinc-300 underline-offset-4 hover:decoration-zinc-900 dark:decoration-zinc-700 dark:hover:decoration-zinc-100"
                               >
                                 {row.value}
                               </a>
@@ -377,7 +377,7 @@ export const PortfolioSections: React.FC<PortfolioSectionsProps> = ({
                           testIdPrefix="chapter"
                           variant="nested"
                         >
-                          <p className="text-xs text-zinc-600 leading-relaxed">
+                          <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
                             {chapter.body}
                           </p>
                         </AnimatedAccordionItem>
@@ -393,29 +393,29 @@ export const PortfolioSections: React.FC<PortfolioSectionsProps> = ({
                       {c.educationEntries.map((edu) => (
                         <div
                           key={edu.stage}
-                          className="rounded-lg border border-zinc-200/80 bg-zinc-50/50 p-3 space-y-1"
+                          className="rounded-lg border border-zinc-200/80 bg-zinc-50/50 dark:border-zinc-800 dark:bg-zinc-900/50 p-3 space-y-1 dark:border-zinc-800 dark:bg-zinc-900/50"
                         >
                           <span className="font-mono text-[10px] text-zinc-400">
                             {edu.stage}
                           </span>
-                          <h4 className="text-xs font-semibold text-zinc-950">
+                          <h4 className="text-xs font-semibold text-zinc-950 dark:text-white dark:text-white">
                             {edu.qualification}
                           </h4>
-                          <p className="text-[11px] font-medium text-zinc-700">
+                          <p className="text-[11px] font-medium text-zinc-700 dark:text-zinc-300">
                             {edu.institution}
                           </p>
-                          <p className="text-[11px] text-zinc-500 leading-relaxed">
+                          <p className="text-[11px] text-zinc-500 dark:text-zinc-400 leading-relaxed">
                             {edu.detail}
                           </p>
                         </div>
                       ))}
                     </div>
 
-                    <div className="rounded-lg border border-zinc-200/80 bg-white p-3 space-y-1">
+                    <div className="rounded-lg border border-zinc-200/80 bg-white dark:border-zinc-800 dark:bg-[#121214] p-3 space-y-1 dark:border-zinc-800 dark:bg-[#121214]">
                       <h3 className="font-mono text-[10px] uppercase tracking-wider text-zinc-400">
                         {c.selfDirectedTitle}
                       </h3>
-                      <p className="text-xs text-zinc-600 leading-relaxed">
+                      <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
                         {c.selfDirectedEducation}
                       </p>
                     </div>
@@ -424,12 +424,12 @@ export const PortfolioSections: React.FC<PortfolioSectionsProps> = ({
                       {c.backgroundInfluences.map((inf) => (
                         <div
                           key={inf.title}
-                          className="rounded-lg border border-zinc-200/80 bg-zinc-50/40 p-3 space-y-1"
+                          className="rounded-lg border border-zinc-200/80 bg-zinc-50/40 dark:border-zinc-800 dark:bg-zinc-900/40 p-3 space-y-1 dark:border-zinc-800 dark:bg-zinc-900/40"
                         >
-                          <h4 className="text-xs font-semibold text-zinc-950">
+                          <h4 className="text-xs font-semibold text-zinc-950 dark:text-white">
                             {inf.title}
                           </h4>
-                          <p className="text-[11px] text-zinc-600 leading-relaxed">
+                          <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-relaxed">
                             {inf.description}
                           </p>
                         </div>
@@ -442,50 +442,50 @@ export const PortfolioSections: React.FC<PortfolioSectionsProps> = ({
                 {key === 'vision' && (
                   <div className="space-y-3.5">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                      <div className="rounded-lg border border-zinc-200/80 bg-zinc-50/50 p-3 space-y-1">
+                      <div className="rounded-lg border border-zinc-200/80 bg-zinc-50/50 dark:border-zinc-800 dark:bg-zinc-900/50 p-3 space-y-1">
                         <span className="font-mono text-[10px] uppercase text-zinc-400">
                           {c.personalVisionTitle}
                         </span>
-                        <h4 className="text-xs font-semibold text-zinc-950 leading-snug">
+                        <h4 className="text-xs font-semibold text-zinc-950 dark:text-white leading-snug">
                           {c.personalVisionHeadline}
                         </h4>
-                        <p className="text-[11px] text-zinc-600 leading-relaxed">
+                        <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-relaxed">
                           {c.personalVisionBody}
                         </p>
                       </div>
 
-                      <div className="rounded-lg border border-zinc-200/80 bg-zinc-50/50 p-3 space-y-1">
+                      <div className="rounded-lg border border-zinc-200/80 bg-zinc-50/50 dark:border-zinc-800 dark:bg-zinc-900/50 p-3 space-y-1">
                         <span className="font-mono text-[10px] uppercase text-zinc-400">
                           {c.personalMissionTitle}
                         </span>
-                        <h4 className="text-xs font-semibold text-zinc-950 leading-snug">
+                        <h4 className="text-xs font-semibold text-zinc-950 dark:text-white leading-snug">
                           {c.personalMissionHeadline}
                         </h4>
-                        <p className="text-[11px] text-zinc-600 leading-relaxed">
+                        <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-relaxed">
                           {c.personalMissionBody}
                         </p>
                       </div>
 
-                      <div className="rounded-lg border border-zinc-200/80 bg-zinc-50/50 p-3 space-y-1">
+                      <div className="rounded-lg border border-zinc-200/80 bg-zinc-50/50 dark:border-zinc-800 dark:bg-zinc-900/50 p-3 space-y-1">
                         <span className="font-mono text-[10px] uppercase text-zinc-400">
                           {c.brandVisionTitle}
                         </span>
-                        <h4 className="text-xs font-semibold text-zinc-950 leading-snug">
+                        <h4 className="text-xs font-semibold text-zinc-950 dark:text-white leading-snug">
                           {c.ladestackVisionHeadline}
                         </h4>
-                        <p className="text-[11px] text-zinc-600 leading-relaxed">
+                        <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-relaxed">
                           {c.ladestackVisionBody}
                         </p>
                       </div>
 
-                      <div className="rounded-lg border border-zinc-200/80 bg-zinc-50/50 p-3 space-y-1">
+                      <div className="rounded-lg border border-zinc-200/80 bg-zinc-50/50 dark:border-zinc-800 dark:bg-zinc-900/50 p-3 space-y-1">
                         <span className="font-mono text-[10px] uppercase text-zinc-400">
                           {c.brandMissionTitle}
                         </span>
-                        <h4 className="text-xs font-semibold text-zinc-950 leading-snug">
+                        <h4 className="text-xs font-semibold text-zinc-950 dark:text-white leading-snug">
                           {c.ladestackMissionHeadline}
                         </h4>
-                        <p className="text-[11px] text-zinc-600 leading-relaxed">
+                        <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-relaxed">
                           {c.ladestackMissionBody}
                         </p>
                       </div>
@@ -495,16 +495,16 @@ export const PortfolioSections: React.FC<PortfolioSectionsProps> = ({
                       {c.coreValues.map((val) => (
                         <div
                           key={val.number}
-                          className="rounded-lg border border-zinc-200/80 bg-white p-3 flex items-start gap-2.5"
+                          className="rounded-lg border border-zinc-200/80 bg-white dark:border-zinc-800 dark:bg-[#121214] p-3 flex items-start gap-2.5"
                         >
                           <span className="font-mono text-[10px] text-zinc-400 mt-0.5 shrink-0">
                             {val.number}
                           </span>
                           <div className="space-y-0.5">
-                            <h4 className="text-xs font-semibold text-zinc-950">
+                            <h4 className="text-xs font-semibold text-zinc-950 dark:text-white">
                               {val.title}
                             </h4>
-                            <p className="text-[11px] text-zinc-600 leading-relaxed">
+                            <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-relaxed">
                               {val.description}
                             </p>
                           </div>
@@ -518,19 +518,19 @@ export const PortfolioSections: React.FC<PortfolioSectionsProps> = ({
                 {key === 'ecosystem' && (
                   <div className="space-y-3">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                      <div className="rounded-lg border border-zinc-200/80 bg-zinc-50/50 p-3 space-y-1">
-                        <h3 className="text-xs font-semibold text-zinc-950">
+                      <div className="rounded-lg border border-zinc-200/80 bg-zinc-50/50 dark:border-zinc-800 dark:bg-zinc-900/50 p-3 space-y-1">
+                        <h3 className="text-xs font-semibold text-zinc-950 dark:text-white">
                           {c.ecosystemBlocks.whatItIsTitle}
                         </h3>
-                        <p className="text-[11px] text-zinc-600 leading-relaxed">
+                        <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-relaxed">
                           {c.ecosystemBlocks.whatItIsBody}
                         </p>
                       </div>
-                      <div className="rounded-lg border border-zinc-200/80 bg-zinc-50/50 p-3 space-y-1">
-                        <h3 className="text-xs font-semibold text-zinc-950">
+                      <div className="rounded-lg border border-zinc-200/80 bg-zinc-50/50 dark:border-zinc-800 dark:bg-zinc-900/50 p-3 space-y-1">
+                        <h3 className="text-xs font-semibold text-zinc-950 dark:text-white">
                           {c.ecosystemBlocks.problemTitle}
                         </h3>
-                        <p className="text-[11px] text-zinc-600 leading-relaxed">
+                        <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-relaxed">
                           {c.ecosystemBlocks.problemBody}
                         </p>
                       </div>
@@ -540,19 +540,19 @@ export const PortfolioSections: React.FC<PortfolioSectionsProps> = ({
                       {c.ecosystemBlocks.audiences.map((aud) => (
                         <div
                           key={aud.group}
-                          className="rounded-lg border border-zinc-200/80 bg-white p-3 space-y-0.5"
+                          className="rounded-lg border border-zinc-200/80 bg-white dark:border-zinc-800 dark:bg-[#121214] p-3 space-y-0.5"
                         >
-                          <h4 className="text-xs font-semibold text-zinc-900">
+                          <h4 className="text-xs font-semibold text-zinc-900 dark:text-zinc-100">
                             {aud.group}
                           </h4>
-                          <p className="text-[11px] text-zinc-600 leading-relaxed">
+                          <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-relaxed">
                             {aud.detail}
                           </p>
                         </div>
                       ))}
                     </div>
 
-                    <div className="rounded-lg border border-zinc-200/80 bg-zinc-50/40 p-3">
+                    <div className="rounded-lg border border-zinc-200/80 bg-zinc-50/40 dark:border-zinc-800 dark:bg-zinc-900/40 p-3">
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-xs">
                         {c.ecosystemBlocks.ownershipItems.map((item) => (
                           <div key={item.label} className="flex items-center gap-1.5">
@@ -562,12 +562,12 @@ export const PortfolioSections: React.FC<PortfolioSectionsProps> = ({
                                 href={item.href}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="font-medium text-zinc-900 underline decoration-zinc-300 underline-offset-4 hover:decoration-zinc-900"
+                                className="font-medium text-zinc-900 dark:text-zinc-100 underline decoration-zinc-300 underline-offset-4 hover:decoration-zinc-900"
                               >
                                 {item.value}
                               </a>
                             ) : (
-                              <span className="font-medium text-zinc-900">{item.value}</span>
+                              <span className="font-medium text-zinc-900 dark:text-zinc-100">{item.value}</span>
                             )}
                           </div>
                         ))}
@@ -602,7 +602,7 @@ export const PortfolioSections: React.FC<PortfolioSectionsProps> = ({
                             <span>{product.role}</span>
                           </div>
 
-                          <p className="text-xs text-zinc-700 leading-relaxed">
+                          <p className="text-xs text-zinc-700 dark:text-zinc-300 leading-relaxed">
                             {product.overview}
                           </p>
 
@@ -610,12 +610,12 @@ export const PortfolioSections: React.FC<PortfolioSectionsProps> = ({
                             {product.useCases.map((uc) => (
                               <div
                                 key={uc.number}
-                                className="rounded-md border border-zinc-200/80 bg-white p-2.5 space-y-0.5"
+                                className="rounded-md border border-zinc-200/80 bg-white dark:border-zinc-800 dark:bg-[#121214] p-2.5 space-y-0.5"
                               >
-                                <h5 className="text-[11px] font-semibold text-zinc-900">
+                                <h5 className="text-[11px] font-semibold text-zinc-900 dark:text-zinc-100">
                                   {uc.title}
                                 </h5>
-                                <p className="text-[11px] text-zinc-500 leading-relaxed">
+                                <p className="text-[11px] text-zinc-500 dark:text-zinc-400 leading-relaxed">
                                   {uc.description}
                                 </p>
                               </div>
@@ -638,7 +638,7 @@ export const PortfolioSections: React.FC<PortfolioSectionsProps> = ({
                               href={product.url}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1 h-7 px-2.5 rounded-md bg-zinc-950 text-white text-[11px] font-medium hover:bg-zinc-800 transition-colors"
+                              className="inline-flex items-center gap-1 h-7 px-2.5 rounded-md bg-zinc-950 text-white text-[11px] font-medium hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-950 dark:hover:bg-white transition-colors"
                             >
                               <span>{c.visitSiteLabel}</span>
                               <svg
@@ -661,7 +661,7 @@ export const PortfolioSections: React.FC<PortfolioSectionsProps> = ({
                                 href={product.repoUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1 h-7 px-2.5 rounded-md border border-zinc-200 bg-white text-zinc-800 text-[11px] font-medium hover:border-zinc-400 transition-colors"
+                                className="inline-flex items-center gap-1 h-7 px-2.5 rounded-md border border-zinc-200 bg-white text-zinc-800 text-[11px] font-medium hover:border-zinc-400 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-200 dark:hover:border-zinc-700 dark:hover:bg-zinc-800 transition-colors"
                               >
                                 <span>{c.sourceCodeLabel}</span>
                                 <svg
@@ -686,7 +686,7 @@ export const PortfolioSections: React.FC<PortfolioSectionsProps> = ({
                                 href={rl.href}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center h-7 px-2 rounded-md border border-zinc-200 bg-white text-zinc-600 text-[11px] hover:text-zinc-950 hover:border-zinc-400 transition-colors"
+                                className="inline-flex items-center h-7 px-2 rounded-md border border-zinc-200 bg-white text-zinc-600 text-[11px] hover:text-zinc-950 hover:border-zinc-400 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400 dark:hover:text-white dark:hover:border-zinc-700 transition-colors"
                               >
                                 <span>{rl.label}</span>
                               </a>
@@ -718,7 +718,7 @@ export const PortfolioSections: React.FC<PortfolioSectionsProps> = ({
                           testIdPrefix="prototype"
                           variant="nested"
                         >
-                          <p className="text-xs text-zinc-600 leading-relaxed">
+                          <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
                             {proto.details}
                           </p>
                           {proto.links && proto.links.length > 0 && (
@@ -729,7 +729,7 @@ export const PortfolioSections: React.FC<PortfolioSectionsProps> = ({
                                   href={lk.href}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="inline-flex items-center gap-1 h-7 px-2.5 rounded-md border border-zinc-200 bg-white text-[11px] font-medium text-zinc-800 hover:border-zinc-400"
+                                  className="inline-flex items-center gap-1 h-7 px-2.5 rounded-md border border-zinc-200 bg-white text-[11px] font-medium text-zinc-800 hover:border-zinc-400 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-200 dark:hover:border-zinc-700"
                                 >
                                   <span>{lk.label}</span>
                                   <svg
@@ -762,15 +762,15 @@ export const PortfolioSections: React.FC<PortfolioSectionsProps> = ({
                       {c.capabilityDomains.map((cap) => (
                         <div
                           key={cap.domain}
-                          className="rounded-lg border border-zinc-200/80 bg-zinc-50/50 p-3 space-y-1"
+                          className="rounded-lg border border-zinc-200/80 bg-zinc-50/50 dark:border-zinc-800 dark:bg-zinc-900/50 p-3 space-y-1"
                         >
-                          <h4 className="text-xs font-semibold text-zinc-950">
+                          <h4 className="text-xs font-semibold text-zinc-950 dark:text-white">
                             {cap.domain}
                           </h4>
-                          <p className="font-mono text-[10px] text-zinc-700">
+                          <p className="font-mono text-[10px] text-zinc-700 dark:text-zinc-300">
                             {cap.technologies}
                           </p>
-                          <p className="text-[11px] text-zinc-500 leading-relaxed">
+                          <p className="text-[11px] text-zinc-500 dark:text-zinc-400 leading-relaxed">
                             {cap.evidence}
                           </p>
                         </div>
@@ -781,12 +781,12 @@ export const PortfolioSections: React.FC<PortfolioSectionsProps> = ({
                       {c.landscapeCategories.map((cat) => (
                         <div
                           key={cat.category}
-                          className="rounded-lg border border-zinc-200/80 bg-white p-3 space-y-1"
+                          className="rounded-lg border border-zinc-200/80 bg-white dark:border-zinc-800 dark:bg-[#121214] p-3 space-y-1"
                         >
-                          <h4 className="text-xs font-semibold text-zinc-900">
+                          <h4 className="text-xs font-semibold text-zinc-900 dark:text-zinc-100">
                             {cat.category}
                           </h4>
-                          <p className="font-mono text-[10px] text-zinc-600 leading-relaxed">
+                          <p className="font-mono text-[10px] text-zinc-600 dark:text-zinc-400 leading-relaxed">
                             {cat.items.join(' · ')}
                           </p>
                         </div>
@@ -802,15 +802,15 @@ export const PortfolioSections: React.FC<PortfolioSectionsProps> = ({
                       {c.offerings.map((off) => (
                         <div
                           key={off.code}
-                          className="rounded-lg border border-zinc-200/80 bg-zinc-50/50 p-3 space-y-1"
+                          className="rounded-lg border border-zinc-200/80 bg-zinc-50/50 dark:border-zinc-800 dark:bg-zinc-900/50 p-3 space-y-1"
                         >
                           <span className="font-mono text-[10px] text-zinc-400">
                             {off.code}
                           </span>
-                          <h4 className="text-xs font-semibold text-zinc-950">
+                          <h4 className="text-xs font-semibold text-zinc-950 dark:text-white">
                             {off.title}
                           </h4>
-                          <p className="text-[11px] text-zinc-600 leading-relaxed">
+                          <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-relaxed">
                             {off.description}
                           </p>
                         </div>
@@ -821,16 +821,16 @@ export const PortfolioSections: React.FC<PortfolioSectionsProps> = ({
                       {c.approachSteps.map((step) => (
                         <div
                           key={step.step}
-                          className="rounded-lg border border-zinc-200/80 bg-white p-3 flex items-start gap-2.5"
+                          className="rounded-lg border border-zinc-200/80 bg-white dark:border-zinc-800 dark:bg-[#121214] p-3 flex items-start gap-2.5"
                         >
                           <span className="font-mono text-[10px] text-zinc-400 mt-0.5 shrink-0">
                             {step.step}
                           </span>
                           <div className="space-y-0.5">
-                            <h4 className="text-xs font-semibold text-zinc-950">
+                            <h4 className="text-xs font-semibold text-zinc-950 dark:text-white">
                               {step.title}
                             </h4>
-                            <p className="text-[11px] text-zinc-600 leading-relaxed">
+                            <p className="text-[11px] text-zinc-600 dark:text-zinc-400 leading-relaxed">
                               {step.description}
                             </p>
                           </div>
@@ -843,24 +843,24 @@ export const PortfolioSections: React.FC<PortfolioSectionsProps> = ({
                 {/* 10. CONTACT & SOCIALS */}
                 {key === 'contact' && (
                   <div className="space-y-3.5">
-                    <div className="rounded-lg border border-zinc-200/80 bg-zinc-50/60 p-3.5 space-y-2.5">
-                      <h3 className="font-display text-sm font-semibold text-zinc-950">
+                    <div className="rounded-lg border border-zinc-200/80 bg-zinc-50/60 dark:border-zinc-800 dark:bg-zinc-900/60 p-3.5 space-y-2.5">
+                      <h3 className="font-display text-sm font-semibold text-zinc-950 dark:text-white">
                         {c.contactHeadline}
                       </h3>
-                      <p className="text-xs text-zinc-600 leading-relaxed">
+                      <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
                         {c.contactBody}
                       </p>
                       <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
                         <a
                           href="mailto:admin@ladestack.in"
-                          className="inline-flex items-center h-7 px-2.5 rounded-md bg-zinc-950 text-white text-[11px] font-medium hover:bg-zinc-800 transition-colors"
+                          className="inline-flex items-center h-7 px-2.5 rounded-md bg-zinc-950 text-white text-[11px] font-medium hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-950 dark:hover:bg-white transition-colors"
                         >
                           <span>admin@ladestack.in</span>
                         </a>
                         <button
                           type="button"
                           onClick={handleCopyEmail}
-                          className="inline-flex items-center h-7 px-2.5 rounded-md border border-zinc-200 bg-white text-zinc-700 text-[11px] font-mono hover:border-zinc-400 hover:text-zinc-950 transition-colors cursor-pointer"
+                          className="inline-flex items-center h-7 px-2.5 rounded-md border border-zinc-200 bg-white text-zinc-700 text-[11px] font-mono hover:border-zinc-400 hover:text-zinc-950 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:border-zinc-700 dark:hover:text-white transition-colors cursor-pointer"
                         >
                           <span>{copiedEmail ? c.copiedEmailLabel : c.copyEmailLabel}</span>
                         </button>
@@ -876,13 +876,13 @@ export const PortfolioSections: React.FC<PortfolioSectionsProps> = ({
                           rel={
                             sc.href.startsWith('mailto:') ? undefined : 'noopener noreferrer'
                           }
-                          className="group rounded-lg border border-zinc-200/80 bg-white p-3 hover:border-zinc-400 transition-colors flex items-center justify-between gap-2"
+                          className="group rounded-lg border border-zinc-200/80 bg-white dark:border-zinc-800 dark:bg-[#121214] p-3 hover:border-zinc-400 transition-colors flex items-center justify-between gap-2"
                         >
                           <div className="min-w-0">
                             <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-400 block">
                               {sc.platform}
                             </span>
-                            <p className="text-xs font-semibold text-zinc-900 group-hover:underline underline-offset-4">
+                            <p className="text-xs font-semibold text-zinc-900 dark:text-zinc-100 group-hover:underline underline-offset-4">
                               {sc.handleOrLabel}
                             </p>
                           </div>
@@ -891,7 +891,7 @@ export const PortfolioSections: React.FC<PortfolioSectionsProps> = ({
                             fill="none"
                             stroke="currentColor"
                             strokeWidth="1.7"
-                            className="w-3.5 h-3.5 text-zinc-400 group-hover:text-zinc-900 shrink-0"
+                            className="w-3.5 h-3.5 text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-zinc-100 shrink-0"
                           >
                             <path
                               d="M7 17 17 7M9 7h8v8"

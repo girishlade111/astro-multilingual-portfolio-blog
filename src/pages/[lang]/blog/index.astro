@@ -31,18 +31,18 @@ const currentPath = getRelativeLocaleUrl(locale, 'blog');
 >
   <div class="py-10 sm:py-20 space-y-10 sm:space-y-12">
     <!-- Blog Page Header -->
-    <header class="pb-8 sm:pb-10 border-b border-zinc-200/80 space-y-3 max-w-2xl">
-      <div class="flex flex-wrap items-center gap-2 text-xs text-zinc-500 font-mono">
+    <header class="pb-8 sm:pb-10 border-b border-zinc-200/80 dark:border-zinc-800/80 space-y-3 max-w-2xl">
+      <div class="flex flex-wrap items-center gap-2 text-xs text-zinc-500 dark:text-zinc-400 font-mono">
         <span>{t.blog.allPostsLabel}</span>
         <span aria-hidden="true">/</span>
         <span>{t.blog.markdownBadge}</span>
         <span aria-hidden="true">/</span>
         <span>/{locale}/blog</span>
       </div>
-      <h1 class="font-display text-2xl sm:text-4xl font-semibold tracking-tight text-zinc-950">
+      <h1 class="font-display text-2xl sm:text-4xl font-semibold tracking-tight text-zinc-950 dark:text-white">
         {t.blog.title}
       </h1>
-      <p class="text-sm sm:text-base text-zinc-600 leading-relaxed">
+      <p class="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 leading-relaxed">
         {t.blog.subtitle}
       </p>
     </header>

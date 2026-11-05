@@ -25,7 +25,9 @@ export const SpotlightCard: React.FC<SpotlightCardProps> = ({
     const rect = el.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    glow.style.background = `radial-gradient(480px circle at ${x}px ${y}px, ${spotlightColor}, transparent 45%)`;
+    const isDark = typeof document !== 'undefined' && document.documentElement.classList.contains('dark');
+    const color = isDark ? 'rgba(255, 255, 255, 0.055)' : spotlightColor;
+    glow.style.background = `radial-gradient(480px circle at ${x}px ${y}px, ${color}, transparent 45%)`;
   };
 
   const handleMouseEnter = () => {
