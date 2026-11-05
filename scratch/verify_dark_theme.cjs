@@ -75,3 +75,4 @@ assert.ok(enIndexHtml.includes('dark:bg-[#0c0c0e]'), 'Built HTML contains dark h
 console.log('✔ Static output HTML contains all dark mode hooks.');
 
 console.log('--- ALL DARK THEME AUDITS PASSED CLEANLY ---');
+
