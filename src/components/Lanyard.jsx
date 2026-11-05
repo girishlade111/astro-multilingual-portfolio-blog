@@ -27,7 +27,7 @@ const CLAMP_BODY = 0.15;
 const FACE_WIDTH = 1024;
 
 const FINISHES = {
-  glossy: { roughness: 0.12, metalness: 0, clearcoat: 1.0, clearcoatRoughness: 0.05, foil: 0, anisotropy: 0 },
+  glossy: { roughness: 0.05, metalness: 0, clearcoat: 1.0, clearcoatRoughness: 0.03, foil: 0, anisotropy: 0 },
   matte: { roughness: 0.85, metalness: 0, clearcoat: 0, clearcoatRoughness: 0.6, foil: 0, anisotropy: 0 },
   holographic: { roughness: 0.3, metalness: 0, clearcoat: 1, clearcoatRoughness: 0.04, foil: 1, anisotropy: 0 },
   metallic: { roughness: 0.36, metalness: 0.75, clearcoat: 0.5, clearcoatRoughness: 0.18, foil: 0, anisotropy: 0.7 }
@@ -359,7 +359,7 @@ const buildBandGeometry = count => {
 
 const buildEnvironment = renderer => {
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0.035, 0.035, 0.04);
+  scene.background = new THREE.Color(0.015, 0.015, 0.02);
   const geometry = new THREE.PlaneGeometry(1, 1);
   const materials = [];
   const panel = (intensity, position, scale, rotation = 0) => {
@@ -375,13 +375,12 @@ const buildEnvironment = renderer => {
     mesh.rotateZ(rotation);
     scene.add(mesh);
   };
-  panel(2.2, [0, 4.5, 8], [9, 5]);
-  panel(1.8, [-4.5, 1, 7], [6, 10]);
-  panel(1.6, [4.5, 1, 8], [6, 10]);
-  panel(1.4, [0, 0, 9], [12, 12]);
-  panel(1.2, [0, 6, -6], [12, 6]);
-  panel(0.6, [0, -7, 1], [16, 6]);
-  panel(0.8, [8, 0, -2], [6, 10]);
+  // Angled studio strip lights: create crisp, dynamic diagonal gloss sheens as the card swings/stretches/rotates
+  panel(3.2, [-5, 3, 6], [2.2, 9], 0.35);    // Left angled gloss strip
+  panel(2.8, [5, 2.5, 6], [2.2, 9], -0.35);  // Right angled gloss strip
+  panel(3.0, [0, 6.5, 5], [10, 2.5]);        // Top overhead gloss strip
+  panel(1.2, [0, -6, 4], [10, 2.5]);         // Subtle bottom fill
+  panel(1.4, [0, 5, -6], [12, 6]);           // Backfill depth
   const pmrem = new THREE.PMREMGenerator(renderer);
   const target = pmrem.fromScene(scene, 0.035);
   pmrem.dispose();
@@ -950,11 +949,11 @@ const Lanyard = ({
     const environment = buildEnvironment(renderer);
     scene.environment = environment.texture;
     const camera = new THREE.PerspectiveCamera(FOV, 1, 0.1, 200);
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.75);
-    const keyLight = new THREE.DirectionalLight(0xffffff, 1.75);
-    keyLight.position.set(-2.5, 4, 6);
-    const fillLight = new THREE.DirectionalLight(0xffffff, 0.55);
-    fillLight.position.set(3, -1, 4);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.22);
+    const keyLight = new THREE.DirectionalLight(0xffffff, 2.0);
+    keyLight.position.set(-2.5, 4.5, 5);
+    const fillLight = new THREE.DirectionalLight(0xffffff, 0.7);
+    fillLight.position.set(3, -1, 3);
     scene.add(ambientLight, keyLight, fillLight);
 
     const imageCache = new Map();
@@ -994,12 +993,16 @@ const Lanyard = ({
 
     const frontMaterial = new THREE.MeshPhysicalMaterial({
       map: frontTexture,
+      ior: 1.52,
+      reflectivity: 0.9,
       polygonOffset: true,
       polygonOffsetFactor: -1.0,
       polygonOffsetUnits: -4.0
     });
     const backMaterial = new THREE.MeshPhysicalMaterial({
       map: frontTexture,
+      ior: 1.52,
+      reflectivity: 0.9,
       polygonOffset: true,
       polygonOffsetFactor: -1.0,
       polygonOffsetUnits: -4.0
