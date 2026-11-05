@@ -9,6 +9,18 @@ const supportedList = JSON.stringify(LOCALES);
 <!doctype html>
 <html lang="en">
   <head>
+    <script is:inline>
+      (function () {
+        try {
+          var stored = localStorage.getItem('theme');
+          var isDark = stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          if (isDark) {
+            document.documentElement.classList.add('dark');
+          }
+        } catch (_) {}
+      })();
+    </script>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Microsoft Clarity -->
@@ -65,12 +77,12 @@ const supportedList = JSON.stringify(LOCALES);
       })();
     </script>
   </head>
-  <body class="min-h-screen flex items-center justify-center bg-[#fafafa] text-zinc-900 px-6">
+  <body class="min-h-screen flex items-center justify-center bg-[#fafafa] text-zinc-900 dark:bg-[#09090b] dark:text-zinc-100 px-6">
     <div class="text-center space-y-3">
-      <p class="text-sm text-zinc-500">Redirecting to localized portfolio...</p>
+      <p class="text-sm text-zinc-500 dark:text-zinc-400">Redirecting to localized portfolio...</p>
       <a
         href="/en/"
-        class="inline-flex items-center gap-2 text-xs font-medium text-zinc-900 underline underline-offset-4"
+        class="inline-flex items-center gap-2 text-xs font-medium text-zinc-900 dark:text-zinc-100 underline underline-offset-4"
       >
         Continue to /en/
       </a>
