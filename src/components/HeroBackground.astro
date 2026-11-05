@@ -24,33 +24,18 @@ const {
   aria-hidden="true"
   class="pointer-events-none absolute inset-x-0 top-1.5 bottom-1.5 z-0 overflow-hidden rounded-2xl border border-zinc-200/80 bg-[#f4f5f6] shadow-2xs dark:border-zinc-800/80 dark:bg-[#0c0c0e] dark:shadow-black/50 transition-colors duration-150"
 >
-  <!-- Desktop & Tablet Botanical Frame (sm and up): Full 4-side frame with seamless center blend -->
+  <!-- Desktop & Tablet Botanical Frame (sm and up): Full 4-side frame with seamless clean center -->
   <div class="hidden sm:block absolute inset-0">
     <!-- Light Theme Botanical Frame -->
     <div
       class="dark:hidden absolute inset-0 bg-cover bg-center bg-no-repeat scale-[1.01]"
       style={`background-image: url('${imageUrl}');`}
     />
-    <!-- Light Theme Center Radial Blend -->
-    <div
-      class="dark:hidden absolute inset-0"
-      style="background: radial-gradient(ellipse 46% 34% at 50% 50%, #f4f5f6 0%, #f4f5f6 60%, rgba(244, 245, 246, 0.82) 76%, rgba(244, 245, 246, 0) 100%);"
-    />
 
-    <!-- Dark Theme Nocturnal Botanical Frame (Created specifically for dark theme) -->
+    <!-- Dark Theme Nocturnal Botanical Frame -->
     <div
       class="hidden dark:block absolute inset-0 bg-cover bg-center bg-no-repeat scale-[1.01]"
       style={`background-image: url('${darkImageUrl}');`}
-    />
-    <!-- Dark Theme Center Radial Blend (seamlessly matches the #0c0c0e center of darkImageUrl) -->
-    <div
-      class="hidden dark:block absolute inset-0"
-      style="background: radial-gradient(ellipse 46% 34% at 50% 50%, #0c0c0e 0%, #0c0c0e 55%, rgba(12, 12, 14, 0.72) 75%, rgba(12, 12, 14, 0) 100%);"
-    />
-    <!-- Dark Theme Subtle Moonlight Ambient Highlight -->
-    <div
-      class="hidden dark:block absolute inset-0"
-      style="background: radial-gradient(circle at 50% 12%, rgba(255, 255, 255, 0.025) 0%, transparent 65%);"
     />
   </div>
 
@@ -65,11 +50,6 @@ const {
       class="dark:hidden absolute inset-y-0 right-0 w-[64%] bg-cover bg-right bg-no-repeat"
       style={`background-image: url('${imageUrl}'); -webkit-mask-image: linear-gradient(to left, #000 0%, #000 54%, transparent 100%); mask-image: linear-gradient(to left, #000 0%, #000 54%, transparent 100%);`}
     />
-    <!-- Light Theme Center Vertical Studio Blend -->
-    <div
-      class="dark:hidden absolute inset-0"
-      style="background: radial-gradient(ellipse 50% 44% at 50% 50%, #f4f5f6 0%, #f4f5f6 62%, rgba(244, 245, 246, 0.85) 78%, rgba(244, 245, 246, 0) 100%);"
-    />
 
     <!-- Dark Theme Mobile Edges -->
     <div
@@ -79,11 +59,6 @@ const {
     <div
       class="hidden dark:block absolute inset-y-0 right-0 w-[64%] bg-cover bg-right bg-no-repeat"
       style={`background-image: url('${darkImageUrl}'); -webkit-mask-image: linear-gradient(to left, #000 0%, #000 54%, transparent 100%); mask-image: linear-gradient(to left, #000 0%, #000 54%, transparent 100%);`}
-    />
-    <!-- Dark Theme Center Vertical Blend -->
-    <div
-      class="hidden dark:block absolute inset-0"
-      style="background: radial-gradient(ellipse 50% 44% at 50% 50%, #0c0c0e 0%, #0c0c0e 60%, rgba(12, 12, 14, 0.75) 78%, rgba(12, 12, 14, 0) 100%);"
     />
   </div>
 
