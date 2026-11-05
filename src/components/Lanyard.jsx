@@ -27,7 +27,7 @@ const CLAMP_BODY = 0.15;
 const FACE_WIDTH = 1024;
 
 const FINISHES = {
-  glossy: { roughness: 0.05, metalness: 0, clearcoat: 1.0, clearcoatRoughness: 0.03, foil: 0, anisotropy: 0 },
+  glossy: { roughness: 0.02, metalness: 0, clearcoat: 1.0, clearcoatRoughness: 0.02, foil: 0, anisotropy: 0 },
   matte: { roughness: 0.85, metalness: 0, clearcoat: 0, clearcoatRoughness: 0.6, foil: 0, anisotropy: 0 },
   holographic: { roughness: 0.3, metalness: 0, clearcoat: 1, clearcoatRoughness: 0.04, foil: 1, anisotropy: 0 },
   metallic: { roughness: 0.36, metalness: 0.75, clearcoat: 0.5, clearcoatRoughness: 0.18, foil: 0, anisotropy: 0.7 }
@@ -359,7 +359,7 @@ const buildBandGeometry = count => {
 
 const buildEnvironment = renderer => {
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0.015, 0.015, 0.02);
+  scene.background = new THREE.Color(0, 0, 0); // Pure pitch black environment: ZERO diffuse haze or white fog on the card
   const geometry = new THREE.PlaneGeometry(1, 1);
   const materials = [];
   const panel = (intensity, position, scale, rotation = 0) => {
@@ -375,14 +375,12 @@ const buildEnvironment = renderer => {
     mesh.rotateZ(rotation);
     scene.add(mesh);
   };
-  // Angled studio strip lights: create crisp, dynamic diagonal gloss sheens as the card swings/stretches/rotates
-  panel(3.2, [-5, 3, 6], [2.2, 9], 0.35);    // Left angled gloss strip
-  panel(2.8, [5, 2.5, 6], [2.2, 9], -0.35);  // Right angled gloss strip
-  panel(3.0, [0, 6.5, 5], [10, 2.5]);        // Top overhead gloss strip
-  panel(1.2, [0, -6, 4], [10, 2.5]);         // Subtle bottom fill
-  panel(1.4, [0, 5, -6], [12, 6]);           // Backfill depth
+  // Clean studio specular strip lights: create pure, razor-sharp gloss reflections as card swings or stretches
+  panel(2.8, [-5, 3.5, 6], [1.8, 10], 0.32);   // Left angled studio strip
+  panel(2.5, [5, 3.0, 6], [1.8, 10], -0.32);  // Right angled studio strip
+  panel(2.6, [0, 6.0, 5], [10, 2.0]);         // Overhead studio softbox
   const pmrem = new THREE.PMREMGenerator(renderer);
-  const target = pmrem.fromScene(scene, 0.035);
+  const target = pmrem.fromScene(scene, 0.02);
   pmrem.dispose();
   geometry.dispose();
   materials.forEach(material => material.dispose());
@@ -502,16 +500,7 @@ const paintFace = (canvas, image, color, fit) => {
   ctx.fillStyle = toCss(color);
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   if (image) {
-    const isDark = typeof document !== 'undefined' && document.documentElement.classList.contains('dark');
-    ctx.save();
-    // High-vibrancy LED screen clarity & contrast for the profile picture
-    if (isDark) {
-      ctx.filter = 'contrast(1.10) saturate(1.18) brightness(1.06)';
-    } else {
-      ctx.filter = 'contrast(1.04) saturate(1.06) brightness(1.02)';
-    }
     drawFitted(ctx, image, canvas.width, canvas.height, fit);
-    ctx.restore();
   }
 };
 
@@ -949,10 +938,10 @@ const Lanyard = ({
     const environment = buildEnvironment(renderer);
     scene.environment = environment.texture;
     const camera = new THREE.PerspectiveCamera(FOV, 1, 0.1, 200);
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.22);
-    const keyLight = new THREE.DirectionalLight(0xffffff, 2.0);
-    keyLight.position.set(-2.5, 4.5, 5);
-    const fillLight = new THREE.DirectionalLight(0xffffff, 0.7);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.45);
+    const keyLight = new THREE.DirectionalLight(0xffffff, 1.35);
+    keyLight.position.set(-2, 4, 5);
+    const fillLight = new THREE.DirectionalLight(0xffffff, 0.55);
     fillLight.position.set(3, -1, 3);
     scene.add(ambientLight, keyLight, fillLight);
 
@@ -993,16 +982,24 @@ const Lanyard = ({
 
     const frontMaterial = new THREE.MeshPhysicalMaterial({
       map: frontTexture,
-      ior: 1.52,
-      reflectivity: 0.9,
+      roughness: 0.02,
+      metalness: 0.0,
+      clearcoat: 1.0,
+      clearcoatRoughness: 0.02,
+      ior: 1.5,
+      reflectivity: 0.5,
       polygonOffset: true,
       polygonOffsetFactor: -1.0,
       polygonOffsetUnits: -4.0
     });
     const backMaterial = new THREE.MeshPhysicalMaterial({
       map: frontTexture,
-      ior: 1.52,
-      reflectivity: 0.9,
+      roughness: 0.02,
+      metalness: 0.0,
+      clearcoat: 1.0,
+      clearcoatRoughness: 0.02,
+      ior: 1.5,
+      reflectivity: 0.5,
       polygonOffset: true,
       polygonOffsetFactor: -1.0,
       polygonOffsetUnits: -4.0
