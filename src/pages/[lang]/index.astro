@@ -22,6 +22,7 @@ const currentPath = getRelativeLocaleUrl(locale, '');
 
 const profileImageUrl = '/assets/profile.jpeg';
 const heroBackgroundImageUrl = '/assets/aistudio/image_a475d35f.webp';
+const heroDarkBackgroundImageUrl = '/assets/aistudio/image_dark_botanical_clean.webp';
 ---
 
 <BaseLayout
@@ -38,7 +39,7 @@ const heroBackgroundImageUrl = '/assets/aistudio/image_a475d35f.webp';
       class="relative z-30 w-full h-[380px] sm:h-[440px] lg:h-[480px] flex flex-col items-center justify-end select-none overflow-visible"
     >
       <!-- Responsive Botanical Hero Background (Mobile & Desktop optimized) -->
-      <HeroBackground imageUrl={heroBackgroundImageUrl} />
+      <HeroBackground imageUrl={heroBackgroundImageUrl} darkImageUrl={heroDarkBackgroundImageUrl} />
 
       <!-- Instant 0ms SSR Lanyard Preview (renders immediately with HTML and pre-decodes the profile image for WebGL Frame 1) -->
       <div
@@ -56,7 +57,7 @@ const heroBackgroundImageUrl = '/assets/aistudio/image_a475d35f.webp';
         <!-- Metallic Ring -->
         <div class="w-[14px] sm:w-[16px] h-[14px] sm:h-[16px] rounded-full border-[2.5px] border-[#c8cdd6] shadow-2xs -mt-[3px] z-10" />
         <!-- Portrait ID Card with Pre-Decoded Profile Image -->
-        <div class="relative -mt-[7px] w-[140px] h-[197px] sm:w-[162px] sm:h-[228px] lg:w-[178px] lg:h-[250px] rounded-[14px] sm:rounded-[16px] bg-white shadow-[0_10px_28px_rgba(0,0,0,0.16)] ring-1 ring-black/10 dark:ring-white/10 dark:shadow-[0_14px_36px_rgba(0,0,0,0.5)] overflow-hidden">
+        <div class="relative -mt-[7px] w-[140px] h-[197px] sm:w-[162px] sm:h-[228px] lg:w-[178px] lg:h-[250px] rounded-[14px] sm:rounded-[16px] bg-white dark:bg-[#141416] shadow-[0_10px_28px_rgba(0,0,0,0.16)] ring-1 ring-black/10 dark:ring-white/10 dark:shadow-[0_14px_36px_rgba(0,0,0,0.5)] overflow-hidden">
           <img
             id="lanyard-preload-profile"
             data-lanyard-src={profileImageUrl}
@@ -70,7 +71,7 @@ const heroBackgroundImageUrl = '/assets/aistudio/image_a475d35f.webp';
             class="w-full h-full object-cover select-none"
           />
           <!-- Card Top Slot Punch Hole -->
-          <div class="absolute top-[7px] sm:top-[8px] left-1/2 -translate-x-1/2 w-[30px] sm:w-[34px] h-[6px] sm:h-[7px] rounded-full bg-[#f4f5f6] dark:bg-[#0c0c0e] shadow-inner ring-1 ring-black/15" />
+          <div class="absolute top-[7px] sm:top-[8px] left-1/2 -translate-x-1/2 w-[30px] sm:w-[34px] h-[6px] sm:h-[7px] rounded-full bg-[#f4f5f6] dark:bg-[#0c0c0e] shadow-inner ring-1 ring-black/15 dark:ring-white/10" />
         </div>
       </div>
 

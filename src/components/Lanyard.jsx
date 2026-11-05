@@ -1088,7 +1088,9 @@ const Lanyard = ({
 
     const paintFaces = () => {
       const s = settingsRef.current;
-      const color = parseColor(s.cardColor, [1, 1, 1]);
+      const isDark = typeof document !== 'undefined' && document.documentElement.classList.contains('dark');
+      const effectiveCardColor = isDark && (s.cardColor === '#ffffff' || !s.cardColor) ? '#141416' : s.cardColor;
+      const color = parseColor(effectiveCardColor, isDark ? [0.08, 0.08, 0.09] : [1, 1, 1]);
       const width = FACE_WIDTH;
       const height = Math.round((FACE_WIDTH * layout.height) / layout.width);
       const sameBack = !s.backImage || s.backImage === s.frontImage;
@@ -1194,8 +1196,11 @@ const Lanyard = ({
         }
       }
 
+      const isDark = typeof document !== 'undefined' && document.documentElement.classList.contains('dark');
+      const themeKey = isDark ? 'dark' : 'light';
+      const effectiveCardColor = isDark && (s.cardColor === '#ffffff' || !s.cardColor) ? '#141416' : s.cardColor;
       const imageKey = `${s.frontImage}|${s.backImage}|${s.strapImage}`;
-      const faceKey = `${layoutKey}|${s.cardColor}|${s.imageFit}`;
+      const faceKey = `${layoutKey}|${effectiveCardColor}|${s.imageFit}|${themeKey}`;
       let paintedSynchronously = false;
 
       if (imageKey !== applied.imageKey) {
@@ -1243,7 +1248,7 @@ const Lanyard = ({
       if (!paintedSynchronously && s.strapColor !== applied.strapColor) repaintStrap();
 
       const finish = FINISHES[s.finish] || FINISHES.glossy;
-      const card = parseColor(s.cardColor, [1, 1, 1]);
+      const card = parseColor(effectiveCardColor, isDark ? [0.08, 0.08, 0.09] : [1, 1, 1]);
       [frontMaterial, backMaterial].forEach(material => {
         material.roughness = finish.roughness;
         material.metalness = finish.metalness;
@@ -1253,11 +1258,19 @@ const Lanyard = ({
       });
       foilUniforms.foilStrength.value = finish.foil;
       foilUniforms.foilAspect.value = layout.height / layout.width;
-      edgeMaterial.color.setRGB(card[0] * 0.92, card[1] * 0.92, card[2] * 0.92, THREE.SRGBColorSpace);
-      edgeMaterial.roughness = Math.min(finish.roughness, 0.35);
-      edgeMaterial.metalness = finish.metalness;
-      edgeMaterial.clearcoat = 1;
-      edgeMaterial.clearcoatRoughness = 0.08;
+      if (isDark) {
+        edgeMaterial.color.setRGB(0.12, 0.12, 0.14, THREE.SRGBColorSpace);
+        edgeMaterial.roughness = 0.22;
+        edgeMaterial.metalness = 0.45;
+        edgeMaterial.clearcoat = 1;
+        edgeMaterial.clearcoatRoughness = 0.06;
+      } else {
+        edgeMaterial.color.setRGB(card[0] * 0.92, card[1] * 0.92, card[2] * 0.92, THREE.SRGBColorSpace);
+        edgeMaterial.roughness = Math.min(finish.roughness, 0.35);
+        edgeMaterial.metalness = finish.metalness;
+        edgeMaterial.clearcoat = 1;
+        edgeMaterial.clearcoatRoughness = 0.08;
+      }
       const metalLook = METALS[s.metal] || METALS.silver;
       metalMaterial.color.set(metalLook.color);
       metalMaterial.roughness = metalLook.roughness;
@@ -1713,6 +1726,15 @@ const Lanyard = ({
     };
     document.addEventListener('visibilitychange', onVisibility);
 
+    const onThemeChange = () => {
+      if (applyRef.current) {
+        applied.faceKey = '';
+        applyRef.current();
+        render();
+      }
+    };
+    window.addEventListener('theme-change', onThemeChange);
+
     applyRef.current = apply;
     resize();
 
@@ -1725,6 +1747,7 @@ const Lanyard = ({
       resizeObserver.disconnect();
       intersectionObserver.disconnect();
       document.removeEventListener('visibilitychange', onVisibility);
+      window.removeEventListener('theme-change', onThemeChange);
       window.removeEventListener('deviceorientation', onDeviceOrientation, true);
       window.removeEventListener('lanyard:gyro', onCustomGyroEvent);
       window.removeEventListener('touchstart', requestIosGyroPermissionIfNeeded);
