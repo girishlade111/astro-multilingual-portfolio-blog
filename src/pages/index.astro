@@ -1,21 +1,28 @@
 ---
 import '../styles/global.css';
-import { LOCALES, DEFAULT_LOCALE, UI_TRANSLATIONS } from '../i18n/config';
+import { LOCALES, DEFAULT_LOCALE, UI_TRANSLATIONS, BROWSER_LOCALE_MAP } from '../i18n/config';
 
 const t = UI_TRANSLATIONS[DEFAULT_LOCALE];
 const supportedList = JSON.stringify(LOCALES);
+const localeMapJson = JSON.stringify(BROWSER_LOCALE_MAP);
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- Immediate Zero-Flash Theme Initialization based on System & Stored Theme -->
     <script is:inline>
       (function () {
         try {
           var stored = localStorage.getItem('theme');
-          var isDark = stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          var mql = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+          var isDark = stored === 'dark' || (!stored && mql && mql.matches);
           if (isDark) {
             document.documentElement.classList.add('dark');
+            document.documentElement.setAttribute('data-theme', 'dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+            document.documentElement.setAttribute('data-theme', 'light');
           }
         } catch (_) {}
       })();
@@ -23,6 +30,8 @@ const supportedList = JSON.stringify(LOCALES);
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+
     <!-- Microsoft Clarity -->
     <script type="text/javascript" is:inline>
       (function(c,l,a,r,i,t,y){
@@ -61,19 +70,56 @@ const supportedList = JSON.stringify(LOCALES);
     <link rel="alternate" type="text/markdown" href="/llms.txt" title="LLMs.txt" />
     <link rel="help" type="text/markdown" href="/llms.txt" />
     <link rel="agent-catalog" type="application/json" href="/ai-catalog.json" />
-    <link rel="canonical" href="/en/" />
-    <meta http-equiv="refresh" content="0;url=/en/" />
-    <script is:inline define:vars={{ supportedList, defaultLocale: DEFAULT_LOCALE }}>
+    <link rel="canonical" href={`/${DEFAULT_LOCALE}/`} />
+
+    <!-- Fallback for JavaScript-disabled crawlers and environments -->
+    <noscript>
+      <meta http-equiv="refresh" content={`0;url=/${DEFAULT_LOCALE}/`} />
+    </noscript>
+
+    <!-- Immediate Smart Locale Router (Manual Choice -> System / Browser Language -> Fallback) -->
+    <script is:inline define:vars={{ supportedList, defaultLocale: DEFAULT_LOCALE, localeMapJson }}>
       (function () {
-        const allowed = JSON.parse(supportedList);
-        let target = defaultLocale;
         try {
-          const saved = localStorage.getItem('preferred_locale');
-          if (saved && allowed.includes(saved)) {
+          var allowed = JSON.parse(supportedList);
+          var langMap = JSON.parse(localeMapJson);
+          var target = defaultLocale;
+
+          // Priority 1: User's manual selection saved on repeat visits
+          var saved = localStorage.getItem('preferred_locale');
+          if (saved && allowed.indexOf(saved) !== -1) {
             target = saved;
+          } else {
+            // Priority 2: System / Browser preference (First visit or new device)
+            var userLangs = [];
+            if (navigator.languages && navigator.languages.length) {
+              userLangs = navigator.languages;
+            } else if (navigator.language) {
+              userLangs = [navigator.language];
+            } else if (navigator.userLanguage) { // Legacy Edge/IE/Mobile WebViews
+              userLangs = [navigator.userLanguage];
+            } else if (navigator.browserLanguage) {
+              userLangs = [navigator.browserLanguage];
+            }
+
+            for (var i = 0; i < userLangs.length; i++) {
+              if (!userLangs[i]) continue;
+              var raw = String(userLangs[i]).toLowerCase().trim();
+              var primary = raw.split(/[-_]/)[0];
+              var candidate = langMap[raw] || langMap[primary];
+              if (candidate && allowed.indexOf(candidate) !== -1) {
+                target = candidate;
+                break;
+              }
+            }
           }
-        } catch (_) {}
-        window.location.replace('/' + target + '/');
+
+          var search = window.location.search || '';
+          var hash = window.location.hash || '';
+          window.location.replace('/' + target + '/' + search + hash);
+        } catch (_) {
+          window.location.replace('/' + defaultLocale + '/');
+        }
       })();
     </script>
   </head>
@@ -81,10 +127,10 @@ const supportedList = JSON.stringify(LOCALES);
     <div class="text-center space-y-3">
       <p class="text-sm text-zinc-500 dark:text-zinc-400">Redirecting to localized portfolio...</p>
       <a
-        href="/en/"
+        href={`/${DEFAULT_LOCALE}/`}
         class="inline-flex items-center gap-2 text-xs font-medium text-zinc-900 dark:text-zinc-100 underline underline-offset-4"
       >
-        Continue to /en/
+        Continue to /{DEFAULT_LOCALE}/
       </a>
     </div>
   </body>
