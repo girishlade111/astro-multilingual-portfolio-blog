@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
-import Navbar from '../components/Navbar.astro';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import AppFloatingNav from '../components/AppFloatingNav';
 import Footer from '../components/Footer.astro';
 import {
   LOCALE_METADATA,
@@ -33,6 +34,8 @@ const {
 } = Astro.props;
 
 const t = getTranslations(locale);
+const homeUrl = getRelativeLocaleUrl(locale, '');
+const blogUrl = getRelativeLocaleUrl(locale, 'blog');
 const meta = LOCALE_METADATA[locale];
 
 const pageTitle = title ? `${title} | ${t.brandName}` : t.siteTitle;
