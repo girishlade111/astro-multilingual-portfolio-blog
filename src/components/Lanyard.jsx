@@ -846,7 +846,7 @@ const Lanyard = ({
   anchor = 'center',
   strapLength = 0.5,
   strapImage,
-  strapColor = '#f97316',
+  strapColor = '#f4a261',
   strapWidth = 0.65,
   metal = 'silver',
   gravity = 1,
