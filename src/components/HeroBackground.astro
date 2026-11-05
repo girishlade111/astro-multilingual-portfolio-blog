@@ -4,6 +4,7 @@
  * Uses the user-provided botanical reference asset (/assets/aistudio/image_a475d35f.png)
  * and optimizes framing for both portrait mobile screens and wide desktop viewports
  * while keeping the center behind the 3D Lanyard clean and watermark-free.
+ * Supports both Light theme and Dark theme seamlessly.
  */
 interface Props {
   imageUrl?: string;
@@ -16,18 +17,28 @@ const { imageUrl = '/assets/aistudio/image_a475d35f.webp' } = Astro.props;
   id="lanyard-hero-background"
   data-testid="lanyard-hero-background"
   aria-hidden="true"
-  class="pointer-events-none absolute inset-x-0 top-1.5 bottom-1.5 z-0 overflow-hidden rounded-2xl border border-zinc-200/80 bg-[#f4f5f6] shadow-2xs"
+  class="pointer-events-none absolute inset-x-0 top-1.5 bottom-1.5 z-0 overflow-hidden rounded-2xl border border-zinc-200/80 bg-[#f4f5f6] shadow-2xs dark:border-zinc-800/80 dark:bg-[#0c0c0e] dark:shadow-black/50 transition-colors duration-150"
 >
   <!-- Desktop & Tablet Botanical Frame (sm and up): Full 4-side frame with seamless center studio-paper blend -->
   <div class="hidden sm:block absolute inset-0">
     <div
-      class="absolute inset-0 bg-cover bg-center bg-no-repeat scale-[1.01]"
+      class="absolute inset-0 bg-cover bg-center bg-no-repeat scale-[1.01] transition-all duration-300 dark:opacity-40 dark:brightness-[0.55] dark:contrast-[1.25] dark:saturate-[0.7]"
       style={`background-image: url('${imageUrl}');`}
     />
-    <!-- Seamless center radial blend that removes the stock watermark while preserving all outer flowers, eucalyptus, rosemary & lace -->
+    <!-- Light Theme Center Radial Blend -->
     <div
-      class="absolute inset-0"
+      class="dark:hidden absolute inset-0"
       style="background: radial-gradient(ellipse 46% 34% at 50% 50%, #f4f5f6 0%, #f4f5f6 60%, rgba(244, 245, 246, 0.82) 76%, rgba(244, 245, 246, 0) 100%);"
+    />
+    <!-- Dark Theme Center Radial Blend -->
+    <div
+      class="hidden dark:block absolute inset-0"
+      style="background: radial-gradient(ellipse 46% 34% at 50% 50%, #0c0c0e 0%, #0c0c0e 60%, rgba(12, 12, 14, 0.85) 76%, rgba(12, 12, 14, 0) 100%);"
+    />
+    <!-- Dark Theme Subtle Moonlight Ambient Highlight -->
+    <div
+      class="hidden dark:block absolute inset-0"
+      style="background: radial-gradient(circle at 50% 12%, rgba(255, 255, 255, 0.035) 0%, transparent 65%);"
     />
   </div>
 
@@ -35,24 +46,29 @@ const { imageUrl = '/assets/aistudio/image_a475d35f.webp' } = Astro.props;
   <div class="block sm:hidden absolute inset-0">
     <!-- Left botanical edge (eucalyptus, white camellia, bottom-left rosemary) -->
     <div
-      class="absolute inset-y-0 left-0 w-[64%] bg-cover bg-left bg-no-repeat"
+      class="absolute inset-y-0 left-0 w-[64%] bg-cover bg-left bg-no-repeat transition-all duration-300 dark:opacity-40 dark:brightness-[0.55] dark:contrast-[1.25] dark:saturate-[0.7]"
       style={`background-image: url('${imageUrl}'); -webkit-mask-image: linear-gradient(to right, #000 0%, #000 54%, transparent 100%); mask-image: linear-gradient(to right, #000 0%, #000 54%, transparent 100%);`}
     />
     <!-- Right botanical edge (top-right gardenia & rosemary, bottom-right floral lace) -->
     <div
-      class="absolute inset-y-0 right-0 w-[64%] bg-cover bg-right bg-no-repeat"
+      class="absolute inset-y-0 right-0 w-[64%] bg-cover bg-right bg-no-repeat transition-all duration-300 dark:opacity-40 dark:brightness-[0.55] dark:contrast-[1.25] dark:saturate-[0.7]"
       style={`background-image: url('${imageUrl}'); -webkit-mask-image: linear-gradient(to left, #000 0%, #000 54%, transparent 100%); mask-image: linear-gradient(to left, #000 0%, #000 54%, transparent 100%);`}
     />
-    <!-- Center vertical studio-paper blend for crisp 3D Lanyard contrast and zero watermark -->
+    <!-- Light Theme Center Vertical Studio Blend -->
     <div
-      class="absolute inset-0"
+      class="dark:hidden absolute inset-0"
       style="background: radial-gradient(ellipse 50% 44% at 50% 50%, #f4f5f6 0%, #f4f5f6 62%, rgba(244, 245, 246, 0.85) 78%, rgba(244, 245, 246, 0) 100%);"
+    />
+    <!-- Dark Theme Center Vertical Studio Blend -->
+    <div
+      class="hidden dark:block absolute inset-0"
+      style="background: radial-gradient(ellipse 50% 44% at 50% 50%, #0c0c0e 0%, #0c0c0e 62%, rgba(12, 12, 14, 0.88) 78%, rgba(12, 12, 14, 0) 100%);"
     />
   </div>
 
   <!-- Subtle inner studio vignette & bottom caption scrim for clean typography contrast -->
   <div
-    class="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-[#f4f5f6]/90 via-[#f4f5f6]/45 to-transparent"
+    class="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-[#f4f5f6]/90 via-[#f4f5f6]/45 to-transparent dark:from-[#0c0c0e]/95 dark:via-[#0c0c0e]/50 dark:to-transparent transition-colors duration-150"
   />
-  <div class="absolute inset-0 rounded-2xl ring-1 ring-inset ring-black/[0.04]" />
+  <div class="absolute inset-0 rounded-2xl ring-1 ring-inset ring-black/[0.04] dark:ring-white/[0.06]" />
 </div>

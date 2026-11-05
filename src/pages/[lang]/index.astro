@@ -56,7 +56,7 @@ const heroBackgroundImageUrl = '/assets/aistudio/image_a475d35f.webp';
         <!-- Metallic Ring -->
         <div class="w-[14px] sm:w-[16px] h-[14px] sm:h-[16px] rounded-full border-[2.5px] border-[#c8cdd6] shadow-2xs -mt-[3px] z-10" />
         <!-- Portrait ID Card with Pre-Decoded Profile Image -->
-        <div class="relative -mt-[7px] w-[140px] h-[197px] sm:w-[162px] sm:h-[228px] lg:w-[178px] lg:h-[250px] rounded-[14px] sm:rounded-[16px] bg-white shadow-[0_10px_28px_rgba(0,0,0,0.16)] ring-1 ring-black/10 overflow-hidden">
+        <div class="relative -mt-[7px] w-[140px] h-[197px] sm:w-[162px] sm:h-[228px] lg:w-[178px] lg:h-[250px] rounded-[14px] sm:rounded-[16px] bg-white shadow-[0_10px_28px_rgba(0,0,0,0.16)] ring-1 ring-black/10 dark:ring-white/10 dark:shadow-[0_14px_36px_rgba(0,0,0,0.5)] overflow-hidden">
           <img
             id="lanyard-preload-profile"
             data-lanyard-src={profileImageUrl}
@@ -70,7 +70,7 @@ const heroBackgroundImageUrl = '/assets/aistudio/image_a475d35f.webp';
             class="w-full h-full object-cover select-none"
           />
           <!-- Card Top Slot Punch Hole -->
-          <div class="absolute top-[7px] sm:top-[8px] left-1/2 -translate-x-1/2 w-[30px] sm:w-[34px] h-[6px] sm:h-[7px] rounded-full bg-[#f4f5f6] shadow-inner ring-1 ring-black/15" />
+          <div class="absolute top-[7px] sm:top-[8px] left-1/2 -translate-x-1/2 w-[30px] sm:w-[34px] h-[6px] sm:h-[7px] rounded-full bg-[#f4f5f6] dark:bg-[#0c0c0e] shadow-inner ring-1 ring-black/15" />
         </div>
       </div>
 
@@ -110,7 +110,7 @@ const heroBackgroundImageUrl = '/assets/aistudio/image_a475d35f.webp';
       <div class="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-[46px] sm:bottom-[48px] lg:bottom-[52px] z-20">
         <p
           id="hero-name"
-          class="hero-name text-[28px] sm:text-[32px] lg:text-[36px] font-semibold leading-none text-zinc-950 whitespace-nowrap select-none"
+          class="hero-name text-[28px] sm:text-[32px] lg:text-[36px] font-semibold leading-none text-zinc-950 dark:text-zinc-100 whitespace-nowrap select-none"
         >
           Girish Lade
         </p>
@@ -128,5 +128,9 @@ const heroBackgroundImageUrl = '/assets/aistudio/image_a475d35f.webp';
     font-family: 'Cormorant Garamond', 'Playfair Display', Didot, 'Bodoni MT', Georgia, serif;
     letter-spacing: -0.01em;
     text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9), 0 2px 12px rgba(0, 0, 0, 0.04);
+  }
+
+  :global(.dark) .hero-name {
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9), 0 2px 16px rgba(255, 255, 255, 0.12);
   }
 </style>

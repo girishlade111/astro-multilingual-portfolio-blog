@@ -197,6 +197,22 @@ const jsonLdGraph = {
 <!doctype html>
 <html lang={meta.htmlLang} class="overflow-x-hidden">
   <head>
+    <!-- Immediate Zero-Flash Theme Initialization -->
+    <script is:inline>
+      (function () {
+        try {
+          var stored = localStorage.getItem('theme');
+          var isDark = stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          if (isDark) {
+            document.documentElement.classList.add('dark');
+            document.documentElement.setAttribute('data-theme', 'dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+            document.documentElement.setAttribute('data-theme', 'light');
+          }
+        } catch (_) {}
+      })();
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -288,8 +304,8 @@ const jsonLdGraph = {
     <meta name="author" content="Girish Balaso Lade" />
     <meta name="creator" content="Girish Lade" />
     <meta name="publisher" content="LadeStack" />
-    <meta name="theme-color" content="#fafafa" />
-    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#fafafa" id="meta-theme-color" />
+    <meta name="color-scheme" content="light dark" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow'} />
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
@@ -352,7 +368,7 @@ const jsonLdGraph = {
     <!-- Schema.org JSON-LD Structured Data (Linked Graph) -->
     <script type="application/ld+json" set:html={JSON.stringify(jsonLdGraph)} />
   </head>
-  <body class="min-h-screen flex flex-col overflow-x-hidden bg-[#fafafa] text-zinc-900 antialiased selection:bg-zinc-900 selection:text-white">
+  <body class="min-h-screen flex flex-col overflow-x-hidden bg-[#fafafa] text-zinc-900 antialiased selection:bg-zinc-900 selection:text-white dark:bg-[#09090b] dark:text-zinc-100 dark:selection:bg-zinc-100 dark:selection:text-zinc-900 transition-colors duration-150">
     <Navbar locale={locale} currentPath={currentPath} localeSwitchPath={localeSwitchPath} />
     <main id="main-content" class="flex-1 min-w-0 w-full max-w-3xl mx-auto px-3.5 sm:px-6">
       <slot />

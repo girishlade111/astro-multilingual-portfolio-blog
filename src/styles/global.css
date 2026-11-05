@@ -17,6 +17,22 @@
     -webkit-font-smoothing: antialiased;
   }
 
+  html.dark {
+    color-scheme: dark;
+    color: #f4f4f5;
+    background-color: #09090b;
+  }
+
+  html.dark body {
+    color: #f4f4f5;
+    background-color: #09090b;
+  }
+
+  html.dark ::selection {
+    background-color: #f4f4f5;
+    color: #09090b;
+  }
+
   h1, h2, h3, h4, .font-display {
     font-family: var(--font-display);
     text-wrap: balance;
@@ -129,6 +145,53 @@
   margin: 0;
 }
 
+/* Dark mode markdown prose styling - preserves light mode completely */
+html.dark .markdown-prose {
+  color: #d4d4d8;
+}
+
+html.dark .markdown-prose h2 {
+  color: #f4f4f5;
+  border-bottom-color: #27272a;
+}
+
+html.dark .markdown-prose h3 {
+  color: #f4f4f5;
+}
+
+html.dark .markdown-prose p {
+  color: #a1a1aa;
+}
+
+html.dark .markdown-prose strong {
+  color: #fafafa;
+}
+
+html.dark .markdown-prose ul,
+html.dark .markdown-prose ol {
+  color: #a1a1aa;
+}
+
+html.dark .markdown-prose li::marker {
+  color: #71717a;
+}
+
+html.dark .markdown-prose :not(pre) > code {
+  background-color: #18181b;
+  color: #e4e4e7;
+  border-color: #27272a;
+}
+
+html.dark .markdown-prose blockquote {
+  background-color: #18181b;
+  border-color: #27272a;
+  color: #d4d4d8;
+}
+
+html.dark .markdown-prose blockquote p {
+  color: #d4d4d8;
+}
+
 @keyframes rb-shine {
   0% {
     background-position: 100% 0;
@@ -147,6 +210,14 @@
   overflow-wrap: anywhere;
 }
 
+/* Dark theme portfolio CSS custom property tokens */
+html.dark .portfolio-content {
+  --portfolio-ink: #f4f4f5;
+  --portfolio-muted: #a1a1aa;
+  --portfolio-line: #27272a;
+  --portfolio-surface: #121214;
+}
+
 .portfolio-content :where(div, section, p, h1, h2, h3, h4, h5, a, button) {
   min-width: 0;
 }
@@ -157,6 +228,10 @@
   padding: 20px 18px 16px;
   margin-bottom: 20px;
   box-shadow: 0 2px 8px rgb(24 24 27 / 2%);
+}
+
+html.dark .portfolio-content .identity-card {
+  box-shadow: 0 4px 20px rgb(0 0 0 / 35%);
 }
 
 .identity-heading {
@@ -254,6 +329,10 @@
   color: #71717a;
 }
 
+html.dark .accordion-section-icon {
+  color: #a1a1aa;
+}
+
 .accordion-section-icon svg {
   width: 16px;
   height: 16px;
@@ -272,6 +351,10 @@
   color: #85858d;
 }
 
+html.dark .accordion-indicator {
+  color: #71717a;
+}
+
 .accordion-indicator svg { width: 100%; height: 100%; }
 .accordion-indicator-vertical { transform-origin: center; transition: transform 160ms ease; }
 .accordion-trigger[aria-expanded="true"] .accordion-indicator-vertical { transform: rotate(90deg); }
@@ -281,6 +364,7 @@
 .accordion-overview { padding: 0 0 4px; }
 .accordion-overview p { color: var(--portfolio-muted); font-size: 12px; }
 .accordion-overview > span { display: block; color: #71717a; font-size: 10px; margin-top: 4px; }
+html.dark .accordion-overview > span { color: #85858d; }
 
 .portfolio-topic {
   border-bottom: 1px solid var(--portfolio-line);
@@ -296,6 +380,7 @@
 .portfolio-content .accordion-body :where(p, li) { line-height: 1.8; }
 .portfolio-content .accordion-body :where(.text-xs, .text-\[11px\]) { font-size: 12px; }
 .portfolio-content .text-zinc-400 { color: #71717a; }
+html.dark .portfolio-content .text-zinc-400 { color: #a1a1aa; }
 .portfolio-content .accordion-body .flex { flex-wrap: wrap; }
 .portfolio-content .accordion-body .flex > .space-y-0\.5 { flex: 1 1 150px; }
 .portfolio-content .accordion-body .grid > * { min-width: 0; }
@@ -314,12 +399,14 @@
   outline-offset: 3px;
 }
 
+html.dark :where(a, button, select):focus-visible {
+  outline: 2px solid #a1a1aa;
+  outline-offset: 3px;
+}
+
 header > div { flex-wrap: wrap; height: auto; min-height: 56px; padding-block: 6px; }
 header nav { gap: clamp(8px, 3vw, 24px); }
 header nav a { min-height: 40px; }
-
-
-
 
 .markdown-prose { overflow-wrap: anywhere; min-width: 0; }
 .markdown-prose :where(img, video, iframe) { max-width: 100%; }
@@ -327,6 +414,7 @@ header nav a { min-height: 40px; }
 
 @media (hover: hover) {
   .portfolio-section .accordion-trigger:hover .accordion-label { color: #71717a; }
+  html.dark .portfolio-section .accordion-trigger:hover .accordion-label { color: #e4e4e7; }
 }
 
 @media (min-width: 640px) {
@@ -334,7 +422,6 @@ header nav a { min-height: 40px; }
   .portfolio-content .accordion-trigger { min-height: 62px; padding-block: 18px; }
   .portfolio-section > div > .accordion-heading .accordion-label { font-size: 15px; }
   .portfolio-topic .accordion-trigger { min-height: 48px; padding-block: 13px; }
-
 }
 
 @keyframes portfolio-open {
@@ -349,4 +436,3 @@ header nav a { min-height: 40px; }
     transition: none !important;
   }
 }
-
