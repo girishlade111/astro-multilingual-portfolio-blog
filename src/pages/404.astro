@@ -17,22 +17,22 @@ const blogUrl = getRelativeLocaleUrl(DEFAULT_LOCALE, 'blog');
 >
   <section class="grid items-center gap-10 py-14 sm:grid-cols-[minmax(0,1fr)_12rem] sm:py-24 lg:py-32" aria-labelledby="error-title">
     <div>
-      <p class="mb-4 font-mono text-xs font-medium tracking-wider text-zinc-600">ERROR 404</p>
-      <h1 id="error-title" class="text-4xl leading-tight font-semibold tracking-tight text-zinc-950 sm:text-5xl">
+      <p class="mb-4 font-mono text-xs font-medium tracking-wider text-zinc-600 dark:text-zinc-400">ERROR 404</p>
+      <h1 id="error-title" class="text-4xl leading-tight font-semibold tracking-tight text-zinc-950 dark:text-white sm:text-5xl">
         Page not found.
       </h1>
-      <p class="mt-4 max-w-sm text-base leading-relaxed text-zinc-600">
+      <p class="mt-4 max-w-sm text-base leading-relaxed text-zinc-600 dark:text-zinc-400">
         The page may have moved, or the address may be incorrect. Check the URL or use the links below.
       </p>
 
       <nav class="mt-7 flex flex-wrap gap-3" aria-label="Continue browsing">
-        <a class="error-link border-transparent bg-zinc-950 text-white hover:bg-zinc-800 active:bg-zinc-700" href={homeUrl}>
+        <a class="error-link border-transparent bg-zinc-950 text-white hover:bg-zinc-800 active:bg-zinc-700 dark:bg-zinc-100 dark:text-zinc-950 dark:hover:bg-white" href={homeUrl}>
           <svg aria-hidden="true" class="size-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="m12 19-7-7 7-7M5 12h14" />
           </svg>
           Back to portfolio
         </a>
-        <a class="error-link border-zinc-200 bg-white text-zinc-900 hover:border-zinc-400 hover:bg-zinc-50 active:bg-zinc-100" href={blogUrl}>
+        <a class="error-link border-zinc-200 bg-white text-zinc-900 hover:border-zinc-400 hover:bg-zinc-50 active:bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:hover:border-zinc-700 dark:hover:bg-zinc-800" href={blogUrl}>
           Browse the blog
           <svg aria-hidden="true" class="size-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M5 12h14m-7-7 7 7-7 7" />
@@ -42,14 +42,14 @@ const blogUrl = getRelativeLocaleUrl(DEFAULT_LOCALE, 'blog');
     </div>
 
     <svg aria-hidden="true" class="hidden w-full text-zinc-500 sm:block" viewBox="0 0 192 192" fill="none">
-      <rect x="0.5" y="0.5" width="191" height="191" rx="12" class="fill-zinc-100/50 stroke-zinc-200" />
-      <g class="stroke-zinc-200">
+      <rect x="0.5" y="0.5" width="191" height="191" rx="12" class="fill-zinc-100/50 stroke-zinc-200 dark:fill-zinc-900/50 dark:stroke-zinc-800" />
+      <g class="stroke-zinc-200 dark:stroke-zinc-800">
         <path d="M24 48h144M24 96h144M24 144h144M48 24v144M96 24v144M144 24v144" />
       </g>
-      <path d="M48 144V96h48V48h24" class="stroke-zinc-600" stroke-width="1.5" />
+      <path d="M48 144V96h48V48h24" class="stroke-zinc-600 dark:stroke-zinc-400" stroke-width="1.5" />
       <path d="M120 48h18" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 4" />
-      <circle cx="48" cy="144" r="4" class="fill-zinc-700" />
-      <circle cx="144" cy="48" r="5" class="fill-zinc-50 stroke-zinc-600" stroke-width="1.5" />
+      <circle cx="48" cy="144" r="4" class="fill-zinc-700 dark:fill-zinc-300" />
+      <circle cx="144" cy="48" r="5" class="fill-zinc-50 stroke-zinc-600 dark:fill-zinc-900 dark:stroke-zinc-400" stroke-width="1.5" />
     </svg>
   </section>
 </BaseLayout>
