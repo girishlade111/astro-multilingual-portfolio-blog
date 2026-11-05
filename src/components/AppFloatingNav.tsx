@@ -197,11 +197,14 @@ export const AppFloatingNav: React.FC<AppFloatingNavProps> = ({
                     <a
                       key={loc}
                       href={targetUrl}
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.preventDefault();
                         try {
                           localStorage.setItem("preferred_locale", loc);
+                          document.cookie = "preferred_locale=" + encodeURIComponent(loc) + ";path=/;max-age=31536000;SameSite=Lax";
                         } catch (_) {}
                         setIsLanguageModalOpen(false);
+                        window.location.href = targetUrl;
                       }}
                       className={`flex items-center justify-between w-full px-3.5 py-2.5 rounded-xl text-xs transition-all cursor-pointer select-none ${
                         isSelected

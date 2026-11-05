@@ -231,20 +231,23 @@ const blogUrl = getRelativeLocaleUrl(locale, 'blog');
     const themeBtn = document.getElementById('theme-toggle-btn');
     if (themeBtn) {
       function updateTheme(dark) {
+        const val = dark ? 'dark' : 'light';
         if (dark) {
           document.documentElement.classList.add('dark');
           document.documentElement.setAttribute('data-theme', 'dark');
-          try { localStorage.setItem('theme', 'dark'); } catch (_) {}
           themeBtn.setAttribute('aria-label', 'Switch to light theme');
         } else {
           document.documentElement.classList.remove('dark');
           document.documentElement.setAttribute('data-theme', 'light');
-          try { localStorage.setItem('theme', 'light'); } catch (_) {}
           themeBtn.setAttribute('aria-label', 'Switch to dark theme');
         }
+        try {
+          localStorage.setItem('theme', val);
+          document.cookie = 'theme=' + val + ';path=/;max-age=31536000;SameSite=Lax';
+        } catch (_) {}
         const metaTheme = document.getElementById('meta-theme-color');
         if (metaTheme) metaTheme.setAttribute('content', dark ? '#09090b' : '#fafafa');
-        window.dispatchEvent(new CustomEvent('theme-change', { detail: { theme: dark ? 'dark' : 'light' } }));
+        window.dispatchEvent(new CustomEvent('theme-change', { detail: { theme: val } }));
       }
 
       themeBtn.addEventListener('click', function () {
@@ -301,12 +304,18 @@ const blogUrl = getRelativeLocaleUrl(locale, 'blog');
 
     const options = popover.querySelectorAll('a[data-locale]');
     options.forEach(function (option) {
-      option.addEventListener('click', function () {
+      option.addEventListener('click', function (e) {
         const loc = option.getAttribute('data-locale');
+        const href = option.getAttribute('href');
         if (loc) {
+          e.preventDefault();
           try {
             localStorage.setItem('preferred_locale', loc);
+            document.cookie = 'preferred_locale=' + encodeURIComponent(loc) + ';path=/;max-age=31536000;SameSite=Lax';
           } catch (_) {}
+          if (href) {
+            window.location.href = href;
+          }
         }
       });
     });
