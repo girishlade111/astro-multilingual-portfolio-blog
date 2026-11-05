@@ -200,18 +200,57 @@ const jsonLdGraph = {
 <!doctype html>
 <html lang={meta.htmlLang} class="overflow-x-clip">
   <head>
-    <!-- Immediate Zero-Flash Theme Initialization -->
+    <!-- Immediate Zero-Flash Theme Initialization & Real-Time Device Sync -->
     <script is:inline>
       (function () {
         try {
           var stored = localStorage.getItem('theme');
-          var isDark = stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches);
-          if (isDark) {
-            document.documentElement.classList.add('dark');
-            document.documentElement.setAttribute('data-theme', 'dark');
-          } else {
-            document.documentElement.classList.remove('dark');
-            document.documentElement.setAttribute('data-theme', 'light');
+          var mql = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+          var systemDark = mql ? mql.matches : false;
+          var isDark = stored ? (stored === 'dark') : systemDark;
+
+          function applyTheme(dark) {
+            if (dark) {
+              document.documentElement.classList.add('dark');
+              document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+              document.documentElement.classList.remove('dark');
+              document.documentElement.setAttribute('data-theme', 'light');
+            }
+            var metaTheme = document.getElementById('meta-theme-color');
+            if (metaTheme) {
+              metaTheme.setAttribute('content', dark ? '#09090b' : '#fafafa');
+            }
+          }
+
+          // 1. Immediate zero-flash application
+          applyTheme(isDark);
+
+          // 2. Synchronize meta-theme-color if tag parsed after script
+          if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function () {
+              var metaTheme = document.getElementById('meta-theme-color');
+              if (metaTheme) metaTheme.setAttribute('content', isDark ? '#09090b' : '#fafafa');
+            });
+          }
+
+          // 3. Real-time OS theme change listener (Desktop/Mobile dynamic shifts)
+          // Operates when user hasn't explicitly locked a manual preference
+          if (mql) {
+            var handleOSChange = function (e) {
+              try {
+                if (!localStorage.getItem('theme')) {
+                  applyTheme(e.matches);
+                  window.dispatchEvent(new CustomEvent('theme-change', { detail: { theme: e.matches ? 'dark' : 'light' } }));
+                }
+              } catch (_) {}
+            };
+
+            if (mql.addEventListener) {
+              mql.addEventListener('change', handleOSChange);
+            } else if (mql.addListener) { // Legacy iOS Safari / macOS Safari support
+              mql.addListener(handleOSChange);
+            }
           }
         } catch (_) {}
       })();
