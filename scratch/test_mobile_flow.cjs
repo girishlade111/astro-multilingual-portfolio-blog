@@ -47,6 +47,8 @@ function createMobileBrowserSandbox(options = {}) {
           addListener: () => {}
         };
       },
+      addEventListener: () => {},
+      removeEventListener: () => {},
       dispatchEvent: () => {}
     },
     document: {
