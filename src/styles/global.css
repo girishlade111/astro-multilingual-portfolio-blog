@@ -409,8 +409,17 @@ header nav { gap: clamp(8px, 3vw, 24px); }
 header nav a { min-height: 40px; }
 
 .markdown-prose { overflow-wrap: anywhere; min-width: 0; }
+.markdown-prose :is(h1, h2, h3, h4, h5, h6) { scroll-margin-top: 5.5rem; }
 .markdown-prose :where(img, video, iframe) { max-width: 100%; }
 .markdown-prose pre { max-width: 100%; }
+
+.toc-link.active-toc-item {
+  color: var(--color-zinc-950, #09090b);
+  font-weight: 600;
+}
+html.dark .toc-link.active-toc-item {
+  color: #ffffff;
+}
 
 @media (hover: hover) {
   .portfolio-section .accordion-trigger:hover .accordion-label { color: #71717a; }

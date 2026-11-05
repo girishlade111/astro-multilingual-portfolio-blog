@@ -195,7 +195,7 @@ const jsonLdGraph = {
 ---
 
 <!doctype html>
-<html lang={meta.htmlLang} class="overflow-x-hidden">
+<html lang={meta.htmlLang} class="overflow-x-clip">
   <head>
     <!-- Immediate Zero-Flash Theme Initialization -->
     <script is:inline>
@@ -368,7 +368,7 @@ const jsonLdGraph = {
     <!-- Schema.org JSON-LD Structured Data (Linked Graph) -->
     <script type="application/ld+json" set:html={JSON.stringify(jsonLdGraph)} />
   </head>
-  <body class="min-h-screen flex flex-col overflow-x-hidden bg-[#fafafa] text-zinc-900 antialiased selection:bg-zinc-900 selection:text-white dark:bg-[#09090b] dark:text-zinc-100 dark:selection:bg-zinc-100 dark:selection:text-zinc-900 transition-colors duration-150">
+  <body class="min-h-screen flex flex-col overflow-x-clip bg-[#fafafa] text-zinc-900 antialiased selection:bg-zinc-900 selection:text-white dark:bg-[#09090b] dark:text-zinc-100 dark:selection:bg-zinc-100 dark:selection:text-zinc-900 transition-colors duration-150">
     <Navbar locale={locale} currentPath={currentPath} localeSwitchPath={localeSwitchPath} />
     <main id="main-content" class="flex-1 min-w-0 w-full max-w-3xl mx-auto px-3.5 sm:px-6">
       <slot />
