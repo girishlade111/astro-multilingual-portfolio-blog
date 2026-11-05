@@ -251,6 +251,11 @@ const blogUrl = getRelativeLocaleUrl(locale, 'blog');
         const isDark = document.documentElement.classList.contains('dark');
         updateTheme(!isDark);
       });
+
+      window.addEventListener('theme-change', function (e) {
+        const isDark = e && e.detail && e.detail.theme === 'dark';
+        themeBtn.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
+      });
     }
 
     if (!root || !trigger || !popover) return;
