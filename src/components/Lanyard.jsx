@@ -533,10 +533,10 @@ const paintStrap = (canvas, image, color, isDark = true) => {
       ctx.fillRect(across * 0.92 - 3, y, 3, 8);
     }
   } else {
-    // Light theme: soft light saffron with pure white woven thread ribbing and stitching
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.42)';
-    for (let y = 0; y < along; y += 4) ctx.fillRect(0, y, across, 1.5);
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.55)';
+    // Light theme: balanced sweet-spot saffron with subtle white woven thread ribbing and stitching
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.28)';
+    for (let y = 0; y < along; y += 4) ctx.fillRect(0, y, across, 1.2);
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.38)';
     ctx.fillRect(0, 0, 8, along);
     ctx.fillRect(across - 8, 0, 8, along);
     for (let y = 0; y < along; y += 14) {
@@ -863,7 +863,7 @@ const Lanyard = ({
   strapImage,
   strapColor,
   darkStrapColor = '#c2410c',
-  lightStrapColor = '#fca066',
+  lightStrapColor = '#ec7225',
   strapWidth = 0.65,
   metal = 'silver',
   gravity = 1,
