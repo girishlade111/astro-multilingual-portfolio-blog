@@ -89,3 +89,4 @@ export const AppFloatingNav: React.FC<AppFloatingNavProps> = ({
 };
 
 export default AppFloatingNav;
+
