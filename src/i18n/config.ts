@@ -760,3 +760,75 @@ export function getAlternateLinks(currentPathname: string, siteOrigin: string): 
     };
   });
 }
+
+/**
+ * Browser BCP-47 language tag mapping to website supported locale codes.
+ */
+export const BROWSER_LOCALE_MAP: Record<string, Locale> = {
+  // Japanese
+  ja: 'jp',
+  jp: 'jp',
+  // Russian
+  ru: 'ru',
+  // Marathi
+  mr: 'mr',
+  // Korean
+  ko: 'ko',
+  // Chinese
+  zh: 'zh',
+  'zh-cn': 'zh',
+  'zh-tw': 'zh',
+  'zh-hk': 'zh',
+  'zh-sg': 'zh',
+  'zh-hans': 'zh',
+  'zh-hant': 'zh',
+  // Portuguese
+  pt: 'pt',
+  'pt-br': 'pt',
+  'pt-pt': 'pt',
+  // Turkish
+  tr: 'tr',
+  // French
+  fr: 'fr',
+  'fr-fr': 'fr',
+  'fr-ca': 'fr',
+  // Spanish
+  es: 'es',
+  'es-es': 'es',
+  'es-mx': 'es',
+  // English
+  en: 'en',
+  'en-us': 'en',
+  'en-gb': 'en',
+};
+
+/**
+ * Resolves a list of browser/system language candidates to a supported website Locale.
+ * Priority: 1. Stored manual preference -> 2. Matched browser/OS language -> 3. Default fallback
+ */
+export function resolveBrowserLocale(
+  browserLanguages: readonly string[] | string | undefined,
+  savedPreference?: string | null
+): Locale {
+  if (savedPreference && isValidLocale(savedPreference)) {
+    return savedPreference;
+  }
+
+  const langs = Array.isArray(browserLanguages)
+    ? browserLanguages
+    : typeof browserLanguages === 'string'
+      ? [browserLanguages]
+      : [];
+
+  for (const lang of langs) {
+    if (!lang) continue;
+    const raw = String(lang).toLowerCase().trim();
+    const primary = raw.split(/[-_]/)[0];
+    const candidate = BROWSER_LOCALE_MAP[raw] || BROWSER_LOCALE_MAP[primary];
+    if (candidate && isValidLocale(candidate)) {
+      return candidate;
+    }
+  }
+
+  return DEFAULT_LOCALE;
+}
