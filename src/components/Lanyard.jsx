@@ -1778,11 +1778,25 @@ const Lanyard = ({
     const onThemeChange = () => {
       if (applyRef.current) {
         applied.faceKey = '';
+        applied.strapKey = '';
         applyRef.current();
         render();
       }
     };
     window.addEventListener('theme-change', onThemeChange);
+
+    let themeObserver = null;
+    if (typeof MutationObserver !== 'undefined' && typeof document !== 'undefined' && document.documentElement) {
+      themeObserver = new MutationObserver(mutations => {
+        for (const mutation of mutations) {
+          if (mutation.attributeName === 'class') {
+            onThemeChange();
+            break;
+          }
+        }
+      });
+      themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    }
 
     applyRef.current = apply;
     resize();
@@ -1796,6 +1810,7 @@ const Lanyard = ({
       resizeObserver.disconnect();
       intersectionObserver.disconnect();
       document.removeEventListener('visibilitychange', onVisibility);
+      if (themeObserver) themeObserver.disconnect();
       window.removeEventListener('theme-change', onThemeChange);
       window.removeEventListener('deviceorientation', onDeviceOrientation, true);
       window.removeEventListener('lanyard:gyro', onCustomGyroEvent);

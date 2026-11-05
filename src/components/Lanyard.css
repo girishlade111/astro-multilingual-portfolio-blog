@@ -26,3 +26,15 @@
   opacity: 0;
   visibility: hidden;
 }
+
+#lanyard-ssr-strap {
+  background-color: #fca066;
+  background-image: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.42) 0px, rgba(255, 255, 255, 0.42) 1px, transparent 1px, transparent 3px);
+  box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.55), inset -1px 0 0 rgba(255, 255, 255, 0.55);
+}
+
+html.dark #lanyard-ssr-strap {
+  background-color: #c2410c;
+  background-image: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.22) 0px, rgba(0, 0, 0, 0.22) 1px, transparent 1px, transparent 3px);
+  box-shadow: inset 1px 0 0 rgba(0, 0, 0, 0.32), inset -1px 0 0 rgba(0, 0, 0, 0.32);
+}

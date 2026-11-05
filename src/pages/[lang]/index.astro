@@ -47,10 +47,11 @@ const heroDarkBackgroundImageUrl = '/assets/aistudio/image_dark_botanical_clean.
         aria-hidden="true"
         class="pointer-events-none absolute inset-0 z-20 flex flex-col items-center justify-start overflow-hidden transition-opacity duration-150"
       >
-        <!-- Black Woven Lanyard Strap -->
+        <!-- Woven Lanyard Strap (SSR Preview) -->
         <div
-          class="w-[21px] sm:w-[24px] lg:w-[26px] h-[54px] sm:h-[64px] lg:h-[70px] bg-[#c2410c] shadow-xs"
-          style="background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.22) 0px, rgba(0,0,0,0.22) 1px, transparent 1px, transparent 3px); box-shadow: inset 1px 0 0 rgba(0,0,0,0.3), inset -1px 0 0 rgba(0,0,0,0.3);"
+          id="lanyard-ssr-strap"
+          class="w-[21px] sm:w-[24px] lg:w-[26px] h-[54px] sm:h-[64px] lg:h-[70px] shadow-xs"
+
         />
         <!-- Metallic Silver Clamp -->
         <div class="w-[25px] sm:w-[29px] lg:w-[31px] h-[12px] sm:h-[14px] rounded-[3px] bg-gradient-to-b from-[#e4e7ec] via-[#cfd4dc] to-[#9ea4b0] border border-zinc-500/40 shadow-2xs -mt-[1px]" />
@@ -92,7 +93,8 @@ const heroDarkBackgroundImageUrl = '/assets/aistudio/image_dark_botanical_clean.
           size={0.52}
           anchor="center"
           strapLength={0.35}
-          strapColor="#c2410c"
+          darkStrapColor="#c2410c"
+          lightStrapColor="#fca066"
           strapWidth={0.65}
           metal="silver"
           gravity={1}
