@@ -1019,7 +1019,7 @@ const Lanyard = ({
       roughness: 0.68,
       sheen: 1,
       sheenRoughness: 0.42,
-      sheenColor: new THREE.Color(0.35, 0.24, 0.15),
+      sheenColor: new THREE.Color(0.28, 0.12, 0.04),
       side: THREE.DoubleSide
     });
 
