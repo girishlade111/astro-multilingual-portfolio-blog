@@ -1160,15 +1160,15 @@ const Lanyard = ({
       const isDark = typeof document !== 'undefined' && document.documentElement.classList.contains('dark');
       const effectiveStrapColor = isDark
         ? (s.darkStrapColor || s.strapColor || '#c2410c')
-        : (s.lightStrapColor || '#fca066');
+        : (s.lightStrapColor || '#ec7225');
       tileRatio = paintStrap(strapCanvas, images.strap, parseColor(effectiveStrapColor, [0.07, 0.07, 0.07]), isDark);
       weave.repeat.set(2, 2 * tileRatio);
       if (isDark) {
         bandMaterial.sheenColor.setRGB(0.28, 0.12, 0.04);
         bandMaterial.roughness = 0.68;
       } else {
-        bandMaterial.sheenColor.setRGB(0.85, 0.65, 0.50);
-        bandMaterial.roughness = 0.62;
+        bandMaterial.sheenColor.setRGB(0.65, 0.42, 0.25);
+        bandMaterial.roughness = 0.65;
       }
       strapTexture.needsUpdate = true;
       start();
