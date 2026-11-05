@@ -4,10 +4,12 @@ import { getRelativeLocaleUrl } from 'astro:i18n';
 import AppFloatingNav from '../components/AppFloatingNav';
 import Footer from '../components/Footer.astro';
 import {
+  LOCALES,
   LOCALE_METADATA,
   getTranslations,
   getAlternateLinks,
   switchLocalePath,
+  extractSubPath,
   type Locale,
 } from '../i18n/config';
 
@@ -48,6 +50,9 @@ const defaultAlternateHref = `${siteOrigin}${switchLocalePath(currentPath, 'en')
 
 const isArticle = pageType === 'article';
 const isBlogIndex = currentPath.includes('/blog') && !isArticle;
+const subPath = extractSubPath(currentPath);
+const isHome = subPath === '/';
+const supportedList = JSON.stringify(LOCALES);
 
 // Target short and long-tail keywords tailored to Girish Lade & LadeStack
 const defaultKeywords = [
@@ -200,11 +205,21 @@ const jsonLdGraph = {
 <!doctype html>
 <html lang={meta.htmlLang} class="overflow-x-clip">
   <head>
-    <!-- Immediate Zero-Flash Theme Initialization & Real-Time Device Sync -->
+    <!-- Immediate Zero-Flash Theme Initialization based on Dual Storage (localStorage + Cookie) -->
     <script is:inline>
       (function () {
         try {
-          var stored = localStorage.getItem('theme');
+          function getCookie(name) {
+            var match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+            return match ? decodeURIComponent(match[1]) : null;
+          }
+          var stored = null;
+          try {
+            stored = localStorage.getItem('theme');
+          } catch (_) {}
+          if (!stored) {
+            stored = getCookie('theme');
+          }
           var mql = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
           var systemDark = mql ? mql.matches : false;
           var isDark = stored ? (stored === 'dark') : systemDark;
@@ -239,7 +254,8 @@ const jsonLdGraph = {
           if (mql) {
             var handleOSChange = function (e) {
               try {
-                if (!localStorage.getItem('theme')) {
+                var currentStored = localStorage.getItem('theme') || getCookie('theme');
+                if (!currentStored) {
                   applyTheme(e.matches);
                   window.dispatchEvent(new CustomEvent('theme-change', { detail: { theme: e.matches ? 'dark' : 'light' } }));
                 }
@@ -252,6 +268,44 @@ const jsonLdGraph = {
               mql.addListener(handleOSChange);
             }
           }
+        } catch (_) {}
+      })();
+    </script>
+
+    <!-- Immediate Autocomplete Shield & Self-Healing Dual-Storage Locale Manager -->
+    <script is:inline define:vars={{ pageLocale: locale, isHomePage: isHome, supportedList }}>
+      (function () {
+        try {
+          function getCookie(name) {
+            var match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+            return match ? decodeURIComponent(match[1]) : null;
+          }
+
+          var allowed = JSON.parse(supportedList);
+          var saved = null;
+          try {
+            saved = localStorage.getItem('preferred_locale');
+          } catch (_) {}
+          if (!saved) {
+            saved = getCookie('preferred_locale');
+          }
+
+          // Autocomplete Shield:
+          // If user landed on home page of a locale (e.g. /en/) via mobile autocomplete or old tab,
+          // but their active preference in Dual Storage is different (e.g. 'mr'):
+          if (isHomePage && saved && saved !== pageLocale && allowed.indexOf(saved) !== -1) {
+            var search = window.location.search || '';
+            var hash = window.location.hash || '';
+            window.location.replace('/' + saved + '/' + search + hash);
+            return;
+          }
+
+          // Self-Healing Storage Registration:
+          // Ensure Dual Storage (localStorage + Cookie) firmly holds the current page locale
+          try {
+            localStorage.setItem('preferred_locale', pageLocale);
+            document.cookie = 'preferred_locale=' + encodeURIComponent(pageLocale) + ';path=/;max-age=31536000;SameSite=Lax';
+          } catch (_) {}
         } catch (_) {}
       })();
     </script>
@@ -346,6 +400,8 @@ const jsonLdGraph = {
     <meta name="author" content="Girish Balaso Lade" />
     <meta name="creator" content="Girish Lade" />
     <meta name="publisher" content="LadeStack" />
+    <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#09090b" media="(prefers-color-scheme: dark)" />
     <meta name="theme-color" content="#fafafa" id="meta-theme-color" />
     <meta name="color-scheme" content="light dark" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />

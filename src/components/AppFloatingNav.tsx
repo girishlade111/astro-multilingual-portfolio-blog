@@ -62,19 +62,18 @@ export const AppFloatingNav: React.FC<AppFloatingNavProps> = ({
 
   const toggleTheme = () => {
     const nextDark = !document.documentElement.classList.contains("dark");
+    const val = nextDark ? "dark" : "light";
     if (nextDark) {
       document.documentElement.classList.add("dark");
       document.documentElement.setAttribute("data-theme", "dark");
-      try {
-        localStorage.setItem("theme", "dark");
-      } catch (_) {}
     } else {
       document.documentElement.classList.remove("dark");
       document.documentElement.setAttribute("data-theme", "light");
-      try {
-        localStorage.setItem("theme", "light");
-      } catch (_) {}
     }
+    try {
+      localStorage.setItem("theme", val);
+      document.cookie = "theme=" + val + ";path=/;max-age=31536000;SameSite=Lax";
+    } catch (_) {}
     const metaTheme = document.getElementById("meta-theme-color");
     if (metaTheme) {
       metaTheme.setAttribute("content", nextDark ? "#09090b" : "#fafafa");
@@ -82,7 +81,7 @@ export const AppFloatingNav: React.FC<AppFloatingNavProps> = ({
     setIsDark(nextDark);
     window.dispatchEvent(
       new CustomEvent("theme-change", {
-        detail: { theme: nextDark ? "dark" : "light" },
+        detail: { theme: val },
       })
     );
   };

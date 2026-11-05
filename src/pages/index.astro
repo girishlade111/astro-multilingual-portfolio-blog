@@ -10,11 +10,26 @@ const localeMapJson = JSON.stringify(BROWSER_LOCALE_MAP);
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Immediate Zero-Flash Theme Initialization based on System & Stored Theme -->
+    <!-- Native OS Status Bar Colors (Immediate Mobile C++ Engine Level Coloring) -->
+    <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#09090b" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#fafafa" id="meta-theme-color" />
+
+    <!-- Immediate Zero-Flash Theme Initialization based on Dual Storage (localStorage + Cookie) -->
     <script is:inline>
       (function () {
         try {
-          var stored = localStorage.getItem('theme');
+          function getCookie(name) {
+            var match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+            return match ? decodeURIComponent(match[1]) : null;
+          }
+          var stored = null;
+          try {
+            stored = localStorage.getItem('theme');
+          } catch (_) {}
+          if (!stored) {
+            stored = getCookie('theme');
+          }
           var mql = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
           var isDark = stored === 'dark' || (!stored && mql && mql.matches);
           if (isDark) {
@@ -24,6 +39,8 @@ const localeMapJson = JSON.stringify(BROWSER_LOCALE_MAP);
             document.documentElement.classList.remove('dark');
             document.documentElement.setAttribute('data-theme', 'light');
           }
+          var metaTheme = document.getElementById('meta-theme-color');
+          if (metaTheme) metaTheme.setAttribute('content', isDark ? '#09090b' : '#fafafa');
         } catch (_) {}
       })();
     </script>
@@ -77,7 +94,7 @@ const localeMapJson = JSON.stringify(BROWSER_LOCALE_MAP);
       <meta http-equiv="refresh" content={`0;url=/${DEFAULT_LOCALE}/`} />
     </noscript>
 
-    <!-- Immediate Smart Locale Router (Manual Choice -> System / Browser Language -> Fallback) -->
+    <!-- Immediate Smart Locale Router (Dual Storage -> System / Browser Language -> Fallback) -->
     <script is:inline define:vars={{ supportedList, defaultLocale: DEFAULT_LOCALE, localeMapJson }}>
       (function () {
         try {
@@ -85,8 +102,20 @@ const localeMapJson = JSON.stringify(BROWSER_LOCALE_MAP);
           var langMap = JSON.parse(localeMapJson);
           var target = defaultLocale;
 
-          // Priority 1: User's manual selection saved on repeat visits
-          var saved = localStorage.getItem('preferred_locale');
+          function getCookie(name) {
+            var match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+            return match ? decodeURIComponent(match[1]) : null;
+          }
+
+          // Priority 1: User's manual selection from Dual Storage (localStorage OR Cookie)
+          var saved = null;
+          try {
+            saved = localStorage.getItem('preferred_locale');
+          } catch (_) {}
+          if (!saved) {
+            saved = getCookie('preferred_locale');
+          }
+
           if (saved && allowed.indexOf(saved) !== -1) {
             target = saved;
           } else {
@@ -113,6 +142,12 @@ const localeMapJson = JSON.stringify(BROWSER_LOCALE_MAP);
               }
             }
           }
+
+          // Anchor choice into Dual Storage
+          try {
+            localStorage.setItem('preferred_locale', target);
+            document.cookie = 'preferred_locale=' + encodeURIComponent(target) + ';path=/;max-age=31536000;SameSite=Lax';
+          } catch (_) {}
 
           var search = window.location.search || '';
           var hash = window.location.hash || '';
