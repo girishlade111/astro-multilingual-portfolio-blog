@@ -846,7 +846,7 @@ const Lanyard = ({
   anchor = 'center',
   strapLength = 0.5,
   strapImage,
-  strapColor = '#111111',
+  strapColor = '#f97316',
   strapWidth = 0.65,
   metal = 'silver',
   gravity = 1,
@@ -1018,7 +1018,7 @@ const Lanyard = ({
       roughness: 0.68,
       sheen: 1,
       sheenRoughness: 0.42,
-      sheenColor: new THREE.Color(0.32, 0.32, 0.34),
+      sheenColor: new THREE.Color(0.45, 0.25, 0.12),
       side: THREE.DoubleSide
     });
 
