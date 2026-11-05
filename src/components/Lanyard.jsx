@@ -1246,7 +1246,7 @@ const Lanyard = ({
       const effectiveCardColor = isDark && (s.cardColor === '#ffffff' || !s.cardColor) ? '#141416' : s.cardColor;
       const effectiveStrapColor = isDark
         ? (s.darkStrapColor || s.strapColor || '#c2410c')
-        : (s.lightStrapColor || '#fca066');
+        : (s.lightStrapColor || '#ec7225');
       const strapKey = `${effectiveStrapColor}|${themeKey}|${s.strapImage || ''}`;
       const imageKey = `${s.frontImage}|${s.backImage}|${s.strapImage}`;
       const faceKey = `${layoutKey}|${effectiveCardColor}|${s.imageFit}|${themeKey}`;

@@ -28,9 +28,9 @@
 }
 
 #lanyard-ssr-strap {
-  background-color: #fca066;
-  background-image: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.42) 0px, rgba(255, 255, 255, 0.42) 1px, transparent 1px, transparent 3px);
-  box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.55), inset -1px 0 0 rgba(255, 255, 255, 0.55);
+  background-color: #ec7225;
+  background-image: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.28) 0px, rgba(255, 255, 255, 0.28) 1px, transparent 1px, transparent 3px);
+  box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.38), inset -1px 0 0 rgba(255, 255, 255, 0.38);
 }
 
 html.dark #lanyard-ssr-strap {
