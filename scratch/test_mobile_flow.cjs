@@ -122,7 +122,7 @@ function extractHeadScripts(htmlPath) {
   const headMatch = html.match(/<head>([\s\S]*?)<\/head>/i);
   if (!headMatch) return [];
   const headContent = headMatch[1];
-  const scriptRegex = /<script(?![^>]*src=)[^>]*>([\s\S]*?)<\/script>/gi;
+  const scriptRegex = /<script(?![^>]*application\/ld\+json)(?![^>]*src=)[^>]*>([\s\S]*?)<\/script>/gi;
   const scripts = [];
   let m;
   while ((m = scriptRegex.exec(headContent)) !== null) {
