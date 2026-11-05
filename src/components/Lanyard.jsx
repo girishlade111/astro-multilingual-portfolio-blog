@@ -24,10 +24,10 @@ const RING_RADIUS = 0.095;
 const RING_TUBE = 0.0135;
 const EYELET_RADIUS = 0.036;
 const CLAMP_BODY = 0.15;
-const FACE_WIDTH = 512;
+const FACE_WIDTH = 1024;
 
 const FINISHES = {
-  glossy: { roughness: 0.55, metalness: 0, clearcoat: 0, clearcoatRoughness: 0.6, foil: 0, anisotropy: 0 },
+  glossy: { roughness: 0.12, metalness: 0, clearcoat: 1.0, clearcoatRoughness: 0.05, foil: 0, anisotropy: 0 },
   matte: { roughness: 0.85, metalness: 0, clearcoat: 0, clearcoatRoughness: 0.6, foil: 0, anisotropy: 0 },
   holographic: { roughness: 0.3, metalness: 0, clearcoat: 1, clearcoatRoughness: 0.04, foil: 1, anisotropy: 0 },
   metallic: { roughness: 0.36, metalness: 0.75, clearcoat: 0.5, clearcoatRoughness: 0.18, foil: 0, anisotropy: 0.7 }
@@ -394,6 +394,9 @@ const makeCanvasTexture = (canvas, anisotropy) => {
   const texture = new THREE.CanvasTexture(canvas);
   texture.colorSpace = THREE.SRGBColorSpace;
   texture.anisotropy = anisotropy;
+  texture.minFilter = THREE.LinearMipmapLinearFilter;
+  texture.magFilter = THREE.LinearFilter;
+  texture.generateMipmaps = true;
   return texture;
 };
 
@@ -487,15 +490,30 @@ const drawFitted = (ctx, image, width, height, fit) => {
   const scale = (fit === 'contain' ? Math.min : Math.max)(width / image.width, height / image.height);
   const w = image.width * scale;
   const h = image.height * scale;
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = 'high';
   ctx.drawImage(image, (width - w) / 2, (height - h) / 2, w, h);
 };
 
 const paintFace = (canvas, image, color, fit) => {
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = 'high';
   ctx.fillStyle = toCss(color);
   ctx.fillRect(0, 0, canvas.width, canvas.height);
-  if (image) drawFitted(ctx, image, canvas.width, canvas.height, fit);
+  if (image) {
+    const isDark = typeof document !== 'undefined' && document.documentElement.classList.contains('dark');
+    ctx.save();
+    // High-vibrancy LED screen clarity & contrast for the profile picture
+    if (isDark) {
+      ctx.filter = 'contrast(1.10) saturate(1.18) brightness(1.06)';
+    } else {
+      ctx.filter = 'contrast(1.04) saturate(1.06) brightness(1.02)';
+    }
+    drawFitted(ctx, image, canvas.width, canvas.height, fit);
+    ctx.restore();
+  }
 };
 
 const paintStrap = (canvas, image, color) => {
@@ -927,16 +945,17 @@ const Lanyard = ({
     canvas.style.pointerEvents = 'none';
     container.appendChild(canvas);
 
-    const anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
+    const anisotropy = Math.min(16, renderer.capabilities.getMaxAnisotropy());
     const scene = new THREE.Scene();
     const environment = buildEnvironment(renderer);
     scene.environment = environment.texture;
     const camera = new THREE.PerspectiveCamera(FOV, 1, 0.1, 200);
-    const keyLight = new THREE.DirectionalLight(0xffffff, 1.6);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.75);
+    const keyLight = new THREE.DirectionalLight(0xffffff, 1.75);
     keyLight.position.set(-2.5, 4, 6);
-    const fillLight = new THREE.DirectionalLight(0xffffff, 0.35);
+    const fillLight = new THREE.DirectionalLight(0xffffff, 0.55);
     fillLight.position.set(3, -1, 4);
-    scene.add(keyLight, fillLight);
+    scene.add(ambientLight, keyLight, fillLight);
 
     const imageCache = new Map();
     const images = { front: null, back: null, strap: null };
@@ -975,16 +994,12 @@ const Lanyard = ({
 
     const frontMaterial = new THREE.MeshPhysicalMaterial({
       map: frontTexture,
-      normalMap: grain,
-      normalScale: new THREE.Vector2(0.06, 0.06),
       polygonOffset: true,
       polygonOffsetFactor: -1.0,
       polygonOffsetUnits: -4.0
     });
     const backMaterial = new THREE.MeshPhysicalMaterial({
       map: frontTexture,
-      normalMap: grain,
-      normalScale: new THREE.Vector2(0.06, 0.06),
       polygonOffset: true,
       polygonOffsetFactor: -1.0,
       polygonOffsetUnits: -4.0
@@ -1689,9 +1704,9 @@ const Lanyard = ({
       view.height = nextHeight;
       view.heroHeight = nextHeroHeight;
       const maxBufferHeight = isSoftwareGl ? 1400 : 4096;
-      const baseDpr = isSoftwareGl ? 1 : Math.min(window.devicePixelRatio || 1, 2);
+      const baseDpr = isSoftwareGl ? 1 : Math.min(window.devicePixelRatio || 1, 2.5);
       const effectiveDpr = Math.min(baseDpr, maxBufferHeight / Math.max(1, view.height));
-      renderer.setPixelRatio(Math.max(0.5, effectiveDpr));
+      renderer.setPixelRatio(Math.max(1, effectiveDpr));
       renderer.setSize(view.width, view.height, false);
       apply();
       render();
